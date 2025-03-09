@@ -1,9 +1,11 @@
 import { Root, RootContent } from "mdast";
 import { defaultProps, getDefinitions, ImageResolver, IMdastToDocxSectionProps } from "./utils";
 import {
+  BorderStyle,
   ExternalHyperlink,
   ImageRun,
   InternalHyperlink,
+  IParagraphOptions,
   ISectionOptions,
   Paragraph,
   TextRun,
@@ -13,6 +15,8 @@ export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSect
 
 type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 type DocxTypoEmphasis = "bold" | "italics" | "strike";
+
+type BlockParentType = "blockquote" | "list" | "listItem";
 
 const createInlineProcessor = (
   definitions: Record<string, string>,
@@ -41,7 +45,7 @@ const createInlineProcessor = (
       case "break":
         return [new TextRun({ break: 1 })];
       case "inlineCode":
-        return [new TextRun({ text: node.value, ...decorations, style: "Code", math: true })];
+        return [new TextRun({ text: node.value, ...decorations, style: "code" })];
       case "emphasis":
       case "strong":
       case "delete":
@@ -83,18 +87,30 @@ const createInlineProcessor = (
   return processInlineNodeChildren;
 };
 
+type MutableParaOptions = {
+  -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
+};
+
 export const toSection = async (node: Root, props?: ISectionProps) => {
   const { imageResolver, useTitle, ...sectionProps } = { ...defaultProps, ...props };
-  const definitions = getDefinitions(node.children);
+  const { definitions, footnoteDefinitions } = getDefinitions(node.children);
 
   const processInlineNodeChildren = createInlineProcessor(definitions, imageResolver!);
 
-  const processBlockNode = async (node: RootContent) => {
+  const processBlockNode = async (node: RootContent, parents: BlockParentType[]) => {
+    const parents1 = [...parents];
+    // todo - tmp will improve
+    const paraProps: Omit<MutableParaOptions, "children"> = {};
+    if (parents.includes("list")) {
+      paraProps.bullet = { level: parents.filter(parent => parent === "list").length - 1 };
+    }
+    if (parents.includes("blockquote")) {
+      paraProps.style = "Quote";
+    }
     switch (node.type) {
       case "paragraph":
-        return [new Paragraph({ children: await processInlineNodeChildren(node) })];
+        return [new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) })];
       case "heading":
-        // Handle heading node
         return [
           new Paragraph({
             // @ts-expect-error --> TS is not able to properly type
@@ -106,12 +122,46 @@ export const toSection = async (node: Root, props?: ISectionProps) => {
             children: await processInlineNodeChildren(node),
           }),
         ];
+      case "code":
+        return [
+          new Paragraph({
+            alignment: "start",
+            style: "blockCode",
+            children: node.value.split("\n").map(
+              line =>
+                new TextRun({
+                  text: line,
+                  break: 1,
+                  style: "code",
+                }),
+            ),
+          }),
+        ];
+      case "list":
+      case "blockquote":
+      case "listItem":
+        parents1.push(node.type);
+        return processBlockNodeChildren(node, parents1);
+      case "thematicBreak":
+        return [new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } })];
+      case "table":
+      case "tableRow":
+      case "tableCell":
+      case "footnoteReference":
+      case "yaml":
+      case "html":
+      default:
+        console.warn(`Unsupported node type: ${node.type}`, node);
+        return [];
     }
   };
 
-  const processAllBlockNodeChildren = async (node: Root | RootContent) =>
+  const processBlockNodeChildren = async (
+    node: Root | RootContent,
+    parents: BlockParentType[] = [],
+  ) =>
     // @ts-expect-error --> TS is not able to properly type
-    (await Promise.all(node.children?.map(processBlockNode))).flat();
+    (await Promise.all(node.children?.map(child => processBlockNode(child, parents)))).flat();
 
-  return { ...sectionProps, children: await processAllBlockNodeChildren(node) };
+  return { ...sectionProps, children: await processBlockNodeChildren(node) };
 };

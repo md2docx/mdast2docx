@@ -1,21 +1,24 @@
 import { IImageOptions } from "@mayank1513/docx";
-import { Root, RootContent } from "mdast";
+import { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
 
 /**
  * get definitions
  */
 export const getDefinitions = (nodes: RootContent[]) => {
   const definitions: Record<string, string> = {};
+  const footnoteDefinitions: Record<string, (BlockContent | DefinitionContent)[]> = {};
   nodes.forEach(node => {
     if (node.type === "definition") {
       definitions[node.identifier.toUpperCase()] = node.url;
+    } else if (node.type === "footnoteDefinition") {
+      footnoteDefinitions[node.identifier.toUpperCase()] = node.children;
       // @ts-expect-error - we are checking only for nodes that have children
     } else if (node.children?.length) {
       // @ts-expect-error - we using only the nodes that have children
       Object.assign(definitions, getDefinitions(node.children));
     }
   });
-  return definitions;
+  return { definitions, footnoteDefinitions };
 };
 
 /**
