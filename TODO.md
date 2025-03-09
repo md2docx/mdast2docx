@@ -1,23 +1,38 @@
+- [x] paragraph
+- [x] heading
+- [x] thematicBreak
+- [x] blockquote
+- [x] list
+- [x] listItem
+- [ ] table
+- [ ] tableRow
+- [ ] tableCell
+- [ ] html
+- [x] code
+- [ ] yaml
+- [ ] toml
+- [x] definition
+- [x] footnoteDefinition
+- [x] text
+- [x] emphasis
+- [x] strong
+- [x] delete
+- [x] inlineCode
+- [x] break
+- [x] link
+- [x] image
+- [x] linkReference
+- [x] imageReference
+- [x] footnote
+- [x] footnoteReference
+- [ ] LaTeX support with math and inlineMath ([remark-math](https://github.com/remarkjs/remark-math) is required)
+
 ## Step-by-Step Instructions and Checklist
 
-- [ ] Star [this repository](https://github.com/react18-tools/turborepo-template/) for easy access and to show your support
-- [x] Create a new GitHub repository using this template.
-  - Click the `Use this template` button at the top right -> `Create a new repository`
-  - Click `Create repository` and wait for the setup workflow to finish rebranding your repo.
-- [ ] Install and set up Node.js and your IDE (VSCode recommended)
-- [ ] Install the recommended VSCode extensions:
-  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [Trello Kanban](https://marketplace.visualstudio.com/items?itemName=mayank1513.trello-kanban-task-board)
-- [ ] 🌟 **Update [`sripts/rebrand.config.json`](./scripts/rebrand.config.json) if required.**
-- [ ] Install `pnpm` using `npm i -g pnpm`
-- [ ] Install dependencies using `pnpm`
-  - Run `pnpm i` to install dependencies; the `rebrand` script will automatically rebrand the repo, adjust workflows, and create a commit
-- [ ] Make sure you run `node scripts/rebrand.js` from the root directory to rebrand your repo.
-- [ ] Run `yarn plop`, and follow prompts to generate server or client components for your library
 - [ ] 🌟 Enable [private vulnerability reporting](https://github.com/tiny-md/mdast2docx/security)
 - [ ] Set up `CodeCov`
   - Visit Codecov and set up your repo
-  - Create [repository secret]((https://github.com/tiny-md/mdast2docx/settings/secrets/actions)) for `CODECOV_TOKEN`
+  - Create [repository secret](<(https://github.com/tiny-md/mdast2docx/settings/secrets/actions)>) for `CODECOV_TOKEN`
 - [ ] Set up `CodeClimate`
   - Visit CodeClimate and set up your repo
   - Create [repository secret] for `CC_TEST_REPORTER_ID`

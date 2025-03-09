@@ -1,26 +1,24 @@
-# MDAST (Markdown Abstract Syntax Tree) to DOCX <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 40px"/>
+# **MDAST (Markdown Abstract Syntax Tree) to DOCX** <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 40px"/>
 
-[![test](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml/badge.svg)](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/aa896ec14c570f3bb274/maintainability)](https://codeclimate.com/github/tiny-md/mdast2docx/maintainability) [![codecov](https://codecov.io/gh/tiny-md/mdast2docx/graph/badge.svg)](https://codecov.io/gh/tiny-md/mdast2docx) [![Version](https://img.shields.io/npm/v/mdast2docx.svg?colorB=green)](https://www.npmjs.com/package/mdast2docx) [![Downloads](https://img.jsdelivr.com/img.shields.io/npm/d18m/mdast2docx.svg)](https://www.npmjs.com/package/mdast2docx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/mdast2docx) [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
+🚀 **Effortlessly convert Markdown Abstract Syntax Trees (MDAST) to DOCX.**
 
-MDAST (Markdown Abstract Syntax Tree) to DOCX is a comprehensive library designed to unlock the full potential of React 18 server components. It provides customizable loading animation components and a fullscreen loader container, seamlessly integrating with React and Next.js.
+[![Test](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml/badge.svg)](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/aa896ec14c570f3bb274/maintainability)](https://codeclimate.com/github/tiny-md/mdast2docx/maintainability) [![Code Coverage](https://codecov.io/gh/tiny-md/mdast2docx/graph/badge.svg)](https://codecov.io/gh/tiny-md/mdast2docx) [![Version](https://img.shields.io/npm/v/mdast2docx.svg?colorB=green)](https://www.npmjs.com/package/mdast2docx) [![Downloads](https://img.shields.io/npm/d18m/mdast2docx)](https://www.npmjs.com/package/mdast2docx) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/mdast2docx)
 
-✅ Fully Treeshakable (import from `mdast2docx/client/loader-container`)
+---
 
-✅ Fully TypeScript Supported
+## **✨ Features**
 
-✅ Leverages the power of React 18 Server components
+✅ **MDAST to DOCX conversion** — Supports standard Markdown elements  
+✅ **Footnotes handling** — Converts Markdown footnotes to DOCX format  
+✅ **Customizable image handling** — Fine-tune image rendering in DOCX  
+✅ **Hyperlink support** — Converts external links, internal links [WIP]  
+✅ **Configurable sections** — Customize document structure & styling
 
-✅ Compatible with all React 18 build systems/tools/frameworks
+---
 
-✅ Documented with [Typedoc](https://tiny-md.github.io/mdast2docx) ([Docs](https://tiny-md.github.io/mdast2docx))
+## **📦 Installation**
 
-✅ Examples for Next.js, and Vite
-
-> <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 20px"/> Star [this repository](https://github.com/tiny-md/mdast2docx) and share it with your friends.
-
-## Getting Started
-
-### Installation
+Install the package using `pnpm`, `npm`, or `yarn`:
 
 ```bash
 pnpm add mdast2docx
@@ -38,95 +36,135 @@ npm install mdast2docx
 yarn add mdast2docx
 ```
 
-## Want Lite Version? [![npm bundle size](https://img.shields.io/bundlephobia/minzip/mdast2docx-lite)](https://www.npmjs.com/package/mdast2docx-lite) [![Version](https://img.shields.io/npm/v/mdast2docx-lite.svg?colorB=green)](https://www.npmjs.com/package/mdast2docx-lite) [![Downloads](https://img.jsdelivr.com/img.shields.io/npm/d18m/mdast2docx-lite.svg)](https://www.npmjs.com/package/mdast2docx-lite)
+---
 
-```bash
-pnpm add mdast2docx-lite
+## **🚀 Usage**
+
+### **Basic Example**
+
+```typescript
+import { toDocx } from "mdast2docx";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkMmd from "remark-mmd"; // Assumed MMD plugin
+
+const markdown = `
+# Sample Document  
+This is a **bold** text and _italic_ text.  
+
+> A blockquote example  
+
+- List Item 1  
+- List Item 2  
+
+[Click Here](https://example.com)  
+
+![Sample Image](https://example.com/image.png)  
+
+This is a footnote reference[^1].  
+
+[^1]: This is the footnote content.
+`;
+
+const mdast = unified().use(remarkParse).use(remarkMmd).parse(markdown);
+
+(async () => {
+  const docxBlob = await toDocx(mdast, { title: "My Document" }, {});
+  const url = URL.createObjectURL(docxBlob as Blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "document.docx";
+  link.click();
+  URL.revokeObjectURL(url);
+})();
 ```
 
-**or**
+---
 
-```bash
-npm install mdast2docx-lite
+## **🛠 API Reference**
+
+### **`toDocx(astInputs, docxProps, defaultSectionProps, outputType?)`**
+
+| Parameter                 | Type                                               | Description                                                      |
+| ------------------------- | -------------------------------------------------- | ---------------------------------------------------------------- |
+| `astInputs`               | `Root` \| `{ ast: Root; props?: ISectionProps }[]` | Single or multiple MDAST trees with optional section properties. |
+| `docxProps`               | `IDocxProps`                                       | General document properties (title, styles, metadata).           |
+| `defaultSectionProps`     | `ISectionProps`                                    | Default properties for document sections.                        |
+| `outputType` _(optional)_ | `"blob"` (default) \| `"buffer"` \| `"base64"`     | Format of the generated DOCX document.                           |
+
+📌 **Returns:** A `Promise` resolving to a DOCX document in the chosen format.
+
+---
+
+## **📜 Supported Markdown Elements**
+
+| Markdown Syntax                    | Supported in DOCX      |
+| ---------------------------------- | ---------------------- |
+| Headings `# H1` to `###### H6`     | ✅                     |
+| Paragraphs                         | ✅                     |
+| Bold `**text**` & Italics `_text_` | ✅                     |
+| Blockquotes `> quote`              | ✅                     |
+| Lists (ordered & unordered)        | ✅                     |
+| Links `[text](url)`                | ✅                     |
+| Images `![alt](url)`               | ✅                     |
+| Code Blocks `` `code` ``           | ✅                     |
+| Footnotes `[^1]`                   | ✅                     |
+| Tables                             | 🚧 _(Coming soon)_     |
+| HTML Tags                          | 🚧 _(Partial support)_ |
+
+---
+
+## **🔧 Configuration**
+
+You can customize the DOCX output using `ISectionProps` and `IDocxProps`.
+
+### **Example: Customizing Styles**
+
+```typescript
+const docxProps = {
+  title: "Styled Document",
+  author: "John Doe",
+};
+
+const sectionProps = {
+  page: { margin: { top: 1000, bottom: 1000, left: 1200, right: 1200 } },
+};
+
+const docxBlob = await toDocx(mdast, docxProps, sectionProps);
 ```
 
-**or**
+📖 **More details:**
 
-```bash
-yarn add mdast2docx-lite
-```
+- [DOCX.js Document Properties](https://docx.js.org/#/usage/document)
+- [DOCX.js Section Options](https://docx.js.org/#/usage/sections)
 
-> You need `r18gs` as a peer-dependency
+---
 
-### Import Styles
+## **📝 Contributing**
 
-You can import styles globally or within specific components.
+We welcome contributions! To get started:
 
-```css
-/* globals.css */
-@import "mdast2docx/dist";
-```
+1. **Fork** the repository
+2. **Create a feature branch** (`git checkout -b feature-new`)
+3. **Commit your changes** (`git commit -m "Add new feature"`)
+4. **Push to GitHub** (`git push origin feature-new`)
+5. **Open a Pull Request** 🚀
 
-```tsx
-// layout.tsx
-import "mdast2docx/dist/index.css";
-```
+---
 
-For selective imports:
+## **📄 License**
 
-```css
-/* globals.css */
-@import "mdast2docx/dist/client"; /** required if you are using LoaderContainer */
-@import "mdast2docx/dist/server/bars/bars1";
-```
+This project is **licensed under MPL-2.0**. See the [LICENSE](./LICENSE) file for details.
 
-### Usage
+---
 
-Using loaders is straightforward.
+## **🙌 Acknowledgments**
 
-```tsx
-import { Bars1 } from "mdast2docx/dist/server/bars/bars1";
+Thanks to the **docx.js** and **unified.js** ecosystems for making this possible.
 
-export default function MyComponent() {
-  return someCondition ? <Bars1 /> : <>Something else...</>;
-}
-```
+> ⭐ **Star this repository** if you find it useful!  
+> ❤️ Support our work by [sponsoring](https://github.com/sponsors/mayank1513).
 
-For detailed API and options, refer to [the API documentation](https://tiny-md.github.io/mdast2docx).
+---
 
-**Using LoaderContainer**
-
-`LoaderContainer` is a fullscreen component. You can add this component directly in your layout and then use `useLoader` hook to toggle its visibility.
-
-```tsx
-// layout.tsx
-<LoaderContainer />
-	 ...
-```
-
-```tsx
-// some other page or component
-import { useLoader } from "mdast2docx/dist/hooks";
-
-export default MyComponent() {
-	const { setLoading } = useLoader();
-	useCallback(()=>{
-		setLoading(true);
-		...do some work
-		setLoading(false);
-	}, [])
-	...
-}
-```
-
-## License
-
-This library is licensed under the MPL-2.0 open-source license.
-
-
-
-> <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 20px"/> Please enroll in [our courses](https://mayank-chaudhari.vercel.app/courses) or [sponsor](https://github.com/sponsors/mayank1513) our work.
-
-<hr />
-
-<p align="center" style="text-align:center">with 💖 by <a href="https://mayank-chaudhari.vercel.app" target="_blank">Mayank Kumar Chaudhari</a></p>
+<p align="center">Made with 💖 by <a href="https://mayank-chaudhari.vercel.app" target="_blank">Mayank Kumar Chaudhari</a></p>
