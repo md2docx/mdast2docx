@@ -1,5 +1,5 @@
 import { IImageOptions } from "@mayank1513/docx";
-import { RootContent } from "mdast";
+import { Root, RootContent } from "mdast";
 
 /**
  * get definitions
@@ -17,6 +17,15 @@ export const getDefinitions = (nodes: RootContent[]) => {
   });
   return definitions;
 };
+
+/**
+ * process all nodes async and return the result
+ */
+export const promiseAll = async <T>(
+  node: Root | RootContent,
+  processor: (node: RootContent) => Promise<T[]>,
+  // @ts-expect-error --> TS is not able to properly type
+) => (await Promise.all(node.children?.map(processor) ?? [])).flat();
 
 export type ImageResolver = (src: string) => Promise<IImageOptions>;
 
