@@ -32,6 +32,8 @@ const createInlineProcessor = (
 
     // @ts-expect-error - ok
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
+    // @ts-expect-error - ok
+    const alt = node.alt ?? url?.split("/").pop();
 
     switch (node.type) {
       case "text":
@@ -61,7 +63,12 @@ const createInlineProcessor = (
         ];
       case "image":
       case "imageReference":
-        return [new ImageRun(await imageResolver(url))];
+        return [
+          new ImageRun({
+            ...(await imageResolver(url)),
+            altText: { description: alt, name: alt, title: alt },
+          }),
+        ];
       default:
         return [new TextRun("")];
     }

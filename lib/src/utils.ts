@@ -41,6 +41,32 @@ export interface IMdastToDocxSectionProps {
   imageResolver?: ImageResolver;
 }
 
+export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
+  const signatureLength = 4;
+  const signatureArray = new Uint8Array(buffer).slice(0, signatureLength);
+
+  if (signatureArray[0] === 66 && signatureArray[1] === 77) return "bmp";
+
+  let signature = "";
+
+  signatureArray.forEach(byte => {
+    signature += byte.toString(16).padStart(2, "0");
+  });
+
+  switch (signature) {
+    case "89504E47":
+      return "png";
+    case "47494638":
+      return "gif";
+    case "FFD8FFE0": // or other FFD8FF... signatures
+    case "FFD8FFE1":
+    case "FFD8FFE2":
+    case "FFD8FFE3":
+    case "FFD8FFE8":
+      return "jpg";
+  }
+}
+
 const DATA_IMG_SCALE = 3;
 
 const handleDataUrls = async (src: string): Promise<IImageOptions> => {
@@ -58,13 +84,11 @@ const handleDataUrls = async (src: string): Promise<IImageOptions> => {
     canvas.height = height;
     ctx.drawImage(img, 0, 0, width, height);
     return {
+      data: canvas.toDataURL("image/png"),
       type: "png",
-      data: Buffer.from(
-        ctx.getImageData(0, 0, width / DATA_IMG_SCALE, height / DATA_IMG_SCALE).data.buffer,
-      ),
       transformation: {
-        width,
-        height,
+        width: width / DATA_IMG_SCALE,
+        height: height / DATA_IMG_SCALE,
       },
     };
   } else throw new Error("Canvas context not available");
@@ -73,12 +97,12 @@ const handleDataUrls = async (src: string): Promise<IImageOptions> => {
 const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
   const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const imageBitmap = await createImageBitmap(new Blob([buffer], { type: "image/*" }));
+  const mimeType = getImageMimeType(arrayBuffer) || "png";
+  const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
 
   return {
-    type: "png",
-    data: buffer,
+    type: mimeType,
+    data: arrayBuffer,
     transformation: {
       width: imageBitmap.width,
       height: imageBitmap.height,
@@ -86,22 +110,24 @@ const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
   };
 };
 
+const imageResolver: ImageResolver = async (src: string) => {
+  try {
+    if (src.startsWith("data:")) return await handleDataUrls(src);
+    return await handleNonDataUrls(src);
+  } catch (error) {
+    console.error(`Error resolving image: ${src}`, error);
+    return {
+      type: "png",
+      data: Buffer.from([]),
+      transformation: {
+        width: 100,
+        height: 100,
+      },
+    };
+  }
+};
+
 export const defaultProps: IMdastToDocxSectionProps = {
   useTitle: true,
-  imageResolver: async (src: string) => {
-    try {
-      if (src.startsWith("data:")) return await handleDataUrls(src);
-      return await handleNonDataUrls(src);
-    } catch (error) {
-      console.error(`Error resolving image: ${src}`, error);
-      return {
-        type: "png",
-        data: Buffer.from([]),
-        transformation: {
-          width: 100,
-          height: 100,
-        },
-      };
-    }
-  },
+  imageResolver,
 };
