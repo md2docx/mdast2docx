@@ -1,5 +1,6 @@
 import { IImageOptions } from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
+export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
 /**
  * get definitions
