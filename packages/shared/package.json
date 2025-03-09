@@ -42,11 +42,16 @@
     "@mayank1513/fork-me": "^2.1.3",
     "@repo/scripts": "workspace:*",
     "esbuild-raw-plugin": "^0.2.0",
+    "mdast2docx": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
     "nextjs-themes": "^4.0.6",
     "r18gs": "^3.0.1",
     "react-live": "^4.1.8",
     "react18-loaders": "latest",
-    "mdast2docx": "workspace:*"
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
   }
 }
