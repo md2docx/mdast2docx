@@ -11,7 +11,7 @@ export default defineConfig({
     setupFiles: [],
     coverage: {
       include: ["src/**"],
-      exclude: ["src/**/index.ts", "src/**/*.test.*", "src/**/declaration.d.ts"],
+      exclude: ["src/**/*.test.*", "src/**/declaration.d.ts"],
       reporter: ["text", "json", "clover", "html"],
     },
   },
