@@ -17,9 +17,9 @@ describe("toDocx", () => {
     const markdown = "## Testing Buffer Output";
     const mdast = unified().use(remarkParse).parse(markdown);
 
-    const docxBuffer = await toDocx(mdast, {}, {}, "buffer");
+    const docxBuffer = await toDocx(mdast, {}, {}, "arraybuffer");
 
-    expect(docxBuffer).toBeInstanceOf(Buffer);
+    expect(docxBuffer).toBeInstanceOf(ArrayBuffer);
   });
 
   it("should include a title in the document properties", async () => {
