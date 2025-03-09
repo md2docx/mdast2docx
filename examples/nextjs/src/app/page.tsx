@@ -4,7 +4,7 @@ import { Demo } from "@repo/shared";
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: "React 18 Loaders",
+  title: "MDAST (Markdown Abstract Syntax Tree) to DOCX",
 };
 
 /** next.js landing page */

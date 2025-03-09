@@ -1,6 +1,6 @@
 {
-  "owner": "react18-tools",
-  "repo": "turborepo-template",
-  "packageName": "react18-loaders",
-  "title": "React 18 Loaders"
+  "packageName": "mdast2docx",
+  "owner": "tiny-md",
+  "repo": "mdast2docx",
+  "title": "MDAST (Markdown Abstract Syntax Tree) to DOCX"
 }

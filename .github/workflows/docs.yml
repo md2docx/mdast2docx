@@ -7,7 +7,7 @@ on:
 
 jobs:
   generate-docs:
-    if: github.run_number != 1 && github.event.repository.owner.login == 'react18-tools'
+    if: github.run_number != 1 && github.event.repository.owner.login == 'tiny-md'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -57,7 +57,7 @@ jobs:
           --method POST \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/mayank1513/turborepo-template/merge-upstream \
+          /repos/mayank1513/mdast2docx/merge-upstream \
           -f "branch=main"
         env:
           GH_TOKEN: ${{ secrets.mayank1513PAT }}

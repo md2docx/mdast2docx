@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    if: github.event.repository.owner.login == 'react18-tools'
+    if: github.event.repository.owner.login == 'tiny-md'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -33,8 +33,8 @@ jobs:
         working-directory: ./lib
       - name: clean up working directory
         run: git status && git clean -f -d && git status
-      # - name: Copy Readme file
-      # run: cp ./README.md ./lib # todo: uncomment this line while rebranding
+      - name: Copy Readme file
+        run: cp ./README.md ./lib # todo: uncomment this line while rebranding
       - name: Apply changesets, publish and create release, branches and tags
         run: node ./scripts/manual-publish.js
         env:

@@ -1,16 +1,16 @@
 {
-  "name": "react18-loaders",
+  "name": "mdast2docx",
   "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
   "private": false,
-  "version": "1.1.4",
-  "description": "A comprehensive library that unleashes the full potential of React 18 server components, providing customizable loading animation components alongside a fullscreen loader container. Designed to seamlessly integrate with React and Next.js.",
+  "version": "0.0.0",
+  "description": "",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "github:react18-tools/turborepo-template",
-  "bugs": "https://github.com/react18-tools/turborepo-template/issues",
-  "homepage": "https://turborepo-template-three.vercel.app/",
+  "repository": "github:tiny-md/mdast2docx",
+  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
+  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
   "sideEffects": false,
   "files": [
     "dist/**"
@@ -60,16 +60,14 @@
   "funding": [
     {
       "type": "github",
-      "url": "https://github.com/sponsors/mayank1513"
+      "url": "https://github.com/sponsors/tiny-md"
     },
     {
-      "type": "individual",
-      "url": "https://pages.razorpay.com/mayank1513"
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
     }
   ],
   "keywords": [
-    "Loading animations",
-    "Fullscreen loader",
     "React",
     "React Loaders",
     "React 18",
