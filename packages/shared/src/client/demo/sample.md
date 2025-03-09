@@ -162,6 +162,20 @@ Additional image example:
 
 ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
 
+### Reference Links in Markdown
+
+This is an example of using reference-style links in Markdown.
+
+You can define a reference link like this\
+[OpenAI][openai] is an AI research and deployment company.
+
+Markdown syntax is explained in detail on [Markdown Guide][md-guide].
+
+#### References
+
+[openai]: https://openai.com "OpenAI Website"
+[md-guide]: https://www.markdownguide.org "Markdown Guide"
+
 ## 6. Task Lists (GFM)
 
 Checkable task lists.
