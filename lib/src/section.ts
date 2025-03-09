@@ -1,8 +1,15 @@
 import { Root, RootContent } from "mdast";
-import { defaultProps, getDefinitions, ImageResolver, IMdastToDocxSectionProps } from "./utils";
+import {
+  defaultProps,
+  Definitions,
+  FootnoteDefinitions,
+  ImageResolver,
+  IMdastToDocxSectionProps,
+} from "./utils";
 import {
   BorderStyle,
   ExternalHyperlink,
+  FootnoteReferenceRun,
   ImageRun,
   InternalHyperlink,
   IParagraphOptions,
@@ -19,7 +26,8 @@ type DocxTypoEmphasis = "bold" | "italics" | "strike";
 type BlockParentType = "blockquote" | "list" | "listItem";
 
 const createInlineProcessor = (
-  definitions: Record<string, string>,
+  definitions: Definitions,
+  footnoteDefinitions: FootnoteDefinitions,
   imageResolver: ImageResolver,
 ) => {
   const processInlineNode = async (
@@ -73,6 +81,8 @@ const createInlineProcessor = (
             altText: { description: alt, name: alt, title: alt },
           }),
         ];
+      case "footnoteReference":
+        return [new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
       default:
         return [new TextRun("")];
     }
@@ -91,11 +101,19 @@ type MutableParaOptions = {
   -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
 };
 
-export const toSection = async (node: Root, props?: ISectionProps) => {
+export const toSection = async (
+  node: Root,
+  definitions: Definitions,
+  footnoteDefinitions: FootnoteDefinitions,
+  props?: ISectionProps,
+) => {
   const { imageResolver, useTitle, ...sectionProps } = { ...defaultProps, ...props };
-  const { definitions, footnoteDefinitions } = getDefinitions(node.children);
 
-  const processInlineNodeChildren = createInlineProcessor(definitions, imageResolver!);
+  const processInlineNodeChildren = createInlineProcessor(
+    definitions,
+    footnoteDefinitions,
+    imageResolver!,
+  );
 
   const processBlockNode = async (node: RootContent, parents: BlockParentType[]) => {
     const parents1 = [...parents];
@@ -147,7 +165,6 @@ export const toSection = async (node: Root, props?: ISectionProps) => {
       case "table":
       case "tableRow":
       case "tableCell":
-      case "footnoteReference":
       case "yaml":
       case "html":
       default:
@@ -163,5 +180,7 @@ export const toSection = async (node: Root, props?: ISectionProps) => {
     // @ts-expect-error --> TS is not able to properly type
     (await Promise.all(node.children?.map(child => processBlockNode(child, parents)))).flat();
 
-  return { ...sectionProps, children: await processBlockNodeChildren(node) };
+  const section = { ...sectionProps, children: await processBlockNodeChildren(node) };
+
+  return section;
 };

@@ -2,17 +2,22 @@ import { IImageOptions } from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
+export type Definitions = Record<string, string>;
+export type FootnoteDefinitions = Record<
+  string,
+  { children: (BlockContent | DefinitionContent)[]; id?: number }
+>;
 /**
  * get definitions
  */
 export const getDefinitions = (nodes: RootContent[]) => {
-  const definitions: Record<string, string> = {};
-  const footnoteDefinitions: Record<string, (BlockContent | DefinitionContent)[]> = {};
+  const definitions: Definitions = {};
+  const footnoteDefinitions: FootnoteDefinitions = {};
   nodes.forEach(node => {
     if (node.type === "definition") {
       definitions[node.identifier.toUpperCase()] = node.url;
     } else if (node.type === "footnoteDefinition") {
-      footnoteDefinitions[node.identifier.toUpperCase()] = node.children;
+      footnoteDefinitions[node.identifier.toUpperCase()] = { children: node.children };
       // @ts-expect-error - we are checking only for nodes that have children
     } else if (node.children?.length) {
       // @ts-expect-error - we using only the nodes that have children
