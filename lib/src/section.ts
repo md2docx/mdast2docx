@@ -1,6 +1,6 @@
-import { Root, RootContent } from "mdast";
-import {
-  defaultProps,
+import type { Root, RootContent, Parent } from "mdast";
+import { defaultProps } from "./utils";
+import type {
   Definitions,
   FootnoteDefinitions,
   ImageResolver,
@@ -12,12 +12,14 @@ import {
   FootnoteReferenceRun,
   ImageRun,
   InternalHyperlink,
-  IParagraphOptions,
-  ISectionOptions,
   Paragraph,
   TextRun,
 } from "@mayank1513/docx";
+import type { IParagraphOptions, ISectionOptions } from "@mayank1513/docx";
 
+/**
+ * Defines properties for a document section, omitting the "children" property from ISectionOptions.
+ */
 export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
 
 type InlineParentType = "strong" | "emphasis" | "delete" | "link";
@@ -25,6 +27,13 @@ type DocxTypoEmphasis = "bold" | "italics" | "strike";
 
 type BlockParentType = "blockquote" | "list" | "listItem";
 
+/**
+ * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
+ * @param definitions - Map of definitions
+ * @param footnoteDefinitions - Map of footnote definitions
+ * @param imageResolver - Function to resolve image URLs to IImageOptions
+ * @returns Function that processes inline node children recursively
+ */
 const createInlineProcessor = (
   definitions: Definitions,
   footnoteDefinitions: FootnoteDefinitions,
@@ -32,9 +41,9 @@ const createInlineProcessor = (
 ) => {
   const processInlineNode = async (
     node: RootContent,
-    parentSet: Set<InlineParentType> = new Set(),
+    parentSet: Set<InlineParentType>,
   ): Promise<(TextRun | ImageRun | InternalHyperlink | ExternalHyperlink)[]> => {
-    const parentSet1 = new Set(parentSet);
+    const newParentSet = new Set(parentSet);
 
     const decorations: Record<DocxTypoEmphasis, boolean> = {
       bold: parentSet.has("strong"),
@@ -42,9 +51,9 @@ const createInlineProcessor = (
       strike: parentSet.has("delete"),
     };
 
-    // @ts-expect-error - ok
+    // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-    // @ts-expect-error - ok
+    // @ts-expect-error - node might not have alt
     const alt = node.alt ?? url?.split("/").pop();
 
     switch (node.type) {
@@ -57,20 +66,20 @@ const createInlineProcessor = (
       case "emphasis":
       case "strong":
       case "delete":
-        parentSet1.add(node.type);
-        return processInlineNodeChildren(node, parentSet1);
+        newParentSet.add(node.type);
+        return processInlineNodeChildren(node, newParentSet);
       case "link":
       case "linkReference":
-        parentSet1.add("link");
+        newParentSet.add("link");
         return [
           url.startsWith("#")
             ? new InternalHyperlink({
                 anchor: url,
-                children: await processInlineNodeChildren(node, parentSet1),
+                children: await processInlineNodeChildren(node, newParentSet),
               })
             : new ExternalHyperlink({
                 link: url,
-                children: await processInlineNodeChildren(node, parentSet1),
+                children: await processInlineNodeChildren(node, newParentSet),
               }),
         ];
       case "image":
@@ -89,18 +98,28 @@ const createInlineProcessor = (
   };
 
   const processInlineNodeChildren = async (
-    node: RootContent,
+    node: Parent,
     parentSet: Set<InlineParentType> = new Set(),
-    // @ts-expect-error --> TS is not able to properly type
-  ) => (await Promise.all(node.children.map(child => processInlineNode(child, parentSet)))).flat();
+  ) => (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
 
   return processInlineNodeChildren;
 };
 
+/**
+ * Mutable version of IParagraphOptions where all properties are writable.
+ */
 type MutableParaOptions = {
   -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
 };
 
+/**
+ * Converts an MDAST tree to a DOCX document section.
+ * @param node - The root MDAST node
+ * @param definitions - Definitions mapping
+ * @param footnoteDefinitions - Footnote definitions mapping
+ * @param props - Section properties (optional)
+ * @returns A DOCX section representation
+ */
 export const toSection = async (
   node: Root,
   definitions: Definitions,
@@ -112,12 +131,15 @@ export const toSection = async (
   const processInlineNodeChildren = createInlineProcessor(
     definitions,
     footnoteDefinitions,
-    imageResolver!,
+    imageResolver,
   );
 
-  const processBlockNode = async (node: RootContent, parents: BlockParentType[]) => {
-    const parents1 = [...parents];
-    // todo - tmp will improve
+  const processBlockNode = async (
+    node: RootContent,
+    parents: BlockParentType[],
+  ): Promise<Paragraph[]> => {
+    const newParents = [...parents];
+    // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
     const paraProps: Omit<MutableParaOptions, "children"> = {};
     if (parents.includes("list")) {
       paraProps.bullet = { level: parents.filter(parent => parent === "list").length - 1 };
@@ -131,7 +153,7 @@ export const toSection = async (
       case "heading":
         return [
           new Paragraph({
-            // @ts-expect-error --> TS is not able to properly type
+            // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
             heading: useTitle
               ? node.depth === 1
                 ? "Title"
@@ -158,8 +180,8 @@ export const toSection = async (
       case "list":
       case "blockquote":
       case "listItem":
-        parents1.push(node.type);
-        return processBlockNodeChildren(node, parents1);
+        newParents.push(node.type);
+        return processBlockNodeChildren(node, newParents);
       case "thematicBreak":
         return [new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } })];
       case "table":
@@ -173,14 +195,8 @@ export const toSection = async (
     }
   };
 
-  const processBlockNodeChildren = async (
-    node: Root | RootContent,
-    parents: BlockParentType[] = [],
-  ) =>
-    // @ts-expect-error --> TS is not able to properly type
+  const processBlockNodeChildren = async (node: Root | Parent, parents: BlockParentType[]) =>
     (await Promise.all(node.children?.map(child => processBlockNode(child, parents)))).flat();
 
-  const section = { ...sectionProps, children: await processBlockNodeChildren(node) };
-
-  return section;
+  return { ...sectionProps, children: await processBlockNodeChildren(node, []) };
 };

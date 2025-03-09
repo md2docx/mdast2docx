@@ -2,10 +2,27 @@ import { Document, OutputType, Packer, Paragraph, type IPropertiesOptions } from
 import type { Root } from "mdast";
 
 import { toSection, type ISectionProps } from "./section";
-import { Definitions, FootnoteDefinitions, getDefinitions } from "./utils";
-type IDocxProps = Omit<IPropertiesOptions, "sections">;
+import { getDefinitions } from "./utils";
+
+/**
+ * Defines document properties, excluding sections and footnotes (which are managed internally).
+ */
+type IDocxProps = Omit<IPropertiesOptions, "sections" | "footnotes">;
+
+/**
+ * Represents the input MDAST tree(s) for conversion.
+ * It can be a single root node or an array of objects containing the AST and optional section properties.
+ */
 type IInputMDAST = Root | { ast: Root; props?: ISectionProps }[];
 
+/**
+ * Converts an MDAST (Markdown Abstract Syntax Tree) into a DOCX document.
+ * @param astInputs - A single or multiple MDAST trees with optional section properties.
+ * @param docxProps - General document properties. @see https://docx.js.org/#/usage/document
+ * @param defaultSectionProps - Default properties for each document section. @see https://docx.js.org/#/usage/sections
+ * @param outputType - The desired output format (default: `"blob"`). @see https://docx.js.org/#/usage/packers
+ * @returns A DOCX document in the specified format.
+ */
 export const toDocx = async (
   astInputs: IInputMDAST,
   docxProps: IDocxProps,
@@ -13,39 +30,39 @@ export const toDocx = async (
   outputType: OutputType = "blob",
 ) => {
   let currentFootnoteId = 1;
-  const footnotes: Record<number, { children: Paragraph }> = {};
-  const astInputs1: {
-    ast: Root;
-    props?: ISectionProps;
-    definitions: Definitions;
-    footnoteDefinitions: FootnoteDefinitions;
-  }[] = await Promise.all(
+  const footnotes: Record<number, { children: Paragraph[] }> = {};
+
+  const processedAstInputs = await Promise.all(
     (Array.isArray(astInputs) ? astInputs : [{ ast: astInputs }]).map(async ({ ast, props }) => {
       const { definitions, footnoteDefinitions } = getDefinitions(ast.children);
+
+      // Convert footnotes into sections
       await Promise.all(
-        Object.keys(footnoteDefinitions).map(async key => {
-          const children = footnoteDefinitions[key].children;
+        Object.entries(footnoteDefinitions).map(async ([, footnote]) => {
+          footnote.id = currentFootnoteId;
           footnotes[currentFootnoteId] = await toSection(
-            { type: "root", children },
+            { type: "root", children: footnote.children },
             definitions,
             {},
           );
-          footnoteDefinitions[key].id = currentFootnoteId++;
+          currentFootnoteId++;
         }),
       );
+
       return { ast, props: { ...defaultSectionProps, ...props }, definitions, footnoteDefinitions };
     }),
   );
 
+  // Convert MDAST trees into document sections
   const sections = await Promise.all(
-    astInputs1.map(({ ast, props, definitions, footnoteDefinitions }) =>
+    processedAstInputs.map(({ ast, props, definitions, footnoteDefinitions }) =>
       toSection(ast, definitions, footnoteDefinitions, props),
     ),
   );
 
+  // Create DOCX document
   const doc = new Document({
     ...docxProps,
-    // @ts-expect-error -- we deliberately keep it non readonly as we are editing on the go
     footnotes,
     sections,
   });

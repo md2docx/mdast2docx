@@ -1,14 +1,20 @@
 import { IImageOptions } from "@mayank1513/docx";
-import { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
+import { BlockContent, DefinitionContent, RootContent } from "mdast";
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
+/** Type representing definition mappings */
 export type Definitions = Record<string, string>;
+
+/** Type representing footnote definitions */
 export type FootnoteDefinitions = Record<
   string,
   { children: (BlockContent | DefinitionContent)[]; id?: number }
 >;
+
 /**
- * get definitions
+ * Extracts definitions and footnote definitions from a list of MDAST nodes.
+ * @param nodes - Array of MDAST nodes.
+ * @returns An object containing `definitions` and `footnoteDefinitions`.
  */
 export const getDefinitions = (nodes: RootContent[]) => {
   const definitions: Definitions = {};
@@ -18,9 +24,9 @@ export const getDefinitions = (nodes: RootContent[]) => {
       definitions[node.identifier.toUpperCase()] = node.url;
     } else if (node.type === "footnoteDefinition") {
       footnoteDefinitions[node.identifier.toUpperCase()] = { children: node.children };
-      // @ts-expect-error - we are checking only for nodes that have children
+      // @ts-expect-error - Ensuring only nodes with children are processed
     } else if (node.children?.length) {
-      // @ts-expect-error - we using only the nodes that have children
+      // @ts-expect-error - Recursively process only nodes with children
       Object.assign(definitions, getDefinitions(node.children));
     }
   });
@@ -28,28 +34,31 @@ export const getDefinitions = (nodes: RootContent[]) => {
 };
 
 /**
- * process all nodes async and return the result
+ * Type definition for an image resolver function.
  */
-export const promiseAll = async <T>(
-  node: Root | RootContent,
-  processor: (node: RootContent) => Promise<T[]>,
-  // @ts-expect-error --> TS is not able to properly type
-) => (await Promise.all(node.children?.map(processor) ?? [])).flat();
-
 export type ImageResolver = (src: string) => Promise<IImageOptions>;
 
+/**
+ * Interface defining properties for MDAST to DOCX conversion.
+ */
 export interface IMdastToDocxSectionProps {
   /**
-   * If true, h1 will corresposnd to title, h2 to Heading1, etc.
+   * If true, H1 corresponds to the title, H2 to Heading1, etc.
    * @default true
    */
   useTitle?: boolean;
+
   /**
-   * Cutom image resolver. By default we assume client side code
+   * Custom image resolver function. Defaults to assuming client-side code.
    */
   imageResolver?: ImageResolver;
 }
 
+/**
+ * Determines the MIME type of an image from its binary buffer.
+ * @param buffer - The image buffer (ArrayBuffer or Buffer).
+ * @returns The detected MIME type as a string.
+ */
 export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
   const signatureLength = 4;
   const signatureArray = new Uint8Array(buffer).slice(0, signatureLength);
@@ -57,7 +66,6 @@ export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
   if (signatureArray[0] === 66 && signatureArray[1] === 77) return "bmp";
 
   let signature = "";
-
   signatureArray.forEach(byte => {
     signature += byte.toString(16).padStart(2, "0");
   });
@@ -76,8 +84,14 @@ export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
   }
 }
 
+/** Scale factor for data images */
 const DATA_IMG_SCALE = 3;
 
+/**
+ * Handles base64-encoded image URLs and converts them into image options.
+ * @param src - The base64 image source.
+ * @returns The image options with transformation details.
+ */
 const handleDataUrls = async (src: string): Promise<IImageOptions> => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -103,6 +117,11 @@ const handleDataUrls = async (src: string): Promise<IImageOptions> => {
   } else throw new Error("Canvas context not available");
 };
 
+/**
+ * Fetches an image from a URL and extracts its options.
+ * @param url - The image URL.
+ * @returns The extracted image options.
+ */
 const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
   const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();
@@ -119,6 +138,11 @@ const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
   };
 };
 
+/**
+ * Resolves an image URL (base64 or external) to the required format.
+ * @param src - The image source URL.
+ * @returns The resolved image options.
+ */
 const imageResolver: ImageResolver = async (src: string) => {
   try {
     if (src.startsWith("data:")) return await handleDataUrls(src);
@@ -136,7 +160,21 @@ const imageResolver: ImageResolver = async (src: string) => {
   }
 };
 
-export const defaultProps: IMdastToDocxSectionProps = {
+/**
+ * Default properties for MDAST to DOCX conversion.
+ */
+
+interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
+  useTitle: boolean;
+  imageResolver: ImageResolver;
+}
+
+export const defaultProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
   imageResolver,
 };
+
+/**
+ * @mayank/docx is a fork of the `docx` library with minor changes,
+ * specifically exporting additional types that were not included in the original `docx` library.
+ */
