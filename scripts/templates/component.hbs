@@ -1,0 +1,25 @@
+import { HTMLProps, ReactNode } from "react";
+import styles from "./{{ kebabCase name }}.module.scss";
+
+export interface {{ pascalCase name }}Props extends HTMLProps<HTMLDivElement> {
+	children?: ReactNode;
+}
+
+/**
+ * {{ description }}
+ *
+ * @example
+ * ```tsx
+ * <{{ pascalCase name }} />
+ * ```
+ * 
+ * @source - Source code
+ */
+export const {{ pascalCase name }} = ({ children, ...props }: {{ pascalCase name }}Props) => {
+  const className = [props.className, styles["{{ kebabCase name }}"]].filter(Boolean).join(" ");
+	return (
+		<div {...props} className={className} data-testid="{{ kebabCase name }}">
+			{children}
+		</div>
+	);
+}

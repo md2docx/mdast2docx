@@ -1,0 +1,32 @@
+{
+  "name": "@example/vite",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "start": "vite preview",
+    "clean": "rm -rf dist",
+    "dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "dependencies": {
+    "@repo/shared": "workspace:*",
+    "nextjs-darkmode": "^1.0.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-mouse-trails": "^0.0.5",
+    "react18-loaders": "workspace:*",
+    "react18-themes": "^3.2.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.1"
+  }
+}
