@@ -8,6 +8,8 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkMath from "remark-math";
 import { toDocx } from "mdast2docx";
 import styles from "./demo.module.scss";
+import { CodeDisplay } from "./code-display";
+import { removePosition } from "unist-util-remove-position";
 
 /** React live demo */
 export function Demo() {
@@ -18,6 +20,8 @@ export function Demo() {
     .use(remarkMath);
 
   const mdast = docxProcessor.parse(md);
+
+  removePosition(mdast);
 
   const downloadDocx = () => {
     toDocx(mdast, {}, {}, "blob").then(blob => {
@@ -31,14 +35,16 @@ export function Demo() {
   };
 
   // console.log(docxProcessor.processSync(md));
+
+  const code: { filename: string; code: string }[] = [
+    { filename: "sample.md", code: md },
+    { filename: "MDAST", code: JSON.stringify(mdast, null, 2) },
+  ];
   return (
     <div className={styles.demo}>
       <h1>MDAST (Markdown Abstract Syntax Tree) to DOCX</h1>
-      <details>
-        <summary>Markdown file</summary>
-        <pre>{md}</pre>
-      </details>
       <button onClick={downloadDocx}>Download as DOCX</button>
+      <CodeDisplay code={code} />
       {/* <pre>{JSON.stringify(mdast, null, 2)}</pre> */}
     </div>
   );
