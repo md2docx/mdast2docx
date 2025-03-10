@@ -62,4 +62,6 @@ try {
 } catch {
   execSync(`gh release create ${VERSION} --generate-notes --latest --title "Release v${VERSION}"`);
 }
-
+
+// Publish canonical packages
+execSync("node scripts/publish-canonical.js");
