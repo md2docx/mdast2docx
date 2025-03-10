@@ -4,9 +4,9 @@
 - [x] blockquote
 - [x] list
 - [x] listItem
-- [ ] table
-- [ ] tableRow
-- [ ] tableCell
+- [x] table
+- [x] tableRow
+- [x] tableCell
 - [ ] html
 - [x] code
 - [ ] yaml
