@@ -40,11 +40,11 @@ export const toDocx = async (
       await Promise.all(
         Object.entries(footnoteDefinitions).map(async ([, footnote]) => {
           footnote.id = currentFootnoteId;
-          footnotes[currentFootnoteId] = await toSection(
+          footnotes[currentFootnoteId] = (await toSection(
             { type: "root", children: footnote.children },
             definitions,
             {},
-          );
+          )) as { children: Paragraph[] };
           currentFootnoteId++;
         }),
       );

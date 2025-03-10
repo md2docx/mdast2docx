@@ -1,4 +1,4 @@
-import type { Root, RootContent, Parent } from "mdast";
+import type { Root, RootContent, Parent, Table as MdTable } from "mdast";
 import { defaultProps, getTextContent } from "./utils";
 import type {
   Definitions,
@@ -14,6 +14,9 @@ import {
   ImageRun,
   InternalHyperlink,
   Paragraph,
+  Table,
+  TableCell,
+  TableRow,
   TextRun,
 } from "@mayank1513/docx";
 import type { IParagraphOptions, ISectionOptions } from "@mayank1513/docx";
@@ -25,8 +28,6 @@ export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSect
 
 type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 type DocxTypoEmphasis = "bold" | "italics" | "strike";
-
-type BlockParentType = "blockquote" | "list" | "listItem";
 
 /**
  * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
@@ -106,6 +107,29 @@ const createInlineProcessor = (
   return processInlineNodeChildren;
 };
 
+const createTable = async (
+  node: MdTable,
+  processInlineNodeChildren: (
+    node: Parent,
+    parentSet?: Set<InlineParentType>,
+  ) => Promise<(TextRun | ImageRun | InternalHyperlink | ExternalHyperlink)[]>,
+) => {
+  const rows = await Promise.all(
+    node.children.map(async row => {
+      return new TableRow({
+        children: await Promise.all(
+          row.children.map(async cell => {
+            return new TableCell({
+              children: [new Paragraph({ children: await processInlineNodeChildren(cell) })],
+            });
+          }),
+        ),
+      });
+    }),
+  );
+  return new Table({ rows });
+};
+
 /**
  * Mutable version of IParagraphOptions where all properties are writable.
  */
@@ -137,17 +161,10 @@ export const toSection = async (
 
   const processBlockNode = async (
     node: RootContent,
-    parents: BlockParentType[],
-  ): Promise<Paragraph[]> => {
-    const newParents = [...parents];
+    paraProps: Omit<MutableParaOptions, "children">,
+  ): Promise<(Paragraph | Table)[]> => {
     // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
-    const paraProps: Omit<MutableParaOptions, "children"> = {};
-    if (parents.includes("list")) {
-      paraProps.bullet = { level: parents.filter(parent => parent === "list").length - 1 };
-    }
-    if (parents.includes("blockquote")) {
-      paraProps.style = "Quote";
-    }
+    const newParaProps = Object.assign({}, paraProps);
     switch (node.type) {
       case "paragraph":
         return [new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) })];
@@ -184,13 +201,24 @@ export const toSection = async (
           }),
         ];
       case "list":
+        if (node.ordered) {
+          // newParaProps.numbering = {
+          //   level: 0,
+          //   reference: "num",
+          // };
+        } else {
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? 0) + 1 };
+        }
       case "blockquote":
       case "listItem":
-        newParents.push(node.type);
-        return processBlockNodeChildren(node, newParents);
+        return processBlockNodeChildren(node, newParaProps);
       case "thematicBreak":
         return [new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } })];
+      case "definition":
+      case "footnoteDefinition":
+        return [];
       case "table":
+        return [await createTable(node, processInlineNodeChildren)];
       case "tableRow":
       case "tableCell":
       case "yaml":
@@ -201,8 +229,10 @@ export const toSection = async (
     }
   };
 
-  const processBlockNodeChildren = async (node: Root | Parent, parents: BlockParentType[]) =>
-    (await Promise.all(node.children?.map(child => processBlockNode(child, parents)))).flat();
+  const processBlockNodeChildren = async (
+    node: Root | Parent,
+    paraProps: Omit<MutableParaOptions, "children">,
+  ) => (await Promise.all(node.children?.map(child => processBlockNode(child, paraProps)))).flat();
 
-  return { ...sectionProps, children: await processBlockNodeChildren(node, []) };
+  return { ...sectionProps, children: await processBlockNodeChildren(node, {}) };
 };
