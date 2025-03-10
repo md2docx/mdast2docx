@@ -1,5 +1,5 @@
 import type { Root, RootContent, Parent } from "mdast";
-import { defaultProps } from "./utils";
+import { defaultProps, getTextContent } from "./utils";
 import type {
   Definitions,
   FootnoteDefinitions,
@@ -7,6 +7,7 @@ import type {
   IMdastToDocxSectionProps,
 } from "./utils";
 import {
+  Bookmark,
   BorderStyle,
   ExternalHyperlink,
   FootnoteReferenceRun,
@@ -74,7 +75,7 @@ const createInlineProcessor = (
         return [
           url.startsWith("#")
             ? new InternalHyperlink({
-                anchor: url,
+                anchor: url.slice(1),
                 children: await processInlineNodeChildren(node, newParentSet),
               })
             : new ExternalHyperlink({
@@ -159,7 +160,12 @@ export const toSection = async (
                 ? "Title"
                 : `Heading${node.depth - 1}`
               : `Heading${node.depth}`,
-            children: await processInlineNodeChildren(node),
+            children: [
+              new Bookmark({
+                id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
+                children: await processInlineNodeChildren(node),
+              }),
+            ],
           }),
         ];
       case "code":

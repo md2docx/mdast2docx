@@ -34,6 +34,23 @@ export const getDefinitions = (nodes: RootContent[]) => {
 };
 
 /**
+ * Extracts the textual content from a given MDAST node.
+ * Recursively processes child nodes if present.
+ *
+ * @param node - The MDAST node to extract text from.
+ * @returns The combined text content of the node and its children.
+ */
+export const getTextContent = (node: RootContent): string => {
+  // If the node has children, process them recursively and concatenate their text.
+  // @ts-expect-error - Ensuring only nodes with valid children are processed
+  if (node.children?.length) return node.children.map(getTextContent).join("");
+
+  // Return the node's value if it exists; otherwise, return an empty string.
+  // @ts-expect-error - Overriding potential type mismatches
+  return node.value ?? "";
+};
+
+/**
  * Type definition for an image resolver function.
  */
 export type ImageResolver = (src: string) => Promise<IImageOptions>;
