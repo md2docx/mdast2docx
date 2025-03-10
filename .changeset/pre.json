@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "beta",
   "initialVersions": {
     "@example/nextjs": "0.0.0",
@@ -10,5 +10,7 @@
     "@repo/shared": "0.0.0",
     "@repo/scripts": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "all-doodles-give"
+  ]
 }
