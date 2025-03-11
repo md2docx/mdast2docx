@@ -1,10 +1,14 @@
-import type { Root, RootContent, Parent, Table as MdTable } from "mdast";
+import type { Root, Table as MdTable } from "mdast";
 import { defaultProps, getTextContent } from "./utils";
 import type {
+  BlockNodeChildrenProcessor,
+  BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
   ImageResolver,
   IMdastToDocxSectionProps,
+  InlineChildrenProcessor,
+  InlineProcessor,
 } from "./utils";
 import {
   Bookmark,
@@ -19,14 +23,13 @@ import {
   TableRow,
   TextRun,
 } from "@mayank1513/docx";
-import type { IParagraphOptions, ISectionOptions } from "@mayank1513/docx";
+import type { ISectionOptions } from "@mayank1513/docx";
 
 /**
  * Defines properties for a document section, omitting the "children" property from ISectionOptions.
  */
 export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
 
-type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 type DocxTypoEmphasis = "bold" | "italics" | "strike";
 
 /**
@@ -41,10 +44,7 @@ const createInlineProcessor = (
   footnoteDefinitions: FootnoteDefinitions,
   imageResolver: ImageResolver,
 ) => {
-  const processInlineNode = async (
-    node: RootContent,
-    parentSet: Set<InlineParentType>,
-  ): Promise<(TextRun | ImageRun | InternalHyperlink | ExternalHyperlink)[]> => {
+  const processInlineNode: InlineProcessor = async (node, parentSet) => {
     const newParentSet = new Set(parentSet);
 
     const decorations: Record<DocxTypoEmphasis, boolean> = {
@@ -99,21 +99,13 @@ const createInlineProcessor = (
     }
   };
 
-  const processInlineNodeChildren = async (
-    node: Parent,
-    parentSet: Set<InlineParentType> = new Set(),
-  ) => (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
+  const processInlineNodeChildren: InlineChildrenProcessor = async (node, parentSet = new Set()) =>
+    (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
 
   return processInlineNodeChildren;
 };
 
-const createTable = async (
-  node: MdTable,
-  processInlineNodeChildren: (
-    node: Parent,
-    parentSet?: Set<InlineParentType>,
-  ) => Promise<(TextRun | ImageRun | InternalHyperlink | ExternalHyperlink)[]>,
-) => {
+const createTable = async (node: MdTable, processInlineNodeChildren: InlineChildrenProcessor) => {
   const rows = await Promise.all(
     node.children.map(async row => {
       return new TableRow({
@@ -128,13 +120,6 @@ const createTable = async (
     }),
   );
   return new Table({ rows });
-};
-
-/**
- * Mutable version of IParagraphOptions where all properties are writable.
- */
-type MutableParaOptions = {
-  -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
 };
 
 /**
@@ -159,10 +144,7 @@ export const toSection = async (
     imageResolver,
   );
 
-  const processBlockNode = async (
-    node: RootContent,
-    paraProps: Omit<MutableParaOptions, "children">,
-  ): Promise<(Paragraph | Table)[]> => {
+  const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
     // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
     const newParaProps = Object.assign({}, paraProps);
     switch (node.type) {
@@ -219,8 +201,6 @@ export const toSection = async (
         return [];
       case "table":
         return [await createTable(node, processInlineNodeChildren)];
-      case "tableRow":
-      case "tableCell":
       case "yaml":
       case "html":
       default:
@@ -229,10 +209,8 @@ export const toSection = async (
     }
   };
 
-  const processBlockNodeChildren = async (
-    node: Root | Parent,
-    paraProps: Omit<MutableParaOptions, "children">,
-  ) => (await Promise.all(node.children?.map(child => processBlockNode(child, paraProps)))).flat();
+  const processBlockNodeChildren: BlockNodeChildrenProcessor = async (node, paraProps) =>
+    (await Promise.all(node.children?.map(child => processBlockNode(child, paraProps)))).flat();
 
   return { ...sectionProps, children: await processBlockNodeChildren(node, {}) };
 };

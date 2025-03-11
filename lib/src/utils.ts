@@ -1,5 +1,15 @@
-import { IImageOptions } from "@mayank1513/docx";
-import { BlockContent, DefinitionContent, RootContent } from "mdast";
+import {
+  ExternalHyperlink,
+  IImageOptions,
+  ImageRun,
+  InternalHyperlink,
+  IParagraphOptions,
+  TextRun,
+  Table,
+  Paragraph,
+} from "@mayank1513/docx";
+import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
+import { IDocxProps } from ".";
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
 /** Type representing definition mappings */
@@ -190,6 +200,58 @@ export const defaultProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
   imageResolver,
 };
+
+export const defaultDocumentProps: IDocxProps = {
+  numbering: {
+    config: [
+      {
+        reference: "num",
+        levels: [
+          {
+            level: 0,
+            format: "decimal",
+            text: "%1.",
+            alignment: "start",
+            style: {
+              paragraph: {
+                indent: { left: 720, hanging: 360 },
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
+export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink;
+export type InlineProcessor = (
+  node: RootContent,
+  parentSet: Set<InlineParentType>,
+) => Promise<InlineDocxNodes[]>;
+
+export type InlineChildrenProcessor = (
+  node: Parent,
+  parentSet?: Set<InlineParentType>,
+) => Promise<InlineDocxNodes[]>;
+
+/**
+ * Mutable version of IParagraphOptions where all properties are writable.
+ */
+export type MutableParaOptions = {
+  -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
+};
+
+export type BlockNodeProcessor = (
+  node: RootContent,
+  paraProps: Omit<MutableParaOptions, "children">,
+) => Promise<(Paragraph | Table)[]>;
+
+export type BlockNodeChildrenProcessor = (
+  node: Parent | Root,
+  paraProps: Omit<MutableParaOptions, "children">,
+) => Promise<(Paragraph | Table)[]>;
 
 /**
  * @mayank/docx is a fork of the `docx` library with minor changes,
