@@ -11,7 +11,7 @@ export type ImageResolver = (src: string) => Promise<IImageOptions>;
  * @param buffer - The image buffer (ArrayBuffer or Buffer).
  * @returns The detected MIME type as a string.
  */
-export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
+export const getImageMimeType = (buffer: Buffer | ArrayBuffer) => {
   const signatureLength = 4;
   const signatureArray = new Uint8Array(buffer).slice(0, signatureLength);
 
@@ -34,7 +34,7 @@ export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
     case "FFD8FFE8":
       return "jpg";
   }
-}
+};
 
 /** Scale factor for data images */
 const DATA_IMG_SCALE = 3;
