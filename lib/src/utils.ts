@@ -9,7 +9,6 @@ import {
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
-import { IDocxProps } from ".";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
@@ -24,6 +23,7 @@ export type FootnoteDefinitions = Record<
 
 /**
  * Extracts definitions and footnote definitions from a list of MDAST nodes.
+ *
  * @param nodes - Array of MDAST nodes.
  * @returns An object containing `definitions` and `footnoteDefinitions`.
  */
@@ -35,15 +35,16 @@ export const getDefinitions = (nodes: RootContent[]) => {
       definitions[node.identifier.toUpperCase()] = node.url;
     } else if (node.type === "footnoteDefinition") {
       footnoteDefinitions[node.identifier.toUpperCase()] = { children: node.children };
-      // @ts-expect-error - Ensuring only nodes with children are processed
-    } else if (node.children?.length) {
-      // @ts-expect-error - Recursively process only nodes with children
-      Object.assign(definitions, getDefinitions(node.children));
+    } else if ((node as Parent).children?.length) {
+      Object.assign(definitions, getDefinitions((node as Parent).children));
     }
   });
   return { definitions, footnoteDefinitions };
 };
 
+/** Type representing an extended RootContent node
+ * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
+ */
 type ExtendedRootContent = RootContent | { type: "" };
 
 /**
@@ -54,13 +55,10 @@ type ExtendedRootContent = RootContent | { type: "" };
  * @returns The combined text content of the node and its children.
  */
 export const getTextContent = (node: ExtendedRootContent): string => {
-  // If the node has children, process them recursively and concatenate their text.
-  // @ts-expect-error - Ensuring only nodes with valid children are processed
-  if (node.children?.length) return node.children.map(getTextContent).join("");
+  if ((node as Parent).children?.length)
+    return (node as Parent).children.map(getTextContent).join("");
 
-  // Return the node's value if it exists; otherwise, return an empty string.
-  // @ts-expect-error - Overriding potential type mismatches
-  return node.value ?? "";
+  return (node as { value?: string }).value ?? "";
 };
 
 /**
@@ -72,8 +70,9 @@ export interface IMdastToDocxSectionProps {
    * @default true
    */
   useTitle?: boolean;
+
   /**
-   *
+   * List of plugins to extend conversion functionality.
    */
   plugins?: IPlugin[];
 }
@@ -81,7 +80,6 @@ export interface IMdastToDocxSectionProps {
 /**
  * Default properties for MDAST to DOCX conversion.
  */
-
 interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
   useTitle: boolean;
   plugins: IPlugin[];
@@ -90,29 +88,6 @@ interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
 export const defaultProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
   plugins: [],
-};
-
-export const defaultDocumentProps: IDocxProps = {
-  numbering: {
-    config: [
-      {
-        reference: "num",
-        levels: [
-          {
-            level: 0,
-            format: "decimal",
-            text: "%1.",
-            alignment: "start",
-            style: {
-              paragraph: {
-                indent: { left: 720, hanging: 360 },
-              },
-            },
-          },
-        ],
-      },
-    ],
-  },
 };
 
 export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
@@ -145,16 +120,23 @@ export type BlockNodeChildrenProcessor = (
 ) => Promise<(Paragraph | Table)[]>;
 
 /**
- * we deliberately pass the same instance of docx to the plugin as something fishi happens during the packaging step that creates an invalid document
+ * Interface for extending MDAST to DOCX conversion using plugins.
  */
 export interface IPlugin {
+  /**
+   * Processes block-level nodes.
+   */
   block?: (
     docx: typeof DOCX,
     node: ExtendedRootContent,
     paraProps: Omit<MutableParaOptions, "children">,
     blockChildrenProcessor: BlockNodeChildrenProcessor,
-    InlineChildrenProcessor: InlineChildrenProcessor,
+    inlineChildrenProcessor: InlineChildrenProcessor,
   ) => Promise<(Paragraph | Table)[]>;
+
+  /**
+   * Processes inline-level nodes.
+   */
   inline?: (
     docx: typeof DOCX,
     node: ExtendedRootContent,
@@ -166,6 +148,6 @@ export interface IPlugin {
 }
 
 /**
- * @mayank/docx is a fork of the `docx` library with minor changes,
- * specifically exporting additional types that were not included in the original `docx` library.
+ * @mayank/docx is a fork of the `docx` library with minor modifications,
+ * primarily adding exports for additional types missing from the original `docx` library.
  */

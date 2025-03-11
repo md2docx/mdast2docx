@@ -25,7 +25,7 @@ export function Demo() {
   removePosition(mdast);
 
   const downloadDocx = () => {
-    toDocx(mdast, {}, { plugins: [imagePlugin] }, "blob").then(blob => {
+    toDocx(mdast, {}, { plugins: [imagePlugin()] }, "blob").then(blob => {
       const url = URL.createObjectURL(blob as Blob);
       const link = document.createElement("a");
       link.href = url;
