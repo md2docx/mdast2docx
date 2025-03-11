@@ -5,17 +5,17 @@ import type {
   BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
-  ImageResolver,
   IMdastToDocxSectionProps,
   InlineChildrenProcessor,
+  InlineDocxNodes,
   InlineProcessor,
+  IPlugin,
 } from "./utils";
 import {
   Bookmark,
   BorderStyle,
   ExternalHyperlink,
   FootnoteReferenceRun,
-  ImageRun,
   InternalHyperlink,
   Paragraph,
   Table,
@@ -42,10 +42,25 @@ type DocxTypoEmphasis = "bold" | "italics" | "strike";
 const createInlineProcessor = (
   definitions: Definitions,
   footnoteDefinitions: FootnoteDefinitions,
-  imageResolver: ImageResolver,
+  plugins: IPlugin[],
 ) => {
   const processInlineNode: InlineProcessor = async (node, parentSet) => {
     const newParentSet = new Set(parentSet);
+
+    const docxNodes: InlineDocxNodes[] = (
+      await Promise.all(
+        plugins.map(
+          plugin =>
+            plugin.inline?.(
+              node,
+              newParentSet,
+              definitions,
+              footnoteDefinitions,
+              processInlineNodeChildren,
+            ) ?? [],
+        ),
+      )
+    ).flat();
 
     const decorations: Record<DocxTypoEmphasis, boolean> = {
       bold: parentSet.has("strong"),
@@ -55,25 +70,24 @@ const createInlineProcessor = (
 
     // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-    // @ts-expect-error - node might not have alt
-    const alt = node.alt ?? url?.split("/").pop();
 
     switch (node.type) {
       case "text":
-        return [new TextRun({ text: node.value, ...decorations })];
+        return [...docxNodes, new TextRun({ text: node.value, ...decorations })];
       case "break":
-        return [new TextRun({ break: 1 })];
+        return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
-        return [new TextRun({ text: node.value, ...decorations, style: "code" })];
+        return [...docxNodes, new TextRun({ text: node.value, ...decorations, style: "code" })];
       case "emphasis":
       case "strong":
       case "delete":
         newParentSet.add(node.type);
-        return processInlineNodeChildren(node, newParentSet);
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newParentSet))];
       case "link":
       case "linkReference":
         newParentSet.add("link");
         return [
+          ...docxNodes,
           url.startsWith("#")
             ? new InternalHyperlink({
                 anchor: url.slice(1),
@@ -84,18 +98,17 @@ const createInlineProcessor = (
                 children: await processInlineNodeChildren(node, newParentSet),
               }),
         ];
-      case "image":
-      case "imageReference":
-        return [
-          new ImageRun({
-            ...(await imageResolver(url)),
-            altText: { description: alt, name: alt, title: alt },
-          }),
-        ];
       case "footnoteReference":
-        return [new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
+        return [...docxNodes, new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
+      // Already handled by a plugin
+      case "":
+        console.log(node.type, docxNodes);
+        console.log("---------------", [new TextRun("image here")]);
+        console.log(JSON.stringify(docxNodes) === JSON.stringify([new TextRun("image here")]));
+        console.log(JSON.stringify(docxNodes), JSON.stringify([new TextRun("image here")]));
+        return [new TextRun("image here")];
       default:
-        return [new TextRun("")];
+        return [...docxNodes];
     }
   };
 
@@ -136,12 +149,12 @@ export const toSection = async (
   footnoteDefinitions: FootnoteDefinitions,
   props?: ISectionProps,
 ) => {
-  const { imageResolver, useTitle, ...sectionProps } = { ...defaultProps, ...props };
+  const { plugins, useTitle, ...sectionProps } = { ...defaultProps, ...props };
 
   const processInlineNodeChildren = createInlineProcessor(
     definitions,
     footnoteDefinitions,
-    imageResolver,
+    plugins,
   );
 
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {

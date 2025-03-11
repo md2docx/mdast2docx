@@ -305,6 +305,90 @@ Using HTML for additional interactivity.
   This is hidden content.
 </details>
 
+### 13.1. Inline HTML
+
+This is an example of **inline HTML** inside a paragraph:
+
+This is a <span style="color: red; font-weight: bold;">red bold text</span> inside a Markdown paragraph.
+
+You can also add **inline images**:
+
+<img src="https://via.placeholder.com/150" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
+
+Or create **inline links** with styles:
+
+<a href="https://openai.com" target="_blank" style="color: blue; text-decoration: none; font-weight: bold;">Visit OpenAI</a>
+
+### 13.2. Block HTML Elements
+
+#### Tables with HTML
+
+<table border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Location</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>25</td>
+        <td>New York</td>
+    </tr>
+    <tr>
+        <td>Alice</td>
+        <td>30</td>
+        <td>San Francisco</td>
+    </tr>
+</table>
+
+#### Forms in HTML
+
+<form action="#" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" /><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" /><br><br>
+    
+    <input type="submit" value="Submit" />
+</form>
+
+### 13.3. Combining Markdown and HTML
+
+> This is a **blockquote** with an embedded **HTML table**:
+>
+> <table border="1">
+>   <tr>
+>     <th>Feature</th>
+>     <th>Supported</th>
+>   </tr>
+>   <tr>
+>     <td>Markdown</td>
+>     <td>✅</td>
+>   </tr>
+>   <tr>
+>     <td>HTML</td>
+>     <td>✅</td>
+>   </tr>
+> </table>
+
+### 13.4. Custom Styling
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
 ## 14. Custom Directives (MDX)
 
 Embedding custom components.
