@@ -7,6 +7,7 @@ import {
   Table,
   Paragraph,
 } from "@mayank1513/docx";
+import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
 import { IDocxProps } from ".";
 
@@ -143,14 +144,19 @@ export type BlockNodeChildrenProcessor = (
   paraProps: Omit<MutableParaOptions, "children">,
 ) => Promise<(Paragraph | Table)[]>;
 
+/**
+ * we deliberately pass the same instance of docx to the plugin as something fishi happens during the packaging step that creates an invalid document
+ */
 export interface IPlugin {
   block?: (
+    docx: typeof DOCX,
     node: ExtendedRootContent,
     paraProps: Omit<MutableParaOptions, "children">,
     blockChildrenProcessor: BlockNodeChildrenProcessor,
     InlineChildrenProcessor: InlineChildrenProcessor,
   ) => Promise<(Paragraph | Table)[]>;
   inline?: (
+    docx: typeof DOCX,
     node: ExtendedRootContent,
     parentSet: Set<InlineParentType>,
     definitions: Definitions,

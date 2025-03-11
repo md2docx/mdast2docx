@@ -1,4 +1,4 @@
-import { IImageOptions, ImageRun, TextRun } from "@mayank1513/docx";
+import type { IImageOptions } from "@mayank1513/docx";
 import { IPlugin } from "../utils";
 
 /**
@@ -113,20 +113,18 @@ const imageResolver: ImageResolver = async (src: string) => {
 };
 
 export const imagePlugin: IPlugin = {
-  inline: async (node, _, definitions) => {
+  inline: async (docx, node, _, definitions) => {
     if (/^image/.test(node.type)) {
       // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
       const url = node.url ?? definitions[node.identifier?.toUpperCase()];
       // @ts-expect-error - node might not have alt
       const alt = node.alt ?? url?.split("/").pop();
-      // console.log(node.type, url, alt);
       node.type = "";
       return [
-        new TextRun("image here"),
-        // new ImageRun({
-        //   ...(await imageResolver(url)),
-        //   altText: { description: alt, name: alt, title: alt },
-        // }),
+        new docx.ImageRun({
+          ...(await imageResolver(url)),
+          altText: { description: alt, name: alt, title: alt },
+        }),
       ];
     }
     return [];

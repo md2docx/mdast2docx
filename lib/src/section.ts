@@ -24,6 +24,7 @@ import {
   TextRun,
 } from "@mayank1513/docx";
 import type { ISectionOptions } from "@mayank1513/docx";
+import * as docx from "@mayank1513/docx";
 
 /**
  * Defines properties for a document section, omitting the "children" property from ISectionOptions.
@@ -52,6 +53,7 @@ const createInlineProcessor = (
         plugins.map(
           plugin =>
             plugin.inline?.(
+              docx,
               node,
               newParentSet,
               definitions,
@@ -101,12 +103,7 @@ const createInlineProcessor = (
       case "footnoteReference":
         return [...docxNodes, new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
       // Already handled by a plugin
-      case "":
-        console.log(node.type, docxNodes);
-        console.log("---------------", [new TextRun("image here")]);
-        console.log(JSON.stringify(docxNodes) === JSON.stringify([new TextRun("image here")]));
-        console.log(JSON.stringify(docxNodes), JSON.stringify([new TextRun("image here")]));
-        return [new TextRun("image here")];
+      // case "": //<- no need -- just for clarity
       default:
         return [...docxNodes];
     }
