@@ -6,6 +6,7 @@ import {
   TextRun,
   Table,
   Paragraph,
+  IRunOptions,
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
@@ -91,33 +92,46 @@ export const defaultProps: IDefaultMdastToDocxSectionProps = {
   plugins: [],
 };
 
+/**
+ * Mutable version of IRunOptions where all properties are writable.
+ */
+export type MutableRunOptions = Omit<
+  {
+    -readonly [K in keyof IRunOptions]: IRunOptions[K];
+  },
+  "children"
+>;
+
 export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink;
 export type InlineProcessor = (
   node: ExtendedRootContent,
-  parentSet: Set<InlineParentType>,
+  runProps: MutableRunOptions,
 ) => Promise<InlineDocxNodes[]>;
 
 export type InlineChildrenProcessor = (
   node: Parent,
-  parentSet?: Set<InlineParentType>,
+  runProps?: MutableRunOptions,
 ) => Promise<InlineDocxNodes[]>;
 
 /**
  * Mutable version of IParagraphOptions where all properties are writable.
  */
-export type MutableParaOptions = {
-  -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
-};
+export type MutableParaOptions = Omit<
+  {
+    -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
+  },
+  "children"
+>;
 
 export type BlockNodeProcessor = (
   node: ExtendedRootContent,
-  paraProps: Omit<MutableParaOptions, "children">,
+  paraProps: MutableParaOptions,
 ) => Promise<(Paragraph | Table)[]>;
 
 export type BlockNodeChildrenProcessor = (
   node: Parent | Root,
-  paraProps: Omit<MutableParaOptions, "children">,
+  paraProps: MutableParaOptions,
 ) => Promise<(Paragraph | Table)[]>;
 
 /**
@@ -130,7 +144,7 @@ export interface IPlugin {
   block?: (
     docx: typeof DOCX,
     node: ExtendedRootContent,
-    paraProps: Omit<MutableParaOptions, "children">,
+    paraProps: MutableParaOptions,
     blockChildrenProcessor: BlockNodeChildrenProcessor,
     inlineChildrenProcessor: InlineChildrenProcessor,
   ) => Promise<(Paragraph | Table)[]>;
@@ -141,7 +155,7 @@ export interface IPlugin {
   inline?: (
     docx: typeof DOCX,
     node: ExtendedRootContent,
-    parentSet: Set<InlineParentType>,
+    parentSet: MutableRunOptions,
     definitions: Definitions,
     footnoteDefinitions: FootnoteDefinitions,
     inlineChildrenProcessor: InlineChildrenProcessor,

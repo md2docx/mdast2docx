@@ -31,8 +31,6 @@ import * as docx from "@mayank1513/docx";
  */
 export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
 
-type DocxTypoEmphasis = "bold" | "italics" | "strike";
-
 /**
  * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
  * @param definitions - Map of definitions
@@ -45,8 +43,8 @@ const createInlineProcessor = (
   footnoteDefinitions: FootnoteDefinitions,
   plugins: IPlugin[],
 ) => {
-  const processInlineNode: InlineProcessor = async (node, parentSet) => {
-    const newParentSet = new Set(parentSet);
+  const processInlineNode: InlineProcessor = async (node, runProps) => {
+    const newRunProps = Object.assign({}, runProps);
 
     const docxNodes: InlineDocxNodes[] = (
       await Promise.all(
@@ -55,7 +53,7 @@ const createInlineProcessor = (
             plugin.inline?.(
               docx,
               node,
-              newParentSet,
+              newRunProps,
               definitions,
               footnoteDefinitions,
               processInlineNodeChildren,
@@ -64,40 +62,39 @@ const createInlineProcessor = (
       )
     ).flat();
 
-    const decorations: Record<DocxTypoEmphasis, boolean> = {
-      bold: parentSet.has("strong"),
-      italics: parentSet.has("emphasis"),
-      strike: parentSet.has("delete"),
-    };
-
     // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
 
     switch (node.type) {
       case "text":
-        return [...docxNodes, new TextRun({ text: node.value, ...decorations })];
+        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps })];
       case "break":
         return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
-        return [...docxNodes, new TextRun({ text: node.value, ...decorations, style: "code" })];
+        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps, style: "code" })];
       case "emphasis":
+        newRunProps.italics = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "strong":
+        newRunProps.bold = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "delete":
-        newParentSet.add(node.type);
-        return [...docxNodes, ...(await processInlineNodeChildren(node, newParentSet))];
+        newRunProps.strike = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "link":
       case "linkReference":
-        newParentSet.add("link");
+        // newRunProps.add("link");
+        // newRunProps.style = "link";
         return [
           ...docxNodes,
           url.startsWith("#")
             ? new InternalHyperlink({
                 anchor: url.slice(1),
-                children: await processInlineNodeChildren(node, newParentSet),
+                children: await processInlineNodeChildren(node, newRunProps),
               })
             : new ExternalHyperlink({
                 link: url,
-                children: await processInlineNodeChildren(node, newParentSet),
+                children: await processInlineNodeChildren(node, newRunProps),
               }),
         ];
       case "footnoteReference":
