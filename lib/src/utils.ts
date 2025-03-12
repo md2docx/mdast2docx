@@ -9,6 +9,7 @@ import {
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
+import { IDocxProps } from ".";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
 
@@ -78,7 +79,7 @@ export interface IMdastToDocxSectionProps {
 }
 
 /**
- * Default properties for MDAST to DOCX conversion.
+ * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
  */
 interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
   useTitle: boolean;
@@ -145,6 +146,11 @@ export interface IPlugin {
     footnoteDefinitions: FootnoteDefinitions,
     inlineChildrenProcessor: InlineChildrenProcessor,
   ) => Promise<InlineDocxNodes[]>;
+
+  /**
+   * Allows plugins to modify document-level DOCX properties, such as styles, numbering, headers, and footers. This is useful for global formatting customizations.
+   */
+  root?: (props: IDocxProps) => void;
 }
 
 /**

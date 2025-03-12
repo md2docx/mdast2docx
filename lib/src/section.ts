@@ -101,7 +101,10 @@ const createInlineProcessor = (
               }),
         ];
       case "footnoteReference":
-        return [...docxNodes, new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
+        return [
+          ...docxNodes,
+          new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
+        ];
       // Already handled by a plugin
       // case "": //<- no need -- just for clarity
       default:

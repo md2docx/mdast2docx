@@ -10,8 +10,10 @@ import { getDefinitions } from "./utils";
 type IDocxProps = Omit<IPropertiesOptions, "sections" | "footnotes">;
 
 /**
- * Represents the input MDAST tree(s) for conversion.
- * It can be a single root node or an array of objects containing the AST and optional section properties.
+ * Represents the input Markdown AST tree(s) for conversion.
+ * Supports either:
+ * - A single `Root` node (direct conversion)
+ * - An array of objects `{ ast: Root, props?: ISectionProps }` for fine-grained section-level control.
  */
 type IInputMDAST = Root | { ast: Root; props?: ISectionProps }[];
 
@@ -25,12 +27,16 @@ type IInputMDAST = Root | { ast: Root; props?: ISectionProps }[];
  */
 export const toDocx = async (
   astInputs: IInputMDAST,
-  docxProps: IDocxProps,
-  defaultSectionProps: ISectionProps,
+  docxProps: IDocxProps = {},
+  defaultSectionProps: ISectionProps = {},
   outputType: OutputType = "blob",
 ) => {
   let currentFootnoteId = 1;
+  // Stores footnotes indexed by their unique ID
   const footnotes: Record<number, { children: Paragraph[] }> = {};
+
+  // Apply global document-level modifications from default plugins
+  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(docxProps));
 
   const processedAstInputs = await Promise.all(
     (Array.isArray(astInputs) ? astInputs : [{ ast: astInputs }]).map(async ({ ast, props }) => {
@@ -38,7 +44,7 @@ export const toDocx = async (
 
       // Convert footnotes into sections
       await Promise.all(
-        Object.entries(footnoteDefinitions).map(async ([, footnote]) => {
+        Object.values(footnoteDefinitions).map(async footnote => {
           footnote.id = currentFootnoteId;
           footnotes[currentFootnoteId] = (await toSection(
             { type: "root", children: footnote.children },
@@ -48,6 +54,9 @@ export const toDocx = async (
           currentFootnoteId++;
         }),
       );
+
+      // update docxProps by plugins
+      props?.plugins?.forEach(plugin => plugin.root?.(docxProps));
 
       return { ast, props: { ...defaultSectionProps, ...props }, definitions, footnoteDefinitions };
     }),
