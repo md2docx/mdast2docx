@@ -7,12 +7,16 @@ import {
   Table,
   Paragraph,
   IRunOptions,
+  IPropertiesOptions,
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
-import { IDocxProps } from ".";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
+
+export type Optional<T> = { [K in keyof T]?: T[K] };
+
+export type Mutable<T> = { -readonly [K in keyof T]: T[K] extends object ? Mutable<T> : T[K] };
 
 /** Type representing definition mappings */
 export type Definitions = Record<string, string>;
@@ -63,29 +67,28 @@ export const getTextContent = (node: ExtendedRootContent): string => {
   return (node as { value?: string }).value ?? "";
 };
 
-/**
- * Interface defining properties for MDAST to DOCX conversion.
- */
-export interface IMdastToDocxSectionProps {
-  /**
-   * If true, H1 corresponds to the title, H2 to Heading1, etc.
-   * @default true
-   */
-  useTitle?: boolean;
-
-  /**
-   * List of plugins to extend conversion functionality.
-   */
-  plugins?: IPlugin[];
-}
+export const uuid = () => Math.random().toString(16).slice(2);
 
 /**
  * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
  */
-interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
+interface IDefaultMdastToDocxSectionProps {
+  /**
+   * If true, H1 corresponds to the title, H2 to Heading1, etc.
+   * @default true
+   */
   useTitle: boolean;
+
+  /**
+   * List of plugins to extend conversion functionality.
+   */
   plugins: IPlugin[];
 }
+
+/**
+ * Interface defining properties for MDAST to DOCX conversion.
+ */
+export type IMdastToDocxSectionProps = Optional<IDefaultMdastToDocxSectionProps>;
 
 export const defaultProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
@@ -93,14 +96,14 @@ export const defaultProps: IDefaultMdastToDocxSectionProps = {
 };
 
 /**
+ * Defines document properties, excluding sections and footnotes (which are managed internally).
+ */
+export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnotes">;
+
+/**
  * Mutable version of IRunOptions where all properties are writable.
  */
-export type MutableRunOptions = Omit<
-  {
-    -readonly [K in keyof IRunOptions]: IRunOptions[K];
-  },
-  "children"
->;
+export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
 
 export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink;
@@ -117,12 +120,7 @@ export type InlineChildrenProcessor = (
 /**
  * Mutable version of IParagraphOptions where all properties are writable.
  */
-export type MutableParaOptions = Omit<
-  {
-    -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
-  },
-  "children"
->;
+export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children">;
 
 export type BlockNodeProcessor = (
   node: ExtendedRootContent,

@@ -157,12 +157,30 @@ export const toSection = async (
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
     // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
     const newParaProps = Object.assign({}, paraProps);
+    const docxNodes = (
+      await Promise.all(
+        plugins.map(
+          plugin =>
+            plugin.block?.(
+              docx,
+              node,
+              newParaProps,
+              processBlockNodeChildren,
+              processInlineNodeChildren,
+            ) ?? [],
+        ),
+      )
+    ).flat();
     switch (node.type) {
       case "paragraph":
-        return [new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) })];
+        return [
+          ...docxNodes,
+          new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) }),
+        ];
       case "heading":
         return [
           new Paragraph({
+            ...docxNodes,
             // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
             heading: useTitle
               ? node.depth === 1
@@ -179,6 +197,7 @@ export const toSection = async (
         ];
       case "code":
         return [
+          ...docxNodes,
           new Paragraph({
             alignment: "start",
             style: "blockCode",
@@ -188,34 +207,43 @@ export const toSection = async (
                   text: line,
                   break: 1,
                   style: "code",
+                  font: { name: "Monospace" },
                 }),
             ),
           }),
         ];
       case "list":
         if (node.ordered) {
-          // newParaProps.numbering = {
-          //   level: 0,
-          //   reference: "num",
-          // };
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? 0) + 1 };
+          console.warn(
+            "Please add numbering plugin to support ordered lists. For now, we use only bullets for both the ordered and the unordered list.",
+          );
         } else {
           newParaProps.bullet = { level: (newParaProps.bullet?.level ?? 0) + 1 };
         }
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "blockquote":
+        // newParaProps.indent = { left: 720, hanging: 360 };
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "listItem":
-        return processBlockNodeChildren(node, newParaProps);
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "thematicBreak":
-        return [new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } })];
+        return [
+          ...docxNodes,
+          new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
+        ];
       case "definition":
       case "footnoteDefinition":
-        return [];
+        return docxNodes;
       case "table":
-        return [await createTable(node, processInlineNodeChildren)];
+        return [...docxNodes, await createTable(node, processInlineNodeChildren)];
+      case "":
+        return docxNodes;
       case "yaml":
       case "html":
       default:
         console.warn(`Unsupported node type: ${node.type}`, node);
-        return [];
+        return docxNodes;
     }
   };
 

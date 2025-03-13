@@ -148,6 +148,12 @@ Structuring data in tabular format.
 | Alice | 30  | San Francisco |
 | Bob   | 28  | London        |
 
+### Table with md alignments
+
+| Left-aligned | Center-aligned | Right-aligned |
+| :----------- | :------------: | ------------: |
+| Text 1       |     Text 2     |        Text 3 |
+
 ## 5. Links and Images
 
 Adding hyperlinks and images.

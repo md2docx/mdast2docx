@@ -1,13 +1,8 @@
-import { Document, OutputType, Packer, Paragraph, type IPropertiesOptions } from "@mayank1513/docx";
+import { Document, OutputType, Packer, Paragraph } from "@mayank1513/docx";
 import type { Root } from "mdast";
 
 import { toSection, type ISectionProps } from "./section";
-import { getDefinitions } from "./utils";
-
-/**
- * Defines document properties, excluding sections and footnotes (which are managed internally).
- */
-type IDocxProps = Omit<IPropertiesOptions, "sections" | "footnotes">;
+import { getDefinitions, IDocxProps } from "./utils";
 
 /**
  * Represents the input Markdown AST tree(s) for conversion.
