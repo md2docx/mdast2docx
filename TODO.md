@@ -29,19 +29,11 @@
 
 ## Step-by-Step Instructions and Checklist
 
-- [ ] 🌟 Enable [private vulnerability reporting](https://github.com/tiny-md/mdast2docx/security)
-- [ ] Set up `CodeCov`
-  - Visit Codecov and set up your repo
-  - Create [repository secret](<(https://github.com/tiny-md/mdast2docx/settings/secrets/actions)>) for `CODECOV_TOKEN`
 - [ ] Set up `CodeClimate`
   - Visit CodeClimate and set up your repo
   - Create [repository secret] for `CC_TEST_REPORTER_ID`
   - Add `*.test.*` to ignore patterns on the website
   - Update Code Climate badge
-- [ ] Add `NPM_AUTH_TOKEN` to repository secrets to automate package publishing
-  - Log in to your [`npm` account](https://www.npmjs.com/login) and create an automation token
-  - Create a new repository secret `NPM_AUTH_TOKEN`
-- [ ] Update description in `lib/package.json`
 - [ ] (Optional) Add Repo Stats by visiting and setting up [repobeats](https://repobeats.axiom.co/)
 - [ ] Create your library and update examples
 - [ ] Update README as required
