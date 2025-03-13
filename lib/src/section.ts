@@ -1,4 +1,4 @@
-import type { Root, Table as MdTable } from "mdast";
+import type { Root } from "mdast";
 import { defaultProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
@@ -18,9 +18,6 @@ import {
   FootnoteReferenceRun,
   InternalHyperlink,
   Paragraph,
-  Table,
-  TableCell,
-  TableRow,
   TextRun,
 } from "@mayank1513/docx";
 import type { ISectionOptions } from "@mayank1513/docx";
@@ -121,23 +118,6 @@ const createInlineProcessor = (
     (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
 
   return processInlineNodeChildren;
-};
-
-const createTable = async (node: MdTable, processInlineNodeChildren: InlineChildrenProcessor) => {
-  const rows = await Promise.all(
-    node.children.map(async row => {
-      return new TableRow({
-        children: await Promise.all(
-          row.children.map(async cell => {
-            return new TableCell({
-              children: [new Paragraph({ children: await processInlineNodeChildren(cell) })],
-            });
-          }),
-        ),
-      });
-    }),
-  );
-  return new Table({ rows });
 };
 
 /**
@@ -244,7 +224,8 @@ export const toSection = async (
       case "footnoteDefinition":
         return docxNodes;
       case "table":
-        return [...docxNodes, await createTable(node, processInlineNodeChildren)];
+        console.warn("Please add table plugin to support tables.");
+        return docxNodes;
       case "":
         return docxNodes;
       case "yaml":
