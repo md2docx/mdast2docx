@@ -214,12 +214,12 @@ export const toSection = async (
         ];
       case "list":
         if (node.ordered) {
-          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? 0) + 1 };
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
           console.warn(
             "Please add numbering plugin to support ordered lists. For now, we use only bullets for both the ordered and the unordered list.",
           );
         } else {
-          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? 0) + 1 };
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
         }
         return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "blockquote":
