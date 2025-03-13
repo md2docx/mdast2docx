@@ -10,7 +10,7 @@ import { toDocx } from "mdast2docx";
 import styles from "./demo.module.scss";
 import { CodeDisplay } from "./code-display";
 import { removePosition } from "unist-util-remove-position";
-import { imagePlugin, tablePlugin } from "mdast2docx/dist/plugins";
+import { imagePlugin, tablePlugin, listPlugin } from "mdast2docx/dist/plugins";
 
 /** React live demo */
 export function Demo() {
@@ -25,14 +25,16 @@ export function Demo() {
   removePosition(mdast);
 
   const downloadDocx = () => {
-    toDocx(mdast, {}, { plugins: [imagePlugin(), tablePlugin()] }, "blob").then(blob => {
-      const url = URL.createObjectURL(blob as Blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "my-document.docx";
-      link.click();
-      URL.revokeObjectURL(url);
-    });
+    toDocx(mdast, {}, { plugins: [imagePlugin(), tablePlugin(), listPlugin()] }, "blob").then(
+      blob => {
+        const url = URL.createObjectURL(blob as Blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "my-document.docx";
+        link.click();
+        URL.revokeObjectURL(url);
+      },
+    );
   };
 
   // console.log(docxProcessor.processSync(md));
