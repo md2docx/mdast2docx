@@ -7,6 +7,7 @@ import {
   type ITableOptions,
   type ITableRowOptions,
   VerticalAlign,
+  convertMillimetersToTwip,
 } from "@mayank1513/docx";
 import { IPlugin, Optional } from "../utils";
 import { TableRow as MdTableRow } from "mdast";
@@ -39,9 +40,25 @@ type ITablePluginProps = Optional<IDefaultTablePluginProps>;
 const border = { style: BorderStyle.SINGLE, color: "auto", size: 1 };
 
 export const defaultTableOptions: IDefaultTablePluginProps = {
-  tableProps: { width: { size: 100, type: WidthType.PERCENTAGE } },
+  tableProps: {
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    margins: {
+      top: convertMillimetersToTwip(2),
+      right: convertMillimetersToTwip(4),
+      bottom: convertMillimetersToTwip(2),
+      left: convertMillimetersToTwip(4),
+    },
+    borders: {
+      top: border,
+      right: border,
+      bottom: border,
+      left: border,
+      insideHorizontal: border,
+      insideVertical: border,
+    },
+  },
   rowProps: {},
-  cellProps: { borders: { top: border, right: border, bottom: border, left: border } },
+  cellProps: {},
   firstRowProps: { tableHeader: true },
   firstRowCellProps: { shading: { type: ShadingType.SOLID, fill: "b79c2f" } },
   alignments: {
