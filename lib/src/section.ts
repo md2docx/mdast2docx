@@ -71,7 +71,15 @@ const createInlineProcessor = (
       case "break":
         return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
-        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps, style: "code" })];
+        return [
+          ...docxNodes,
+          new TextRun({
+            text: node.value,
+            ...newRunProps,
+            style: "code",
+            font: { name: "Consolas" },
+          }),
+        ];
       case "emphasis":
         newRunProps.italics = true;
         return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
@@ -207,7 +215,7 @@ export const toSection = async (
                   text: line,
                   break: 1,
                   style: "code",
-                  font: { name: "Monospace" },
+                  font: { name: "Consolas" },
                 }),
             ),
           }),
