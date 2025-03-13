@@ -8,6 +8,7 @@ import {
   Paragraph,
   IRunOptions,
   IPropertiesOptions,
+  MathRun,
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
@@ -51,7 +52,7 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent = RootContent | { type: "" };
+type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | T;
 
 /**
  * Extracts the textual content from a given MDAST node.
@@ -82,7 +83,7 @@ interface IDefaultMdastToDocxSectionProps {
   /**
    * List of plugins to extend conversion functionality.
    */
-  plugins: IPlugin[];
+  plugins: Array<IPlugin>;
 }
 
 /**
@@ -106,7 +107,7 @@ export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnot
 export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
 
 export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
-export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink;
+export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | MathRun;
 export type InlineProcessor = (
   node: ExtendedRootContent,
   runProps: MutableRunOptions,
@@ -135,13 +136,13 @@ export type BlockNodeChildrenProcessor = (
 /**
  * Interface for extending MDAST to DOCX conversion using plugins.
  */
-export interface IPlugin {
+export interface IPlugin<T extends { type: string } = { type: "" }> {
   /**
    * Processes block-level nodes.
    */
   block?: (
     docx: typeof DOCX,
-    node: ExtendedRootContent,
+    node: ExtendedRootContent<T>,
     paraProps: MutableParaOptions,
     blockChildrenProcessor: BlockNodeChildrenProcessor,
     inlineChildrenProcessor: InlineChildrenProcessor,
@@ -152,7 +153,7 @@ export interface IPlugin {
    */
   inline?: (
     docx: typeof DOCX,
-    node: ExtendedRootContent,
+    node: ExtendedRootContent<T>,
     parentSet: MutableRunOptions,
     definitions: Definitions,
     footnoteDefinitions: FootnoteDefinitions,
