@@ -1,31 +1,32 @@
-import type { Root, RootContent, Parent } from "mdast";
-import { defaultProps } from "./utils";
+import type { Root } from "mdast";
+import { defaultProps, getTextContent } from "./utils";
 import type {
+  BlockNodeChildrenProcessor,
+  BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
-  ImageResolver,
   IMdastToDocxSectionProps,
+  InlineChildrenProcessor,
+  InlineDocxNodes,
+  InlineProcessor,
+  IPlugin,
 } from "./utils";
 import {
+  Bookmark,
   BorderStyle,
   ExternalHyperlink,
   FootnoteReferenceRun,
-  ImageRun,
   InternalHyperlink,
   Paragraph,
   TextRun,
 } from "@mayank1513/docx";
-import type { IParagraphOptions, ISectionOptions } from "@mayank1513/docx";
+import type { ISectionOptions } from "@mayank1513/docx";
+import * as docx from "@mayank1513/docx";
 
 /**
  * Defines properties for a document section, omitting the "children" property from ISectionOptions.
  */
 export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
-
-type InlineParentType = "strong" | "emphasis" | "delete" | "link";
-type DocxTypoEmphasis = "bold" | "italics" | "strike";
-
-type BlockParentType = "blockquote" | "list" | "listItem";
 
 /**
  * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
@@ -37,79 +38,86 @@ type BlockParentType = "blockquote" | "list" | "listItem";
 const createInlineProcessor = (
   definitions: Definitions,
   footnoteDefinitions: FootnoteDefinitions,
-  imageResolver: ImageResolver,
+  plugins: IPlugin[],
 ) => {
-  const processInlineNode = async (
-    node: RootContent,
-    parentSet: Set<InlineParentType>,
-  ): Promise<(TextRun | ImageRun | InternalHyperlink | ExternalHyperlink)[]> => {
-    const newParentSet = new Set(parentSet);
+  const processInlineNode: InlineProcessor = async (node, runProps) => {
+    const newRunProps = Object.assign({}, runProps);
 
-    const decorations: Record<DocxTypoEmphasis, boolean> = {
-      bold: parentSet.has("strong"),
-      italics: parentSet.has("emphasis"),
-      strike: parentSet.has("delete"),
-    };
+    const docxNodes: InlineDocxNodes[] = (
+      await Promise.all(
+        plugins.map(
+          plugin =>
+            plugin.inline?.(
+              docx,
+              node,
+              newRunProps,
+              definitions,
+              footnoteDefinitions,
+              processInlineNodeChildren,
+            ) ?? [],
+        ),
+      )
+    ).flat();
 
     // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-    // @ts-expect-error - node might not have alt
-    const alt = node.alt ?? url?.split("/").pop();
 
     switch (node.type) {
       case "text":
-        return [new TextRun({ text: node.value, ...decorations })];
+        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps })];
       case "break":
-        return [new TextRun({ break: 1 })];
+        return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
-        return [new TextRun({ text: node.value, ...decorations, style: "code" })];
+        return [
+          ...docxNodes,
+          new TextRun({
+            text: node.value,
+            ...newRunProps,
+            style: "code",
+            font: { name: "Consolas" },
+          }),
+        ];
       case "emphasis":
+        newRunProps.italics = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "strong":
+        newRunProps.bold = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "delete":
-        newParentSet.add(node.type);
-        return processInlineNodeChildren(node, newParentSet);
+        newRunProps.strike = true;
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       case "link":
       case "linkReference":
-        newParentSet.add("link");
+        // newRunProps.add("link");
+        // newRunProps.style = "link";
         return [
+          ...docxNodes,
           url.startsWith("#")
             ? new InternalHyperlink({
-                anchor: url,
-                children: await processInlineNodeChildren(node, newParentSet),
+                anchor: url.slice(1),
+                children: await processInlineNodeChildren(node, newRunProps),
               })
             : new ExternalHyperlink({
                 link: url,
-                children: await processInlineNodeChildren(node, newParentSet),
+                children: await processInlineNodeChildren(node, newRunProps),
               }),
         ];
-      case "image":
-      case "imageReference":
-        return [
-          new ImageRun({
-            ...(await imageResolver(url)),
-            altText: { description: alt, name: alt, title: alt },
-          }),
-        ];
       case "footnoteReference":
-        return [new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id!)];
+        return [
+          ...docxNodes,
+          new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
+        ];
+      // Already handled by a plugin
+      // case "": //<- no need -- just for clarity
       default:
-        return [new TextRun("")];
+        return [...docxNodes];
     }
   };
 
-  const processInlineNodeChildren = async (
-    node: Parent,
-    parentSet: Set<InlineParentType> = new Set(),
-  ) => (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
+  const processInlineNodeChildren: InlineChildrenProcessor = async (node, parentSet = new Set()) =>
+    (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
 
   return processInlineNodeChildren;
-};
-
-/**
- * Mutable version of IParagraphOptions where all properties are writable.
- */
-type MutableParaOptions = {
-  -readonly [K in keyof IParagraphOptions]: IParagraphOptions[K];
 };
 
 /**
@@ -126,44 +134,58 @@ export const toSection = async (
   footnoteDefinitions: FootnoteDefinitions,
   props?: ISectionProps,
 ) => {
-  const { imageResolver, useTitle, ...sectionProps } = { ...defaultProps, ...props };
+  const { plugins, useTitle, ...sectionProps } = { ...defaultProps, ...props };
 
   const processInlineNodeChildren = createInlineProcessor(
     definitions,
     footnoteDefinitions,
-    imageResolver,
+    plugins,
   );
 
-  const processBlockNode = async (
-    node: RootContent,
-    parents: BlockParentType[],
-  ): Promise<Paragraph[]> => {
-    const newParents = [...parents];
+  const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
     // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
-    const paraProps: Omit<MutableParaOptions, "children"> = {};
-    if (parents.includes("list")) {
-      paraProps.bullet = { level: parents.filter(parent => parent === "list").length - 1 };
-    }
-    if (parents.includes("blockquote")) {
-      paraProps.style = "Quote";
-    }
+    const newParaProps = Object.assign({}, paraProps);
+    const docxNodes = (
+      await Promise.all(
+        plugins.map(
+          plugin =>
+            plugin.block?.(
+              docx,
+              node,
+              newParaProps,
+              processBlockNodeChildren,
+              processInlineNodeChildren,
+            ) ?? [],
+        ),
+      )
+    ).flat();
     switch (node.type) {
       case "paragraph":
-        return [new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) })];
+        return [
+          ...docxNodes,
+          new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) }),
+        ];
       case "heading":
         return [
           new Paragraph({
+            ...docxNodes,
             // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
             heading: useTitle
               ? node.depth === 1
                 ? "Title"
                 : `Heading${node.depth - 1}`
               : `Heading${node.depth}`,
-            children: await processInlineNodeChildren(node),
+            children: [
+              new Bookmark({
+                id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
+                children: await processInlineNodeChildren(node),
+              }),
+            ],
           }),
         ];
       case "code":
         return [
+          ...docxNodes,
           new Paragraph({
             alignment: "start",
             style: "blockCode",
@@ -173,30 +195,49 @@ export const toSection = async (
                   text: line,
                   break: 1,
                   style: "code",
+                  font: { name: "Consolas" },
                 }),
             ),
           }),
         ];
       case "list":
+        if (node.ordered) {
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
+          console.warn(
+            "Please add numbering plugin to support ordered lists. For now, we use only bullets for both the ordered and the unordered list.",
+          );
+        } else {
+          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
+        }
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "blockquote":
+        // newParaProps.indent = { left: 720, hanging: 360 };
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "listItem":
-        newParents.push(node.type);
-        return processBlockNodeChildren(node, newParents);
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "thematicBreak":
-        return [new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } })];
+        return [
+          ...docxNodes,
+          new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
+        ];
+      case "definition":
+      case "footnoteDefinition":
+        return docxNodes;
       case "table":
-      case "tableRow":
-      case "tableCell":
+        console.warn("Please add table plugin to support tables.");
+        return docxNodes;
+      case "":
+        return docxNodes;
       case "yaml":
       case "html":
       default:
         console.warn(`Unsupported node type: ${node.type}`, node);
-        return [];
+        return docxNodes;
     }
   };
 
-  const processBlockNodeChildren = async (node: Root | Parent, parents: BlockParentType[]) =>
-    (await Promise.all(node.children?.map(child => processBlockNode(child, parents)))).flat();
+  const processBlockNodeChildren: BlockNodeChildrenProcessor = async (node, paraProps) =>
+    (await Promise.all(node.children?.map(child => processBlockNode(child, paraProps)))).flat();
 
-  return { ...sectionProps, children: await processBlockNodeChildren(node, []) };
+  return { ...sectionProps, children: await processBlockNodeChildren(node, {}) };
 };

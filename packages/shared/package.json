@@ -1,6 +1,6 @@
 {
   "name": "@repo/shared",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "private": true,
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -52,6 +52,7 @@
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "unist-util-remove-position": "^5.0.0"
   }
 }

@@ -10,9 +10,14 @@
 
 ✅ **MDAST to DOCX conversion** — Supports standard Markdown elements  
 ✅ **Footnotes handling** — Converts Markdown footnotes to DOCX format  
-✅ **Customizable image handling** — Fine-tune image rendering in DOCX  
-✅ **Hyperlink support** — Converts external links, internal links [WIP]  
-✅ **Configurable sections** — Customize document structure & styling
+✅ **Tables support** — Converts Markdown tables into DOCX tables  
+✅ **Hyperlink support** — External and internal hyperlinks are now fully functional  
+✅ **New Plugin Architecture** — Extend and customize DOCX output with plugins  
+✅ **Customizable image handling** — Images are now supported via `imagePlugin`
+
+> **Note:** Images are no longer supported by default. To enable image support, use the `imagePlugin` explicitly.
+>
+> This change helps us keep the library lean and extensible by community via plugins.
 
 ---
 
@@ -59,8 +64,6 @@ This is a **bold** text and _italic_ text.
 
 [Click Here](https://example.com)  
 
-![Sample Image](https://example.com/image.png)  
-
 This is a footnote reference[^1].  
 
 [^1]: This is the footnote content.
@@ -81,7 +84,7 @@ const mdast = unified().use(remarkParse).use(remarkMmd).parse(markdown);
 
 ---
 
-## **🛠 API Reference**
+## **📜 API Reference**
 
 ### **`toDocx(astInputs, docxProps, defaultSectionProps, outputType?)`**
 
@@ -98,19 +101,20 @@ const mdast = unified().use(remarkParse).use(remarkMmd).parse(markdown);
 
 ## **📜 Supported Markdown Elements**
 
-| Markdown Syntax                    | Supported in DOCX      |
-| ---------------------------------- | ---------------------- |
-| Headings `# H1` to `###### H6`     | ✅                     |
-| Paragraphs                         | ✅                     |
-| Bold `**text**` & Italics `_text_` | ✅                     |
-| Blockquotes `> quote`              | ✅                     |
-| Lists (ordered & unordered)        | ✅                     |
-| Links `[text](url)`                | ✅                     |
-| Images `![alt](url)`               | ✅                     |
-| Code Blocks `` `code` ``           | ✅                     |
-| Footnotes `[^1]`                   | ✅                     |
-| Tables                             | 🚧 _(Coming soon)_     |
-| HTML Tags                          | 🚧 _(Partial support)_ |
+| Markdown Syntax                    | Supported in DOCX                     |
+| ---------------------------------- | ------------------------------------- |
+| Headings `# H1` to `###### H6`     | ✅                                    |
+| Paragraphs                         | ✅                                    |
+| Bold `**text**` & Italics `_text_` | ✅                                    |
+| Blockquotes `> quote`              | ✅                                    |
+| Lists (ordered & unordered)        | ✅ _(ordered lists via `listPlugin`)_ |
+| Links `[text](url)`                | ✅                                    |
+| Images `![alt](url)`               | ✅ _(via `imagePlugin`)_              |
+| Code Blocks `` `code` ``           | ✅                                    |
+| Footnotes `[^1]`                   | ✅                                    |
+| Tables                             | ✅ _(via `tablePlugin`)_              |
+| Hyperlinks (external & internal)   | ✅                                    |
+| HTML Tags                          | 🚧 _(Work in progress)_               |
 
 ---
 
@@ -133,6 +137,31 @@ const sectionProps = {
 const docxBlob = await toDocx(mdast, docxProps, sectionProps);
 ```
 
+### **Use Plugins**
+
+Plugins allow extending functionality like adding image or table support.
+
+```typescript
+import { toDocx } from "mdast2docx";
+import { imagePlugin, tablePlugin, listPlugin, mathPlugin } from "mdast2docx/dist/plugins";
+
+const downloadDocx = () => {
+  toDocx(
+    mdast,
+    {},
+    { plugins: [imagePlugin(), tablePlugin(), listPlugin(), mathPlugin()] },
+    "blob",
+  ).then(blob => {
+    const url = URL.createObjectURL(blob as Blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "my-document.docx";
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+};
+```
+
 📖 **More details:**
 
 - [DOCX.js Document Properties](https://docx.js.org/#/usage/document)
@@ -149,6 +178,10 @@ We welcome contributions! To get started:
 3. **Commit your changes** (`git commit -m "Add new feature"`)
 4. **Push to GitHub** (`git push origin feature-new`)
 5. **Open a Pull Request** 🚀
+
+### **Extend Functionality with Plugins**
+
+The community can create plugins to extend the functionality of this library. For inspiration, check out the existing plugins in the [`lib/src/plugins`](https://github.com/tiny-md/mdast2docx/tree/main/lib/src/plugins) folder.
 
 ---
 

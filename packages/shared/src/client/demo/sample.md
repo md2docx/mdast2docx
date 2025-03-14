@@ -9,9 +9,30 @@ tags: [mdast, markdown, reference]
 
 # Markdown Syntax Showcase
 
-## 1. Basic Elements
+## Table of Contents
 
-A collection of fundamental Markdown syntax elements.
+- [Basic Elements](#1-basic-elements)
+  - [Headings](#headings)
+  - [Text Formatting](#text-formatting)
+  - [Blockquote](#blockquote)
+  - [Horizontal Rule](#horizontal-rule)
+- [Lists](#2-lists)
+  - [Unordered List](#unordered-list)
+  - [Ordered List](#ordered-list)
+- [Code Blocks](#3-code-blocks)
+- [Tables](#4-tables)
+- [Links and Images](#5-links-and-images)
+- [Task Lists](#6-task-lists-gfm)
+- [Footnotes](#7-footnotes)
+- [Emoji](#8-emoji-gfm)
+- [Math Equations](#9-math-equations-katex--latex)
+- [Diagrams](#10-diagrams-mermaid)
+- [Definition Lists](#11-definition-lists)
+- [Admonitions](#12-admonitions-callouts)
+- [HTML Elements](#13-html-elements)
+- [Custom Directives](#14-custom-directives-mdx)
+
+## 1. Basic Elements
 
 ### Headings
 
@@ -41,34 +62,47 @@ A minor heading, used for further breakdown.
 
 The smallest heading, typically used for fine details.
 
+> #### Nested Blockquote Example
+>
+> > ##### Nested Blockquote Level 2
+> >
+> > - List inside a blockquote:
+> >   - **Bold Text** inside a list
+> >   - `Inline Code` inside a list
+> >
+> > ```javascript
+> > console.log("Code inside a blockquote list");
+> > ```
+
 ### Text Formatting
 
-Various ways to style text.
-
-**Bold text**  
-_Italic text_  
-~~Strikethrough~~  
-`Inline code`
+- **Bold text `with code`**
+- _Italic text_
+- ~~Strikethrough~~
+- `Inline code`
 
 ### Blockquote
 
-Used for quoting text.
-
-> This is a blockquote.
+> This is a **nested blockquote** example.
+>
+> > Another level of nesting.
+> >
+> > - List item 1
+> > - List item 2
+> >   - Subitem inside blockquote
+> >
+> > ```python
+> > def nested_function():
+> >     return "Code inside nested blockquote"
+> > ```
 
 ### Horizontal Rule
-
-A horizontal line for section separation.
 
 ---
 
 ## 2. Lists
 
-Different types of lists for organizing information.
-
 ### Unordered List
-
-A list with bullet points.
 
 - Item 1
 - Item 2
@@ -78,8 +112,6 @@ A list with bullet points.
 
 ### Ordered List
 
-A numbered list.
-
 1. First item
 2. Second item
    1. Subitem 1
@@ -87,8 +119,6 @@ A numbered list.
 3. Third item
 
 ## 3. Code Blocks
-
-Displaying code snippets in different programming languages.
 
 ### JavaScript Example
 
@@ -108,28 +138,6 @@ def greet(name):
 greet("Mayank")
 ```
 
-### Java Example
-
-```java
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, Mayank!");
-    }
-}
-```
-
-### C++ Example
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "Hello, Mayank!" << endl;
-    return 0;
-}
-```
-
 ## 4. Tables
 
 Structuring data in tabular format.
@@ -140,13 +148,23 @@ Structuring data in tabular format.
 | Alice | 30  | San Francisco |
 | Bob   | 28  | London        |
 
+### Table with md alignments
+
+| Left-aligned | Center-aligned | Right-aligned |
+| :----------- | :------------: | ------------: |
+| Text 1       |     Text 2     |        Text 3 |
+
 ## 5. Links and Images
 
 Adding hyperlinks and images.
 
-### Links
+### External Links
 
 [OpenAI](https://openai.com)
+
+### Internal Links
+
+[Back to Table of Contents](#table-of-contents)
 
 ### Images
 
@@ -281,6 +299,7 @@ Term 2
 Highlighting important notes or warnings.
 
 > **Note:** This is an important note.
+>
 > **Warning:** Be careful with this step!
 
 ## 13. HTML Elements
@@ -291,6 +310,90 @@ Using HTML for additional interactivity.
   <summary>Click to expand</summary>
   This is hidden content.
 </details>
+
+### 13.1. Inline HTML
+
+This is an example of **inline HTML** inside a paragraph:
+
+This is a <span style="color: red; font-weight: bold;">red bold text</span> inside a Markdown paragraph.
+
+You can also add **inline images**:
+
+<img src="https://via.placeholder.com/150" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
+
+Or create **inline links** with styles:
+
+<a href="https://openai.com" target="_blank" style="color: blue; text-decoration: none; font-weight: bold;">Visit OpenAI</a>
+
+### 13.2. Block HTML Elements
+
+#### Tables with HTML
+
+<table border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Location</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>25</td>
+        <td>New York</td>
+    </tr>
+    <tr>
+        <td>Alice</td>
+        <td>30</td>
+        <td>San Francisco</td>
+    </tr>
+</table>
+
+#### Forms in HTML
+
+<form action="#" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" /><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" /><br><br>
+    
+    <input type="submit" value="Submit" />
+</form>
+
+### 13.3. Combining Markdown and HTML
+
+> This is a **blockquote** with an embedded **HTML table**:
+>
+> <table border="1">
+>   <tr>
+>     <th>Feature</th>
+>     <th>Supported</th>
+>   </tr>
+>   <tr>
+>     <td>Markdown</td>
+>     <td>✅</td>
+>   </tr>
+>   <tr>
+>     <td>HTML</td>
+>     <td>✅</td>
+>   </tr>
+> </table>
+
+### 13.4. Custom Styling
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
 
 ## 14. Custom Directives (MDX)
 

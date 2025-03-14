@@ -1,0 +1,16 @@
+{
+  "mode": "exit",
+  "tag": "beta",
+  "initialVersions": {
+    "@example/nextjs": "0.0.0",
+    "@example/vite": "0.0.0",
+    "mdast2docx": "0.0.0",
+    "@repo/typescript-config": "0.0.0",
+    "@repo/eslint-config": "0.0.0",
+    "@repo/shared": "0.0.0",
+    "@repo/scripts": "0.0.0"
+  },
+  "changesets": [
+    "all-doodles-give"
+  ]
+}

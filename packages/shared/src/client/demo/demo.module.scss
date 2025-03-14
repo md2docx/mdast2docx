@@ -1,3 +1,38 @@
+.codeDisplay {
+  padding: 10px;
+  .hide {
+    display: none;
+  }
+  summary {
+    cursor: pointer;
+  }
+  &[open] {
+    .show {
+      display: none;
+    }
+    .hide {
+      display: inline;
+    }
+  }
+  .tabs {
+    text-wrap: nowrap;
+    overflow: auto;
+    border: 1px solid gray;
+    border-radius: 10px 10px 0 0;
+    button {
+      all: unset;
+      cursor: pointer;
+      padding: 10px 20px;
+      &.active {
+        background: #2465;
+      }
+      &:hover {
+        background: #2495;
+      }
+    }
+  }
+}
+
 .demo {
   width: var(--max-width);
   max-width: 95vw;
@@ -28,4 +63,7 @@
 
 .code {
   font-family: var(--font-mono);
+  height: calc(100vh - 60px);
+  min-height: 350px;
+  overflow: auto;
 }

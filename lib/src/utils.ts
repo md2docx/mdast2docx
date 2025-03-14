@@ -1,6 +1,23 @@
-import { IImageOptions } from "@mayank1513/docx";
-import { BlockContent, DefinitionContent, RootContent } from "mdast";
+import {
+  ExternalHyperlink,
+  ImageRun,
+  InternalHyperlink,
+  IParagraphOptions,
+  TextRun,
+  Table,
+  Paragraph,
+  IRunOptions,
+  IPropertiesOptions,
+  MathRun,
+} from "@mayank1513/docx";
+import * as DOCX from "@mayank1513/docx";
+import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
+
 export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
+
+export type Optional<T> = { [K in keyof T]?: T[K] };
+
+export type Mutable<T> = { -readonly [K in keyof T]: T[K] extends object ? Mutable<T> : T[K] };
 
 /** Type representing definition mappings */
 export type Definitions = Record<string, string>;
@@ -13,6 +30,7 @@ export type FootnoteDefinitions = Record<
 
 /**
  * Extracts definitions and footnote definitions from a list of MDAST nodes.
+ *
  * @param nodes - Array of MDAST nodes.
  * @returns An object containing `definitions` and `footnoteDefinitions`.
  */
@@ -24,157 +42,135 @@ export const getDefinitions = (nodes: RootContent[]) => {
       definitions[node.identifier.toUpperCase()] = node.url;
     } else if (node.type === "footnoteDefinition") {
       footnoteDefinitions[node.identifier.toUpperCase()] = { children: node.children };
-      // @ts-expect-error - Ensuring only nodes with children are processed
-    } else if (node.children?.length) {
-      // @ts-expect-error - Recursively process only nodes with children
-      Object.assign(definitions, getDefinitions(node.children));
+    } else if ((node as Parent).children?.length) {
+      Object.assign(definitions, getDefinitions((node as Parent).children));
     }
   });
   return { definitions, footnoteDefinitions };
 };
 
-/**
- * Type definition for an image resolver function.
+/** Type representing an extended RootContent node
+ * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-export type ImageResolver = (src: string) => Promise<IImageOptions>;
+type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | T;
 
 /**
- * Interface defining properties for MDAST to DOCX conversion.
+ * Extracts the textual content from a given MDAST node.
+ * Recursively processes child nodes if present.
+ *
+ * @param node - The MDAST node to extract text from.
+ * @returns The combined text content of the node and its children.
  */
-export interface IMdastToDocxSectionProps {
+export const getTextContent = (node: ExtendedRootContent): string => {
+  if ((node as Parent).children?.length)
+    return (node as Parent).children.map(getTextContent).join("");
+
+  return (node as { value?: string }).value ?? "";
+};
+
+/**
+ * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
+ * @returns
+ */
+export const uuid = () => Math.random().toString(16).slice(2);
+
+/**
+ * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
+ */
+interface IDefaultMdastToDocxSectionProps {
   /**
    * If true, H1 corresponds to the title, H2 to Heading1, etc.
    * @default true
    */
-  useTitle?: boolean;
+  useTitle: boolean;
 
   /**
-   * Custom image resolver function. Defaults to assuming client-side code.
+   * List of plugins to extend conversion functionality.
    */
-  imageResolver?: ImageResolver;
+  plugins: Array<IPlugin>;
 }
 
 /**
- * Determines the MIME type of an image from its binary buffer.
- * @param buffer - The image buffer (ArrayBuffer or Buffer).
- * @returns The detected MIME type as a string.
+ * Interface defining properties for MDAST to DOCX conversion.
  */
-export function getImageMimeType(buffer: Buffer | ArrayBuffer) {
-  const signatureLength = 4;
-  const signatureArray = new Uint8Array(buffer).slice(0, signatureLength);
-
-  if (signatureArray[0] === 66 && signatureArray[1] === 77) return "bmp";
-
-  let signature = "";
-  signatureArray.forEach(byte => {
-    signature += byte.toString(16).padStart(2, "0");
-  });
-
-  switch (signature) {
-    case "89504E47":
-      return "png";
-    case "47494638":
-      return "gif";
-    case "FFD8FFE0": // or other FFD8FF... signatures
-    case "FFD8FFE1":
-    case "FFD8FFE2":
-    case "FFD8FFE3":
-    case "FFD8FFE8":
-      return "jpg";
-  }
-}
-
-/** Scale factor for data images */
-const DATA_IMG_SCALE = 3;
-
-/**
- * Handles base64-encoded image URLs and converts them into image options.
- * @param src - The base64 image source.
- * @returns The image options with transformation details.
- */
-const handleDataUrls = async (src: string): Promise<IImageOptions> => {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  if (ctx) {
-    const img = new Image();
-    img.src = src;
-    await new Promise(resolve => {
-      img.onload = resolve;
-    });
-    const width = img.width * DATA_IMG_SCALE;
-    const height = img.height * DATA_IMG_SCALE;
-    canvas.width = width;
-    canvas.height = height;
-    ctx.drawImage(img, 0, 0, width, height);
-    return {
-      data: canvas.toDataURL("image/png"),
-      type: "png",
-      transformation: {
-        width: width / DATA_IMG_SCALE,
-        height: height / DATA_IMG_SCALE,
-      },
-    };
-  } else throw new Error("Canvas context not available");
-};
-
-/**
- * Fetches an image from a URL and extracts its options.
- * @param url - The image URL.
- * @returns The extracted image options.
- */
-const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
-  const response = await fetch(url);
-  const arrayBuffer = await response.arrayBuffer();
-  const mimeType = getImageMimeType(arrayBuffer) || "png";
-  const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
-
-  return {
-    type: mimeType,
-    data: arrayBuffer,
-    transformation: {
-      width: imageBitmap.width,
-      height: imageBitmap.height,
-    },
-  };
-};
-
-/**
- * Resolves an image URL (base64 or external) to the required format.
- * @param src - The image source URL.
- * @returns The resolved image options.
- */
-const imageResolver: ImageResolver = async (src: string) => {
-  try {
-    if (src.startsWith("data:")) return await handleDataUrls(src);
-    return await handleNonDataUrls(src);
-  } catch (error) {
-    console.error(`Error resolving image: ${src}`, error);
-    return {
-      type: "png",
-      data: Buffer.from([]),
-      transformation: {
-        width: 100,
-        height: 100,
-      },
-    };
-  }
-};
-
-/**
- * Default properties for MDAST to DOCX conversion.
- */
-
-interface IDefaultMdastToDocxSectionProps extends IMdastToDocxSectionProps {
-  useTitle: boolean;
-  imageResolver: ImageResolver;
-}
+export type IMdastToDocxSectionProps = Optional<IDefaultMdastToDocxSectionProps>;
 
 export const defaultProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
-  imageResolver,
+  plugins: [],
 };
 
 /**
- * @mayank/docx is a fork of the `docx` library with minor changes,
- * specifically exporting additional types that were not included in the original `docx` library.
+ * Defines document properties, excluding sections and footnotes (which are managed internally).
+ */
+export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnotes">;
+
+/**
+ * Mutable version of IRunOptions where all properties are writable.
+ */
+export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
+
+export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
+export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | MathRun;
+export type InlineProcessor = (
+  node: ExtendedRootContent,
+  runProps: MutableRunOptions,
+) => Promise<InlineDocxNodes[]>;
+
+export type InlineChildrenProcessor = (
+  node: Parent,
+  runProps?: MutableRunOptions,
+) => Promise<InlineDocxNodes[]>;
+
+/**
+ * Mutable version of IParagraphOptions where all properties are writable.
+ */
+export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children">;
+
+export type BlockNodeProcessor = (
+  node: ExtendedRootContent,
+  paraProps: MutableParaOptions,
+) => Promise<(Paragraph | Table)[]>;
+
+export type BlockNodeChildrenProcessor = (
+  node: Parent | Root,
+  paraProps: MutableParaOptions,
+) => Promise<(Paragraph | Table)[]>;
+
+/**
+ * Interface for extending MDAST to DOCX conversion using plugins.
+ */
+export interface IPlugin<T extends { type: string } = { type: "" }> {
+  /**
+   * Processes block-level nodes.
+   */
+  block?: (
+    docx: typeof DOCX,
+    node: ExtendedRootContent<T>,
+    paraProps: MutableParaOptions,
+    blockChildrenProcessor: BlockNodeChildrenProcessor,
+    inlineChildrenProcessor: InlineChildrenProcessor,
+  ) => Promise<(Paragraph | Table)[]>;
+
+  /**
+   * Processes inline-level nodes.
+   */
+  inline?: (
+    docx: typeof DOCX,
+    node: ExtendedRootContent<T>,
+    parentSet: MutableRunOptions,
+    definitions: Definitions,
+    footnoteDefinitions: FootnoteDefinitions,
+    inlineChildrenProcessor: InlineChildrenProcessor,
+  ) => Promise<InlineDocxNodes[]>;
+
+  /**
+   * Allows plugins to modify document-level DOCX properties, such as styles, numbering, headers, and footers. This is useful for global formatting customizations.
+   */
+  root?: (props: IDocxProps) => void;
+}
+
+/**
+ * @mayank/docx is a fork of the `docx` library with minor modifications,
+ * primarily adding exports for additional types missing from the original `docx` library.
  */
