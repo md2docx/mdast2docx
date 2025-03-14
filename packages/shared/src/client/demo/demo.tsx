@@ -6,11 +6,12 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMath from "remark-math";
-import { toDocx } from "mdast2docx";
 import styles from "./demo.module.scss";
 import { CodeDisplay } from "./code-display";
 import { removePosition } from "unist-util-remove-position";
+import { toDocx } from "mdast2docx";
 import { imagePlugin, tablePlugin, listPlugin, mathPlugin } from "mdast2docx/dist/plugins";
+import demoCode from "./demo.tsx?raw";
 
 /** React live demo */
 export function Demo() {
@@ -45,6 +46,7 @@ export function Demo() {
   const code: { filename: string; code: string }[] = [
     { filename: "sample.md", code: md },
     { filename: "MDAST", code: JSON.stringify(mdast, null, 2) },
+    { filename: "demo.tsx", code: demoCode },
   ];
   return (
     <div className={styles.demo}>

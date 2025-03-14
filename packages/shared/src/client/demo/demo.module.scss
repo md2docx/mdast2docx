@@ -15,9 +15,10 @@
     }
   }
   .tabs {
-    margin-bottom: -10px;
     text-wrap: nowrap;
     overflow: auto;
+    border: 1px solid gray;
+    border-radius: 10px 10px 0 0;
     button {
       all: unset;
       cursor: pointer;

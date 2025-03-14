@@ -15,7 +15,6 @@ export function CodeDisplay({ code }: CodeDisplayProps) {
         <span className={styles.hide}>Hide</span>
         &nbsp;Code
       </summary>
-      <Editor className={styles.code} code={code[selectedTab].code} language="tsx" />
       <div className={styles.tabs}>
         {code.map((item, index) => (
           <button
@@ -26,6 +25,7 @@ export function CodeDisplay({ code }: CodeDisplayProps) {
           </button>
         ))}
       </div>
+      <Editor className={styles.code} code={code[selectedTab].code} language="tsx" />
     </details>
   );
 }
