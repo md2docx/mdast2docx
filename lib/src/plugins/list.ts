@@ -49,8 +49,8 @@ const levelFormats = [
  */
 export const createLevels = (
   levelFormats: (typeof LevelFormat)[keyof typeof LevelFormat][],
-  indent: number = 0.4, // Base indentation for the first level (in inches)
-  indentStep: number = 0.25, // Additional indentation per level
+  indent = 0.4, // Base indentation for the first level (in inches)
+  indentStep = 0.25, // Additional indentation per level
 ) =>
   levelFormats.map((format, i) => ({
     level: i,

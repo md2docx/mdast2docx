@@ -10,7 +10,7 @@ export default defineConfig({
     setupFiles: [],
     coverage: {
       include: ["src/**"],
-      exclude: ["src/**/*.test.*", "src/**/declaration.d.ts"],
+      exclude: ["src/**/*.test.*", "src/**/declaration.d.ts", "src/plugins/**"],
       reporter: ["text", "json", "clover", "html"],
     },
   },

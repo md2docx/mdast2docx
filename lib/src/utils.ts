@@ -68,6 +68,10 @@ export const getTextContent = (node: ExtendedRootContent): string => {
   return (node as { value?: string }).value ?? "";
 };
 
+/**
+ * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
+ * @returns
+ */
 export const uuid = () => Math.random().toString(16).slice(2);
 
 /**
