@@ -136,13 +136,19 @@ const handleNonDataUrls = async (
 ): Promise<IImageOptions> => {
   const response = await fetch(url);
 
-  if (/(svg|xml)/.test(response.headers.get("content-type") ?? "")) {
+  if (/(svg|xml)/.test(response.headers.get("content-type") ?? "") || url.endsWith(".svg")) {
     const svgText = await response.text();
     return handleDataUrls(`data:image/svg+xml;base64,${btoa(svgText)}`, options);
   }
   const arrayBuffer = await response.arrayBuffer();
   const mimeType = getImageMimeType(arrayBuffer) || "png";
+
   const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
+
+  if (!SUPPORTED_IMAGE_TYPES.includes(mimeType)) {
+    console.warn(`${mimeType} not supported by docx. Using one of the supported mime types.`);
+    return handleDataUrls(url, options);
+  }
 
   return {
     type: mimeType,
