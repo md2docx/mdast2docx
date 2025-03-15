@@ -61,7 +61,7 @@ const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageO
   canvas.height = height;
   ctx.drawImage(img, 0, 0, width, height);
 
-  return {
+  const imgData: IImageOptions = {
     data: canvas.toDataURL("image/png"),
     type: "png",
     transformation: {
@@ -69,6 +69,18 @@ const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageO
       height: height / scaleFactor,
     },
   };
+
+  return src.includes("svg")
+    ? {
+        ...imgData,
+        type: "svg",
+        data: src,
+        fallback: {
+          type: "png",
+          data: imgData.data,
+        },
+      }
+    : imgData;
 };
 
 /**
@@ -79,6 +91,12 @@ const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageO
  */
 const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
   const response = await fetch(url);
+
+  if (/(svg|xml)/.test(response.headers.get("content-type") ?? "")) {
+    const svgText = await response.text();
+    return handleDataUrls(`data:image/svg+xml;base64,${btoa(svgText)}`, DEFAULT_SCALE_FACTOR);
+  }
+  console.log("----", response);
   const arrayBuffer = await response.arrayBuffer();
   const mimeType = getImageMimeType(arrayBuffer) || "png";
   const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
