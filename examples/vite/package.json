@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "@repo/shared": "workspace:*",
+    "mdast2docx": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-mouse-trails": "^0.0.5",
-    "react18-loaders": "latest",
-    "react18-themes": "^3.2.0",
-    "mdast2docx": "workspace:*"
+    "react18-loaders": "^1.1.4",
+    "react18-themes": "^3.2.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -28,6 +28,6 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.8.2",
-    "vite": "^6.2.1"
+    "vite": "^6.2.2"
   }
 }

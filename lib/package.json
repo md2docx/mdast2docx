@@ -41,7 +41,7 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.8"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@mayank1513/docx": "^9.2.0"
   },
   "funding": [
