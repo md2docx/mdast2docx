@@ -14,9 +14,12 @@ const docxProcessor = unified()
   .use(remarkFrontmatter)
   .use(remarkMath);
 
+/**
+ * Generate a docx file from markdown on server side.
+ * @returns docx file
+ */
 export const GET = async () => {
   const md = readFileSync("../../sample.md", "utf-8");
-  console.log("md...", md);
   const mdast = docxProcessor.parse(md);
   const buffer = await toDocx(
     mdast,
