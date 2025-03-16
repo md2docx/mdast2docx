@@ -4,7 +4,7 @@ import { IPlugin } from "../utils";
 /**
  * List of image types fully supported by docx. SVG requires fallback thus we do not include that here.
  */
-const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
+export const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
 
 /**
  * Options for the image plugin.
@@ -134,7 +134,9 @@ const handleNonDataUrls = async (
   url: string,
   options?: IImagePluginOptions,
 ): Promise<IImageOptions> => {
-  const response = await fetch(url);
+  const response = await fetch(
+    url.startsWith("http") ? url : `${window.location.origin}/${url.replace(/^\/+/, "")}`,
+  );
 
   if (/(svg|xml)/.test(response.headers.get("content-type") ?? "") || url.endsWith(".svg")) {
     const svgText = await response.text();

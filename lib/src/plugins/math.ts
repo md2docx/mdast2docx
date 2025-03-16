@@ -385,8 +385,6 @@ const mapNode = (
 export const parseLatex = (docx: typeof DOCX, value: string): DOCX.MathRun[][] => {
   const latexNodes = parseMath(value);
 
-  console.log(value, latexNodes);
-
   const paragraphs: DOCX.MathRun[][] = [[]];
   let runs: DOCX.MathRun[] = paragraphs[0]!;
 
