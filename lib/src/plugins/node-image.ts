@@ -30,6 +30,13 @@ export type NodeImageResolver = (
   options?: INodeImagePluginOptions,
 ) => Promise<IImageOptions>;
 
+/**
+ * Processes base64-encoded images, extracts dimensions, and returns image options.
+ *
+ * @param src - Base64 image source.
+ * @param scaleFactor - Scaling factor for resolution adjustment.
+ * @returns Image options with transformation details.
+ */
 const handleDataUrls: NodeImageResolver = async (
   src: string,
   options?: INodeImagePluginOptions,
@@ -74,6 +81,12 @@ const handleDataUrls: NodeImageResolver = async (
     : imgData;
 };
 
+/**
+ * Fetches an image from an external URL, determines its type, and extracts dimensions.
+ *
+ * @param url - Image URL.
+ * @returns Image options with metadata.
+ */
 const handleNonDataUrls: NodeImageResolver = async (
   src: string,
   options?: INodeImagePluginOptions,
@@ -88,6 +101,7 @@ const handleNonDataUrls: NodeImageResolver = async (
     const metadata = await sharpImg.metadata();
     width = metadata.width ?? 100;
     height = metadata.height ?? 100;
+    // skipcq: JS-0323
     if (SUPPORTED_IMAGE_TYPES.includes(imgType as any)) {
       return {
         type: imgType as SupportedImageType,
@@ -105,13 +119,14 @@ const handleNonDataUrls: NodeImageResolver = async (
     width = metadata.width ?? 100;
     height = metadata.height ?? 100;
     const imgType = src.split(".").pop();
+    // skipcq: JS-0323
     if (SUPPORTED_IMAGE_TYPES.includes(imgType as any)) {
       return {
         type: imgType as SupportedImageType,
         data: await sharpImg.toBuffer(),
         transformation: {
-          width: width,
-          height: height,
+          width,
+          height,
         },
       };
     }
@@ -128,6 +143,13 @@ const handleNonDataUrls: NodeImageResolver = async (
   };
 };
 
+/**
+ * Resolves an image source (base64 or external URL) into image options for DOCX conversion.
+ *
+ * @param src - Image source URL.
+ * @param options - Plugin options including scaling factor.
+ * @returns The resolved image options.
+ */
 const nodeImageResolver: NodeImageResolver = async (
   src: string,
   options?: INodeImagePluginOptions,
@@ -149,6 +171,10 @@ const nodeImageResolver: NodeImageResolver = async (
   }
 };
 
+/**
+ * Image plugin for processing inline image nodes in Markdown AST.
+ * This plugin is designed for server-side (node.js) environments.
+ */
 export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = options => ({
   inline: async (docx, node, _, definitions) => {
     if (/^image/.test(node.type)) {

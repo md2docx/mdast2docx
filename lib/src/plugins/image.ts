@@ -88,6 +88,7 @@ const handleDataUrls = async (
 
   const imgType = src.split(";")[0].split("/")[1];
 
+  // skipcq: JS-0323
   if (SUPPORTED_IMAGE_TYPES.includes(imgType as any)) {
     return {
       data: src,
