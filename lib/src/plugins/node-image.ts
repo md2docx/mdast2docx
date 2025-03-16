@@ -63,8 +63,8 @@ const handleDataUrls: NodeImageResolver = async (
     data: await sharpImg.toFormat(fallbackImageType).toBuffer(),
     type: fallbackImageType,
     transformation: {
-      width: width,
-      height: height,
+      width,
+      height,
     },
   };
 

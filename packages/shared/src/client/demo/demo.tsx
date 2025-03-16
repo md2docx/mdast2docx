@@ -11,6 +11,7 @@ import { CodeDisplay } from "./code-display";
 import { removePosition } from "unist-util-remove-position";
 import { toDocx } from "mdast2docx";
 import { imagePlugin, tablePlugin, listPlugin, mathPlugin } from "mdast2docx/dist/plugins";
+// skipcq: JS-R1001
 import demoCode from "./demo.tsx?raw";
 
 /** React live demo */

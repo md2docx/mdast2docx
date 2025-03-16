@@ -173,17 +173,17 @@ const mapGroup = (docx: typeof DOCX, nodes: latex.Node[]): DOCX.MathRun[] => {
 // skipcq: JS-R1005
 const mapMacro = (
   docx: typeof DOCX,
-  n: latex.Macro,
+  node: latex.Macro,
   runs: DOCX.MathRun[],
 ): DOCX.MathRun[] | DOCX.MathRun | null => {
   let returnVal: DOCX.MathRun[] | DOCX.MathRun | null = null;
-  switch (n.content) {
+  switch (node.content) {
     case "newline":
     case "\\":
       // line break
       return null;
     case "textcolor": {
-      const args = n.args ?? [];
+      const args = node.args ?? [];
       // const _color = (hasCurlyBrackets(args[1]) && args[1]?.content?.[0]?.content) || "";
       if (hasCurlyBrackets(args[2])) {
         returnVal = mapGroup(docx, args[2].content);
@@ -191,7 +191,7 @@ const mapMacro = (
       break;
     }
     case "text": {
-      const args = n.args ?? [];
+      const args = node.args ?? [];
       if (hasCurlyBrackets(args[0])) {
         returnVal = mapGroup(docx, args[0].content);
       }
@@ -200,7 +200,7 @@ const mapMacro = (
     case "^": {
       const prev = runs.pop();
       if (!prev) break;
-      const superScript = mapGroup(docx, n.args?.[0]?.content ?? []);
+      const superScript = mapGroup(docx, node.args?.[0]?.content ?? []);
       // @ts-expect-error -- using extra vars
       if (prev.isSum) {
         const docNode = new docx.MathSum({
@@ -240,7 +240,7 @@ const mapMacro = (
     case "_": {
       const prev = runs.pop();
       if (!prev) break;
-      const subScript = mapGroup(docx, n.args?.[0]?.content ?? []);
+      const subScript = mapGroup(docx, node.args?.[0]?.content ?? []);
       // @ts-expect-error -- attaching extra field
       if (prev.isSum) {
         const docNode = new docx.MathSum({
@@ -291,7 +291,7 @@ const mapMacro = (
     case "frac":
     case "tfrac":
     case "dfrac": {
-      const args = n.args ?? [];
+      const args = node.args ?? [];
       if (args.length === 2 && hasCurlyBrackets(args[0]) && hasCurlyBrackets(args[1])) {
         returnVal = new docx.MathFraction({
           numerator: mapGroup(docx, args[0].content),
@@ -301,7 +301,7 @@ const mapMacro = (
       break;
     }
     case "sqrt": {
-      const args = n.args ?? [];
+      const args = node.args ?? [];
       if (args.length === 1) {
         returnVal = new docx.MathRadical({
           children: mapGroup(docx, args[0].content),
@@ -323,9 +323,9 @@ const mapMacro = (
     case "vec":
       return [];
     case "mathbf":
-      return mapGroup(docx, n.args?.[0]?.content ?? []);
+      return mapGroup(docx, node.args?.[0]?.content ?? []);
     default:
-      returnVal = mapString(docx, LATEX_SYMBOLS[n.content] ?? n.content);
+      returnVal = mapString(docx, LATEX_SYMBOLS[node.content] ?? node.content);
   }
   // @ts-expect-error -- reading extra field
   if (runs[runs.length - 1]?.isSum && returnVal) {

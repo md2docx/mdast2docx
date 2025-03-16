@@ -44,6 +44,7 @@ describe("toDocx", () => {
   it("should fail gracefully when given an invalid MDAST input", async () => {
     try {
       // Passing an invalid AST
+      // skipcq: JS-0323
       await toDocx(null as any, {}, {});
     } catch (error) {
       expect(error).toBeDefined();
