@@ -11,3 +11,27 @@ html {
   line-height: 1.5;
   tab-size: 4;
 }
+
+button {
+  cursor: pointer;
+}
+
+.demo {
+  width: var(--max-width);
+  max-width: 95vw;
+  margin: auto;
+  margin-bottom: 3rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0 8px -2px var(--text-color);
+  text-align: center;
+  padding-bottom: 25px;
+  button {
+    cursor: pointer;
+    padding: 10px 30px;
+  }
+  details {
+    text-align: left;
+    padding: 5px 30px;
+  }
+}

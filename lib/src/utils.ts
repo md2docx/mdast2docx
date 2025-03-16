@@ -8,7 +8,7 @@ import {
   Paragraph,
   IRunOptions,
   IPropertiesOptions,
-  MathRun,
+  Math as DOCXMath,
 } from "@mayank1513/docx";
 import * as DOCX from "@mayank1513/docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
@@ -111,7 +111,7 @@ export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnot
 export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
 
 export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
-export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | MathRun;
+export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | DOCXMath;
 export type InlineProcessor = (
   node: ExtendedRootContent,
   runProps: MutableRunOptions,

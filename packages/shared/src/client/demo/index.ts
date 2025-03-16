@@ -2,3 +2,4 @@
 
 // component exports
 export * from "./demo";
+export * from "./code-display";

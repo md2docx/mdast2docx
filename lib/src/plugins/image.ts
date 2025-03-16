@@ -2,6 +2,27 @@ import type { IImageOptions } from "@mayank1513/docx";
 import { IPlugin } from "../utils";
 
 /**
+ * List of image types fully supported by docx. SVG requires fallback thus we do not include that here.
+ */
+export const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
+
+/**
+ * Options for the image plugin.
+ */
+export interface IImagePluginOptions {
+  /**
+   * Scaling factor for base64-encoded images.
+   * @default 3
+   */
+  scale?: number;
+  /**
+   * Fallback image type if the image type cannot be determined or is not supported.
+   * @default "png"
+   */
+  fallbackImageType?: "png" | "jpg" | "bmp" | "gif";
+}
+
+/**
  * Resolves an image source URL into the appropriate image options for DOCX conversion.
  */
 export type ImageResolver = (src: string, options?: IImagePluginOptions) => Promise<IImageOptions>;
@@ -46,7 +67,11 @@ const DEFAULT_SCALE_FACTOR = 3;
  * @param scaleFactor - Scaling factor for resolution adjustment.
  * @returns Image options with transformation details.
  */
-const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageOptions> => {
+const handleDataUrls = async (
+  src: string,
+  options?: IImagePluginOptions,
+): Promise<IImageOptions> => {
+  const scaleFactor = options?.scale ?? DEFAULT_SCALE_FACTOR;
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas context not available");
@@ -61,14 +86,43 @@ const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageO
   canvas.height = height;
   ctx.drawImage(img, 0, 0, width, height);
 
-  return {
-    data: canvas.toDataURL("image/png"),
-    type: "png",
+  const imgType = src.split(";")[0].split("/")[1];
+
+  // skipcq: JS-0323
+  if (SUPPORTED_IMAGE_TYPES.includes(imgType as any)) {
+    return {
+      data: src,
+      // @ts-expect-error -- ok as one of SUPPORTED_TYPES
+      type: imgType,
+      transformation: {
+        width: width / scaleFactor,
+        height: height / scaleFactor,
+      },
+    };
+  }
+
+  const fallbackImageType = options?.fallbackImageType ?? "png";
+
+  const imgData: IImageOptions = {
+    data: canvas.toDataURL(`image/${fallbackImageType}`),
+    type: fallbackImageType,
     transformation: {
       width: width / scaleFactor,
       height: height / scaleFactor,
     },
   };
+
+  return src.includes("svg")
+    ? {
+        ...imgData,
+        type: "svg",
+        data: src,
+        fallback: {
+          type: fallbackImageType,
+          data: imgData.data,
+        },
+      }
+    : imgData;
 };
 
 /**
@@ -77,11 +131,27 @@ const handleDataUrls = async (src: string, scaleFactor: number): Promise<IImageO
  * @param url - Image URL.
  * @returns Image options with metadata.
  */
-const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
-  const response = await fetch(url);
+const handleNonDataUrls = async (
+  url: string,
+  options?: IImagePluginOptions,
+): Promise<IImageOptions> => {
+  const response = await fetch(
+    url.startsWith("http") ? url : `${window.location.origin}/${url.replace(/^\/+/, "")}`,
+  );
+
+  if (/(svg|xml)/.test(response.headers.get("content-type") ?? "") || url.endsWith(".svg")) {
+    const svgText = await response.text();
+    return handleDataUrls(`data:image/svg+xml;base64,${btoa(svgText)}`, options);
+  }
   const arrayBuffer = await response.arrayBuffer();
   const mimeType = getImageMimeType(arrayBuffer) || "png";
+
   const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
+
+  if (!SUPPORTED_IMAGE_TYPES.includes(mimeType)) {
+    console.warn(`${mimeType} not supported by docx. Using one of the supported mime types.`);
+    return handleDataUrls(url, options);
+  }
 
   return {
     type: mimeType,
@@ -103,8 +173,8 @@ const handleNonDataUrls = async (url: string): Promise<IImageOptions> => {
 const imageResolver: ImageResolver = async (src: string, options?: IImagePluginOptions) => {
   try {
     return src.startsWith("data:")
-      ? await handleDataUrls(src, options?.scale ?? DEFAULT_SCALE_FACTOR)
-      : await handleNonDataUrls(src);
+      ? await handleDataUrls(src, options)
+      : await handleNonDataUrls(src, options);
   } catch (error) {
     console.error(`Error resolving image: ${src}`, error);
     return {
@@ -117,17 +187,6 @@ const imageResolver: ImageResolver = async (src: string, options?: IImagePluginO
     };
   }
 };
-
-/**
- * Options for the image plugin.
- */
-interface IImagePluginOptions {
-  /**
-   * Scaling factor for base64-encoded images.
-   * @default 3
-   */
-  scale?: number;
-}
 
 /**
  * Image plugin for processing inline image nodes in Markdown AST.

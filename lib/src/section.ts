@@ -231,7 +231,7 @@ export const toSection = async (
       case "yaml":
       case "html":
       default:
-        console.warn(`Unsupported node type: ${node.type}`, node);
+        console.warn(`May be an unsupported node type: ${node.type}`, node);
         return docxNodes;
     }
   };
