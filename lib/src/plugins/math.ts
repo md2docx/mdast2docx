@@ -1,15 +1,18 @@
 import { IPlugin } from "../utils";
 import { parseMath } from "@unified-latex/unified-latex-util-parse";
+// skipcq: JS-C1003
 import * as DOCX from "@mayank1513/docx";
+// skipcq: JS-C1003
 import type * as latex from "@unified-latex/unified-latex-types";
 
-const hasSquareBrackets = (arg: latex.Argument | undefined): arg is latex.Argument => {
-  return !!arg && arg.openMark === "[" && arg.closeMark === "]";
-};
+/**
+ * Checks if the argument has curly brackets.
+ */
 const hasCurlyBrackets = (arg: latex.Argument | undefined): arg is latex.Argument => {
-  return !!arg && arg.openMark === "{" && arg.closeMark === "}";
+  return Boolean(arg && arg.openMark === "{" && arg.closeMark === "}");
 };
 
+/** convert to MathRun */
 const mapString = (docx: typeof DOCX, s: string): DOCX.MathRun => new docx.MathRun(s);
 
 const LATEX_SYMBOLS: Record<string, string> = {
@@ -156,6 +159,18 @@ const LATEX_SYMBOLS: Record<string, string> = {
   bigtimes: "⨯",
 };
 
+/** convert group to Math */
+const mapGroup = (docx: typeof DOCX, nodes: latex.Node[]): DOCX.MathRun[] => {
+  const group: DOCX.MathRun[] = [];
+  for (const c of nodes) {
+    // skipcq: JS-0357
+    group.push(...(mapNode(docx, c, group) || []));
+  }
+  return group;
+};
+
+/** Handle Macros */
+// skipcq: JS-R1005
 const mapMacro = (
   docx: typeof DOCX,
   n: latex.Macro,
@@ -167,14 +182,14 @@ const mapMacro = (
     case "\\":
       // line break
       return null;
-    case "textcolor":
+    case "textcolor": {
       const args = n.args ?? [];
-      // @ts-expect-error -- ok - color also not supported
-      const _color = (hasCurlyBrackets(args[1]) && args[1]?.content?.[0]?.content) || "";
+      // const _color = (hasCurlyBrackets(args[1]) && args[1]?.content?.[0]?.content) || "";
       if (hasCurlyBrackets(args[2])) {
         returnVal = mapGroup(docx, args[2].content);
       }
       break;
+    }
     case "text": {
       const args = n.args ?? [];
       if (hasCurlyBrackets(args[0])) {
@@ -186,7 +201,7 @@ const mapMacro = (
       const prev = runs.pop();
       if (!prev) break;
       const superScript = mapGroup(docx, n.args?.[0]?.content ?? []);
-      // @ts-expect-error
+      // @ts-expect-error -- using extra vars
       if (prev.isSum) {
         const docNode = new docx.MathSum({
           children: [],
@@ -266,7 +281,6 @@ const mapMacro = (
       // returnVal = docx.MathAccentCharacter(n)
       return [];
     case "sum": {
-      // TODO: support superscript and subscript
       const docNode = new docx.MathSum({
         children: [],
       });
@@ -313,7 +327,7 @@ const mapMacro = (
     default:
       returnVal = mapString(docx, LATEX_SYMBOLS[n.content] ?? n.content);
   }
-  // @ts-expect-error
+  // @ts-expect-error -- reading extra field
   if (runs[runs.length - 1]?.isSum && returnVal) {
     const prev = runs.pop();
     return [
@@ -329,29 +343,22 @@ const mapMacro = (
   return returnVal;
 };
 
-const mapGroup = (docx: typeof DOCX, nodes: latex.Node[]): DOCX.MathRun[] => {
-  const group: DOCX.MathRun[] = [];
-  for (const c of nodes) {
-    group.push(...(mapNode(docx, c, group) || []));
-  }
-  return group;
-};
-
+/** Process node */
 const mapNode = (
   docx: typeof DOCX,
-  n: latex.Node,
+  node: latex.Node,
   runs: DOCX.MathRun[],
 ): DOCX.MathRun[] | false => {
   let docxNodes: DOCX.MathRun[] = [];
-  switch (n.type) {
+  switch (node.type) {
     case "string":
-      docxNodes = [mapString(docx, n.content)];
+      docxNodes = [mapString(docx, node.content)];
       break;
     case "whitespace":
       docxNodes = [mapString(docx, " ")];
       break;
-    case "macro":
-      const run = mapMacro(docx, n, runs);
+    case "macro": {
+      const run = mapMacro(docx, node, runs);
       if (!run) {
         // line break
         return false;
@@ -359,14 +366,18 @@ const mapNode = (
         docxNodes = Array.isArray(run) ? run : [run];
       }
       break;
+    }
     case "group":
-      docxNodes = mapGroup(docx, n.content);
+      docxNodes = mapGroup(docx, node.content);
+      break;
     case "environment":
-    // NOT SUPPORTED BY DOCX library
+      // NOT SUPPORTED BY DOCX library
+      break;
+    default:
   }
 
-  // @ts-expect-error
-  if (n.type !== "macro" && runs[runs.length - 1]?.isSum) {
+  // @ts-expect-error -- reading extra field
+  if (node.type !== "macro" && runs[runs.length - 1]?.isSum) {
     const prev = runs.pop();
     return [
       new docx.MathSum({
@@ -382,11 +393,12 @@ const mapNode = (
   return docxNodes;
 };
 
+/** Parse latex and convert to DOCX MathRun nodes */
 export const parseLatex = (docx: typeof DOCX, value: string): DOCX.MathRun[][] => {
   const latexNodes = parseMath(value);
 
   const paragraphs: DOCX.MathRun[][] = [[]];
-  let runs: DOCX.MathRun[] = paragraphs[0]!;
+  let runs: DOCX.MathRun[] = paragraphs[0];
 
   for (const node of latexNodes) {
     const res = mapNode(docx, node, runs);
@@ -400,6 +412,9 @@ export const parseLatex = (docx: typeof DOCX, value: string): DOCX.MathRun[][] =
   return paragraphs;
 };
 
+/**
+ * Math Plugin
+ */
 export const mathPlugin: () => IPlugin<{
   type: "" | "math" | "inlineMath";
   value?: string;
@@ -408,12 +423,12 @@ export const mathPlugin: () => IPlugin<{
     inline: async (docx, node) => {
       if (node.type !== "inlineMath" && node.type !== "math") return [];
       node.type = "";
-      return [new docx.Math({ children: parseLatex(docx, node.value ?? "").flat() })];
+      return [new docx.Math({ children: await parseLatex(docx, node.value ?? "").flat() })];
     },
     block: async (docx, node) => {
       if (node.type !== "math" && node.type !== "inlineMath") return [];
       node.type = "";
-      return parseLatex(docx, node.value ?? "").map(
+      return await parseLatex(docx, node.value ?? "").map(
         runs => new docx.Paragraph({ children: [new docx.Math({ children: runs })] }),
       );
     },
