@@ -11,3 +11,7 @@ html {
   line-height: 1.5;
   tab-size: 4;
 }
+
+button {
+  cursor: pointer;
+}

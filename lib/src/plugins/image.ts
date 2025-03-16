@@ -9,7 +9,7 @@ const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
 /**
  * Options for the image plugin.
  */
-interface IImagePluginOptions {
+export interface IImagePluginOptions {
   /**
    * Scaling factor for base64-encoded images.
    * @default 3
@@ -117,7 +117,7 @@ const handleDataUrls = async (
         type: "svg",
         data: src,
         fallback: {
-          type: "png",
+          type: fallbackImageType,
           data: imgData.data,
         },
       }

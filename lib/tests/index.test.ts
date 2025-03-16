@@ -5,7 +5,7 @@ import remarkParse from "remark-parse";
 import remaskGfm from "remark-gfm";
 import fs from "fs";
 
-const markdown = fs.readFileSync("./tests/sample.md");
+const markdown = fs.readFileSync("../sample.md", "utf-8");
 
 describe("toDocx", () => {
   it("should convert a basic Markdown string to a DOCX Blob", async () => {
