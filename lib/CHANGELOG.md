@@ -1,5 +1,15 @@
 # mdast2docx
 
+## 0.1.0
+
+### Minor Changes
+
+- 1e7121b: Support multiple image formats for fallback image type.
+
+### Patch Changes
+
+- e64c600: Improve Math parsing with latex
+
 ## 0.0.0
 
 ### Minor Changes
