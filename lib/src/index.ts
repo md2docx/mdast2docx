@@ -1,8 +1,8 @@
 import { Document, OutputType, Packer, Paragraph } from "docx";
 import type { Root } from "mdast";
 
-import { toSection, type ISectionProps } from "./section";
-import { getDefinitions, IDocxProps } from "./utils";
+import { toSection } from "./section";
+import { defaultDocxProps, getDefinitions, type IDocxProps, type ISectionProps } from "./utils";
 
 /**
  * Represents the input Markdown AST tree(s) for conversion.
@@ -15,7 +15,7 @@ type IInputMDAST = Root | { ast: Root; props?: ISectionProps }[];
 /**
  * Converts an MDAST (Markdown Abstract Syntax Tree) into a DOCX document.
  * @param astInputs - A single or multiple MDAST trees with optional section properties.
- * @param docxProps - General document properties. @see https://docx.js.org/#/usage/document
+ * @param docxProps_ - General document properties. @see https://docx.js.org/#/usage/document
  * @param defaultSectionProps - Default properties for each document section. @see https://docx.js.org/#/usage/sections
  * @param outputType - The desired output format (default: `"blob"`). @see https://docx.js.org/#/usage/packers
  * @returns A DOCX document in the specified format.
@@ -30,8 +30,9 @@ export const toDocx = async (
   // Stores footnotes indexed by their unique ID
   const footnotes: Record<number, { children: Paragraph[] }> = {};
 
+  const docxProps_ = { ...defaultDocxProps, ...docxProps };
   // Apply global document-level modifications from default plugins
-  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(docxProps));
+  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(docxProps_));
 
   const processedAstInputs = await Promise.all(
     (Array.isArray(astInputs) ? astInputs : [{ ast: astInputs }]).map(async ({ ast, props }) => {
@@ -51,7 +52,7 @@ export const toDocx = async (
       );
 
       // update docxProps by plugins
-      props?.plugins?.forEach(plugin => plugin.root?.(docxProps));
+      props?.plugins?.forEach(plugin => plugin.root?.(docxProps_));
 
       return { ast, props: { ...defaultSectionProps, ...props }, definitions, footnoteDefinitions };
     }),
@@ -66,7 +67,7 @@ export const toDocx = async (
 
   // Create DOCX document
   const doc = new Document({
-    ...docxProps,
+    ...docxProps_,
     footnotes,
     sections,
   });

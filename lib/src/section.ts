@@ -1,11 +1,11 @@
 import type { Root } from "mdast";
-import { defaultProps, getTextContent } from "./utils";
+import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
   BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
-  IMdastToDocxSectionProps,
+  ISectionProps,
   InlineChildrenProcessor,
   InlineDocxNodes,
   InlineProcessor,
@@ -20,13 +20,7 @@ import {
   Paragraph,
   TextRun,
 } from "docx";
-import type { ISectionOptions } from "docx";
 import * as docx from "docx";
-
-/**
- * Defines properties for a document section, omitting the "children" property from ISectionOptions.
- */
-export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
 
 /**
  * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
@@ -134,7 +128,7 @@ export const toSection = async (
   footnoteDefinitions: FootnoteDefinitions,
   props?: ISectionProps,
 ) => {
-  const { plugins, useTitle, ...sectionProps } = { ...defaultProps, ...props };
+  const { plugins, useTitle, ...sectionProps } = { ...defaultSectionProps, ...props };
 
   const processInlineNodeChildren = createInlineProcessor(
     definitions,

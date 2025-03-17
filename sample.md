@@ -40,7 +40,7 @@ Different levels of headings for structuring content.
 
 # Heading 1
 
-The largest heading, usually reserved for the main title of the document.
+The largest heading, usually reserved for the main title of the document. By default, single `#` in markdown is converted to Title. Thus, 'Heading 2', which in markdown is `## Heading 2` will have Heading 1 style applied, unless you set `useTitle` to false in the `sectionProps`.
 
 ## Heading 2
 

@@ -77,7 +77,7 @@ export const uuid = () => Math.random().toString(16).slice(2);
 /**
  * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
  */
-interface IDefaultMdastToDocxSectionProps {
+interface IDefaultMdastToDocxSectionProps extends Omit<DOCX.ISectionOptions, "children"> {
   /**
    * If true, H1 corresponds to the title, H2 to Heading1, etc.
    * @default true
@@ -91,11 +91,13 @@ interface IDefaultMdastToDocxSectionProps {
 }
 
 /**
- * Interface defining properties for MDAST to DOCX conversion.
+ * Defines properties for a document section, omitting the "children" property from ISectionOptions.
+ * Also defining properties for MDAST to DOCX conversion
  */
-export type IMdastToDocxSectionProps = Optional<IDefaultMdastToDocxSectionProps>;
 
-export const defaultProps: IDefaultMdastToDocxSectionProps = {
+export type ISectionProps = Optional<IDefaultMdastToDocxSectionProps>;
+
+export const defaultSectionProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
   plugins: [],
 };
@@ -104,6 +106,26 @@ export const defaultProps: IDefaultMdastToDocxSectionProps = {
  * Defines document properties, excluding sections and footnotes (which are managed internally).
  */
 export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnotes">;
+
+export const defaultDocxProps: IDocxProps = {
+  styles: {
+    default: {
+      document: {
+        paragraph: {
+          spacing: { before: 175, line: 300 },
+          alignment: "thaiDistribute",
+        },
+        run: { size: 24 },
+      },
+      heading1: { paragraph: { spacing: { before: 350 } } },
+      heading2: { paragraph: { spacing: { before: 350 } } },
+      heading3: { paragraph: { spacing: { before: 350 } } },
+      heading4: { paragraph: { spacing: { before: 350 } } },
+      heading5: { paragraph: { spacing: { before: 350 } } },
+      heading6: { paragraph: { spacing: { before: 350 } } },
+    },
+  },
+};
 
 /**
  * Mutable version of IRunOptions where all properties are writable.
