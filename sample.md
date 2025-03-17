@@ -40,7 +40,7 @@ Different levels of headings for structuring content.
 
 # Heading 1
 
-The largest heading, usually reserved for the main title of the document.
+The largest heading, usually reserved for the main title of the document. By default, single `#` in markdown is converted to Title. Thus, 'Heading 2', which in markdown is `## Heading 2` will have Heading 1 style applied, unless you set `useTitle` to false in the `sectionProps`.
 
 ## Heading 2
 
@@ -478,7 +478,7 @@ Or create **inline links** with styles:
     </tr>
     <tr>
         <td>John</td>
-        <td>25</td>
+        <td align="center">25</td>
         <td>New York</td>
     </tr>
     <tr>

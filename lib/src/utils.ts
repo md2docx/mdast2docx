@@ -52,7 +52,7 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | T;
+type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | Root | T;
 
 /**
  * Extracts the textual content from a given MDAST node.
@@ -77,7 +77,7 @@ export const uuid = () => Math.random().toString(16).slice(2);
 /**
  * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
  */
-interface IDefaultMdastToDocxSectionProps {
+interface IDefaultMdastToDocxSectionProps extends Omit<DOCX.ISectionOptions, "children"> {
   /**
    * If true, H1 corresponds to the title, H2 to Heading1, etc.
    * @default true
@@ -91,11 +91,13 @@ interface IDefaultMdastToDocxSectionProps {
 }
 
 /**
- * Interface defining properties for MDAST to DOCX conversion.
+ * Defines properties for a document section, omitting the "children" property from ISectionOptions.
+ * Also defining properties for MDAST to DOCX conversion
  */
-export type IMdastToDocxSectionProps = Optional<IDefaultMdastToDocxSectionProps>;
 
-export const defaultProps: IDefaultMdastToDocxSectionProps = {
+export type ISectionProps = Optional<IDefaultMdastToDocxSectionProps>;
+
+export const defaultSectionProps: IDefaultMdastToDocxSectionProps = {
   useTitle: true,
   plugins: [],
 };
@@ -105,12 +107,31 @@ export const defaultProps: IDefaultMdastToDocxSectionProps = {
  */
 export type IDocxProps = Omit<Mutable<IPropertiesOptions>, "sections" | "footnotes">;
 
+export const defaultDocxProps: IDocxProps = {
+  styles: {
+    default: {
+      document: {
+        paragraph: {
+          spacing: { before: 175, line: 300 },
+          alignment: "thaiDistribute",
+        },
+        run: { size: 24 },
+      },
+      heading1: { paragraph: { spacing: { before: 350 } } },
+      heading2: { paragraph: { spacing: { before: 350 } } },
+      heading3: { paragraph: { spacing: { before: 350 } } },
+      heading4: { paragraph: { spacing: { before: 350 } } },
+      heading5: { paragraph: { spacing: { before: 350 } } },
+      heading6: { paragraph: { spacing: { before: 350 } } },
+    },
+  },
+};
+
 /**
  * Mutable version of IRunOptions where all properties are writable.
  */
 export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
 
-export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | DOCXMath;
 export type InlineProcessor = (
   node: ExtendedRootContent,
@@ -158,7 +179,7 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
   inline?: (
     docx: typeof DOCX,
     node: ExtendedRootContent<T>,
-    parentSet: MutableRunOptions,
+    runProps: MutableRunOptions,
     definitions: Definitions,
     footnoteDefinitions: FootnoteDefinitions,
     inlineChildrenProcessor: InlineChildrenProcessor,
@@ -169,6 +190,26 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
    */
   root?: (props: IDocxProps) => void;
 }
+
+export const inlineMdastNodes = [
+  "text",
+  "break",
+  "inlineCode",
+  "image",
+  "emphasis",
+  "strong",
+  "delete",
+  "link",
+  "linkReference",
+  "footnoteReference",
+];
+
+export const standardize_color = (str: string) => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  if (!ctx) return str.startsWith("#") ? str : "auto";
+  ctx.fillStyle = str;
+  return ctx.fillStyle;
+};
 
 /**
  * @mayank/docx is a fork of the `docx` library with minor modifications,

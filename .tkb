@@ -25,6 +25,11 @@
       "id": "wkDDELNeOfYSVmWI1eWu0",
       "description": "Install the recommended VSCode extensions:\n  - [Trello Kanban](https://marketplace.visualstudio.com/items?itemName=mayank1513.trello-kanban-task-board)",
       "columnId": "column-done"
+    },
+    "e4p-5JQoPvimux5iNndBS": {
+      "id": "e4p-5JQoPvimux5iNndBS",
+      "description": "Code styles - option 1. allow users to select code font, option 2. allow user to pass in the styles",
+      "columnId": "column-todo"
     }
   },
   "columns": [
@@ -33,7 +38,8 @@
       "title": "To do",
       "tasksIds": [
         "MLLUsAhCKaKxvEXFY0HSq",
-        "dC7QDBLH8BmHUfaYmIt81"
+        "dC7QDBLH8BmHUfaYmIt81",
+        "e4p-5JQoPvimux5iNndBS"
       ]
     },
     {

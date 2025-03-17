@@ -3,12 +3,20 @@
  */
 
 import { IImageOptions } from "docx";
-import { IPlugin } from "../utils";
+import { IPlugin } from "../../utils";
 import sharp from "sharp";
 import fetch from "node-fetch";
 
 export const SUPPORTED_IMAGE_TYPES = ["jpg", "gif", "png"] as const;
 type SupportedImageType = (typeof SUPPORTED_IMAGE_TYPES)[number];
+
+/**
+ * Resolves an image source URL into the appropriate image options for DOCX conversion.
+ */
+export type NodeImageResolver = (
+  src: string,
+  options?: INodeImagePluginOptions,
+) => Promise<IImageOptions>;
 
 interface INodeImagePluginOptions {
   /**
@@ -20,15 +28,11 @@ interface INodeImagePluginOptions {
    * @default "png"
    */
   fallbackImageType?: "png" | "jpg" | "gif";
+  /**
+   * Custom image resolver to resolve an image source URL into the appropriate image options for DOCX conversion.
+   */
+  imageResolver?: NodeImageResolver;
 }
-
-/**
- * Resolves an image source URL into the appropriate image options for DOCX conversion.
- */
-export type NodeImageResolver = (
-  src: string,
-  options?: INodeImagePluginOptions,
-) => Promise<IImageOptions>;
 
 /**
  * Processes base64-encoded images, extracts dimensions, and returns image options.
@@ -186,7 +190,7 @@ export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = o
       node.type = "";
       return [
         new docx.ImageRun({
-          ...(await nodeImageResolver(url, options)),
+          ...(await (options?.imageResolver ?? nodeImageResolver)(url, options)),
           altText: { description: alt, name: alt, title: alt },
         }),
       ];

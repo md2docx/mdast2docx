@@ -1,8 +1,8 @@
 import { Document, OutputType, Packer, Paragraph } from "docx";
 import type { Root } from "mdast";
 
-import { toSection, type ISectionProps } from "./section";
-import { getDefinitions, IDocxProps } from "./utils";
+import { toSection } from "./section";
+import { defaultDocxProps, getDefinitions, type IDocxProps, type ISectionProps } from "./utils";
 
 /**
  * Represents the input Markdown AST tree(s) for conversion.
@@ -30,8 +30,9 @@ export const toDocx = async (
   // Stores footnotes indexed by their unique ID
   const footnotes: Record<number, { children: Paragraph[] }> = {};
 
+  const finalDocxProps = { ...defaultDocxProps, ...docxProps };
   // Apply global document-level modifications from default plugins
-  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(docxProps));
+  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(finalDocxProps));
 
   const processedAstInputs = await Promise.all(
     (Array.isArray(astInputs) ? astInputs : [{ ast: astInputs }]).map(async ({ ast, props }) => {
@@ -51,7 +52,7 @@ export const toDocx = async (
       );
 
       // update docxProps by plugins
-      props?.plugins?.forEach(plugin => plugin.root?.(docxProps));
+      props?.plugins?.forEach(plugin => plugin.root?.(finalDocxProps));
 
       return { ast, props: { ...defaultSectionProps, ...props }, definitions, footnoteDefinitions };
     }),
@@ -66,7 +67,7 @@ export const toDocx = async (
 
   // Create DOCX document
   const doc = new Document({
-    ...docxProps,
+    ...finalDocxProps,
     footnotes,
     sections,
   });

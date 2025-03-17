@@ -4,6 +4,7 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remaskGfm from "remark-gfm";
 import fs from "fs";
+import { htmlPlugin, listPlugin, mathPlugin, tablePlugin } from "../src/plugins";
 
 const markdown = fs.readFileSync("../sample.md", "utf-8");
 
@@ -11,7 +12,7 @@ describe("toDocx", () => {
   it("should convert a basic Markdown string to a DOCX Blob", async () => {
     const mdast = unified().use(remarkParse).parse(markdown);
 
-    const docxBlob = await toDocx(mdast, { title: "Test Document" }, {});
+    const docxBlob = await toDocx(mdast, { title: "Test Document" }, { useTitle: false });
 
     expect(docxBlob).toBeInstanceOf(Blob);
   });
@@ -54,7 +55,11 @@ describe("toDocx", () => {
   it("should handle footnotes", async ({ expect }) => {
     const mdast = unified().use(remarkParse).use(remaskGfm).parse(markdown);
 
-    const docxBlob = await toDocx(mdast, { title: "Test Document" }, {});
+    const docxBlob = await toDocx(
+      mdast,
+      { title: "Test Document" },
+      { plugins: [htmlPlugin(), listPlugin(), mathPlugin(), tablePlugin()] },
+    );
 
     expect(docxBlob).toBeInstanceOf(Blob);
   });

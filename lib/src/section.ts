@@ -1,11 +1,11 @@
 import type { Root } from "mdast";
-import { defaultProps, getTextContent } from "./utils";
+import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
   BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
-  IMdastToDocxSectionProps,
+  ISectionProps,
   InlineChildrenProcessor,
   InlineDocxNodes,
   InlineProcessor,
@@ -20,13 +20,7 @@ import {
   Paragraph,
   TextRun,
 } from "docx";
-import type { ISectionOptions } from "docx";
 import * as docx from "docx";
-
-/**
- * Defines properties for a document section, omitting the "children" property from ISectionOptions.
- */
-export type ISectionProps = Omit<ISectionOptions, "children"> & IMdastToDocxSectionProps;
 
 /**
  * Creates an inline content processor that converts MDAST inline elements to DOCX-compatible runs.
@@ -50,7 +44,7 @@ const createInlineProcessor = (
             plugin.inline?.(
               docx,
               node,
-              newRunProps,
+              runProps,
               definitions,
               footnoteDefinitions,
               processInlineNodeChildren,
@@ -108,14 +102,18 @@ const createInlineProcessor = (
           new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
         ];
       // Already handled by a plugin
-      // case "": //<- no need -- just for clarity
+      case "":
+        return [...docxNodes];
       default:
+        console.warn(`Unsupported inline node type: ${node.type}`);
         return [...docxNodes];
     }
   };
 
-  const processInlineNodeChildren: InlineChildrenProcessor = async (node, parentSet = new Set()) =>
-    (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
+  const processInlineNodeChildren: InlineChildrenProcessor = async (node, runProps = {}) =>
+    (
+      await Promise.all(node.children?.map(child => processInlineNode(child, runProps)) ?? [])
+    ).flat();
 
   return processInlineNodeChildren;
 };
@@ -134,7 +132,7 @@ export const toSection = async (
   footnoteDefinitions: FootnoteDefinitions,
   props?: ISectionProps,
 ) => {
-  const { plugins, useTitle, ...sectionProps } = { ...defaultProps, ...props };
+  const { plugins, useTitle, ...sectionProps } = { ...defaultSectionProps, ...props };
 
   const processInlineNodeChildren = createInlineProcessor(
     definitions,
@@ -160,6 +158,8 @@ export const toSection = async (
       )
     ).flat();
     switch (node.type) {
+      case "root":
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "paragraph":
         return [
           ...docxNodes,
