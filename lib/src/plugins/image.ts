@@ -7,6 +7,11 @@ import { IPlugin } from "../utils";
 export const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
 
 /**
+ * Resolves an image source URL into the appropriate image options for DOCX conversion.
+ */
+export type ImageResolver = (src: string, options?: IImagePluginOptions) => Promise<IImageOptions>;
+
+/**
  * Options for the image plugin.
  */
 export interface IImagePluginOptions {
@@ -20,12 +25,12 @@ export interface IImagePluginOptions {
    * @default "png"
    */
   fallbackImageType?: "png" | "jpg" | "bmp" | "gif";
-}
 
-/**
- * Resolves an image source URL into the appropriate image options for DOCX conversion.
- */
-export type ImageResolver = (src: string, options?: IImagePluginOptions) => Promise<IImageOptions>;
+  /**
+   * Custom image resolver to resolve an image source URL into the appropriate image options for DOCX conversion.
+   */
+  imageResolver?: ImageResolver;
+}
 
 /**
  * Determines the MIME type of an image based on its binary signature.
@@ -203,7 +208,7 @@ export const imagePlugin: (options?: IImagePluginOptions) => IPlugin = options =
       node.type = "";
       return [
         new docx.ImageRun({
-          ...(await imageResolver(url, options)),
+          ...(await (options?.imageResolver ?? imageResolver)(url, options)),
           altText: { description: alt, name: alt, title: alt },
         }),
       ];
