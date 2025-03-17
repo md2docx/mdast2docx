@@ -111,7 +111,9 @@ const createInlineProcessor = (
   };
 
   const processInlineNodeChildren: InlineChildrenProcessor = async (node, runProps = {}) =>
-    (await Promise.all(node.children?.map(child => processInlineNode(child, runProps)))).flat();
+    (
+      await Promise.all(node.children?.map(child => processInlineNode(child, runProps)) ?? [])
+    ).flat();
 
   return processInlineNodeChildren;
 };
