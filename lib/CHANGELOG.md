@@ -1,5 +1,16 @@
 # mdast2docx
 
+## 0.2.0
+
+### Minor Changes
+
+- 3216d1e: Add experimental support for html
+
+### Patch Changes
+
+- 8cdd4c0: Use docx in place of @mayank1513/docx as updates accepted by docx
+- 294d9d9: Allow passing custom image resolver
+
 ## 0.1.0
 
 ### Minor Changes
