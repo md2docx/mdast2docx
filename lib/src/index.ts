@@ -15,7 +15,7 @@ type IInputMDAST = Root | { ast: Root; props?: ISectionProps }[];
 /**
  * Converts an MDAST (Markdown Abstract Syntax Tree) into a DOCX document.
  * @param astInputs - A single or multiple MDAST trees with optional section properties.
- * @param docxProps_ - General document properties. @see https://docx.js.org/#/usage/document
+ * @param docxProps - General document properties. @see https://docx.js.org/#/usage/document
  * @param defaultSectionProps - Default properties for each document section. @see https://docx.js.org/#/usage/sections
  * @param outputType - The desired output format (default: `"blob"`). @see https://docx.js.org/#/usage/packers
  * @returns A DOCX document in the specified format.
@@ -30,9 +30,9 @@ export const toDocx = async (
   // Stores footnotes indexed by their unique ID
   const footnotes: Record<number, { children: Paragraph[] }> = {};
 
-  const docxProps_ = { ...defaultDocxProps, ...docxProps };
+  const finalDocxProps = { ...defaultDocxProps, ...docxProps };
   // Apply global document-level modifications from default plugins
-  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(docxProps_));
+  defaultSectionProps?.plugins?.forEach(plugin => plugin.root?.(finalDocxProps));
 
   const processedAstInputs = await Promise.all(
     (Array.isArray(astInputs) ? astInputs : [{ ast: astInputs }]).map(async ({ ast, props }) => {
@@ -52,7 +52,7 @@ export const toDocx = async (
       );
 
       // update docxProps by plugins
-      props?.plugins?.forEach(plugin => plugin.root?.(docxProps_));
+      props?.plugins?.forEach(plugin => plugin.root?.(finalDocxProps));
 
       return { ast, props: { ...defaultSectionProps, ...props }, definitions, footnoteDefinitions };
     }),
@@ -67,7 +67,7 @@ export const toDocx = async (
 
   // Create DOCX document
   const doc = new Document({
-    ...docxProps_,
+    ...finalDocxProps,
     footnotes,
     sections,
   });
