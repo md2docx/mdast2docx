@@ -46,7 +46,7 @@
     "vitest": "^3.0.8"
   },
   "peerDependencies": {
-    "@mayank1513/docx": "^9.2.0"
+    "docx": "^9.3.0"
   },
   "funding": [
     {

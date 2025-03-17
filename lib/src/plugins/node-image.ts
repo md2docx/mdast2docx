@@ -2,7 +2,7 @@
  * This plugin is not working at the moment because of issues in installing sharp or canvas
  */
 
-import { IImageOptions } from "@mayank1513/docx";
+import { IImageOptions } from "docx";
 import { IPlugin } from "../utils";
 import sharp from "sharp";
 import fetch from "node-fetch";

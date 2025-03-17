@@ -1,4 +1,4 @@
-import { Document, OutputType, Packer, Paragraph } from "@mayank1513/docx";
+import { Document, OutputType, Packer, Paragraph } from "docx";
 import type { Root } from "mdast";
 
 import { toSection, type ISectionProps } from "./section";

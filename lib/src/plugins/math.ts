@@ -1,7 +1,7 @@
 import { IPlugin } from "../utils";
 import { parseMath } from "@unified-latex/unified-latex-util-parse";
 // skipcq: JS-C1003
-import * as DOCX from "@mayank1513/docx";
+import * as DOCX from "docx";
 // skipcq: JS-C1003
 import type * as latex from "@unified-latex/unified-latex-types";
 

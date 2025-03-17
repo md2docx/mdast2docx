@@ -8,7 +8,7 @@ import {
   type ITableRowOptions,
   VerticalAlign,
   convertMillimetersToTwip,
-} from "@mayank1513/docx";
+} from "docx";
 import { IPlugin, Optional } from "../utils";
 import { TableRow as MdTableRow } from "mdast";
 

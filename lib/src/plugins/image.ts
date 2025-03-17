@@ -1,4 +1,4 @@
-import type { IImageOptions } from "@mayank1513/docx";
+import type { IImageOptions } from "docx";
 import { IPlugin } from "../utils";
 
 /**

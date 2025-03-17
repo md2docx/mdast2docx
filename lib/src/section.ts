@@ -19,9 +19,9 @@ import {
   InternalHyperlink,
   Paragraph,
   TextRun,
-} from "@mayank1513/docx";
-import type { ISectionOptions } from "@mayank1513/docx";
-import * as docx from "@mayank1513/docx";
+} from "docx";
+import type { ISectionOptions } from "docx";
+import * as docx from "docx";
 
 /**
  * Defines properties for a document section, omitting the "children" property from ISectionOptions.

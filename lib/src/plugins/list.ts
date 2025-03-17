@@ -1,4 +1,4 @@
-import { AlignmentType, convertInchesToTwip, ILevelsOptions, LevelFormat } from "@mayank1513/docx";
+import { AlignmentType, convertInchesToTwip, ILevelsOptions, LevelFormat } from "docx";
 import { IPlugin, Optional, uuid } from "../utils";
 
 /**

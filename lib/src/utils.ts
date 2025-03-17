@@ -9,11 +9,11 @@ import {
   IRunOptions,
   IPropertiesOptions,
   Math as DOCXMath,
-} from "@mayank1513/docx";
-import * as DOCX from "@mayank1513/docx";
+} from "docx";
+import * as DOCX from "docx";
 import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
 
-export { convertInchesToTwip, convertMillimetersToTwip } from "@mayank1513/docx";
+export { convertInchesToTwip, convertMillimetersToTwip } from "docx";
 
 export type Optional<T> = { [K in keyof T]?: T[K] };
 
