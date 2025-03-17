@@ -52,7 +52,7 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | T;
+type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | Root | T;
 
 /**
  * Extracts the textual content from a given MDAST node.
@@ -132,7 +132,6 @@ export const defaultDocxProps: IDocxProps = {
  */
 export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
 
-export type InlineParentType = "strong" | "emphasis" | "delete" | "link";
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | DOCXMath;
 export type InlineProcessor = (
   node: ExtendedRootContent,
@@ -180,7 +179,7 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
   inline?: (
     docx: typeof DOCX,
     node: ExtendedRootContent<T>,
-    parentSet: MutableRunOptions,
+    runProps: MutableRunOptions,
     definitions: Definitions,
     footnoteDefinitions: FootnoteDefinitions,
     inlineChildrenProcessor: InlineChildrenProcessor,
@@ -191,6 +190,26 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
    */
   root?: (props: IDocxProps) => void;
 }
+
+export const inlineMdastNodes = [
+  "text",
+  "break",
+  "inlineCode",
+  "image",
+  "emphasis",
+  "strong",
+  "delete",
+  "link",
+  "linkReference",
+  "footnoteReference",
+];
+
+export const standardize_color = (str: string) => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  if (!ctx) return str.startsWith("#") ? str : "auto";
+  ctx.fillStyle = str;
+  return ctx.fillStyle;
+};
 
 /**
  * @mayank/docx is a fork of the `docx` library with minor modifications,

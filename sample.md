@@ -478,7 +478,7 @@ Or create **inline links** with styles:
     </tr>
     <tr>
         <td>John</td>
-        <td>25</td>
+        <td align="center">25</td>
         <td>New York</td>
     </tr>
     <tr>

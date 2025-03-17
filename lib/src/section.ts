@@ -44,7 +44,7 @@ const createInlineProcessor = (
             plugin.inline?.(
               docx,
               node,
-              newRunProps,
+              runProps,
               definitions,
               footnoteDefinitions,
               processInlineNodeChildren,
@@ -102,14 +102,16 @@ const createInlineProcessor = (
           new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
         ];
       // Already handled by a plugin
-      // case "": //<- no need -- just for clarity
+      case "":
+        return [...docxNodes];
       default:
+        console.warn(`Unsupported inline node type: ${node.type}`);
         return [...docxNodes];
     }
   };
 
-  const processInlineNodeChildren: InlineChildrenProcessor = async (node, parentSet = new Set()) =>
-    (await Promise.all(node.children?.map(child => processInlineNode(child, parentSet)))).flat();
+  const processInlineNodeChildren: InlineChildrenProcessor = async (node, runProps = {}) =>
+    (await Promise.all(node.children?.map(child => processInlineNode(child, runProps)))).flat();
 
   return processInlineNodeChildren;
 };
@@ -154,6 +156,8 @@ export const toSection = async (
       )
     ).flat();
     switch (node.type) {
+      case "root":
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "paragraph":
         return [
           ...docxNodes,
