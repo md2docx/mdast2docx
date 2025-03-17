@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.1.1
+
+### Patch Changes
+
+- 8cdd4c0: Use docx in place of @mayank1513/docx as updates accepted by docx
+
 ## 0.1.0
 
 ### Minor Changes
