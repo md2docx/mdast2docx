@@ -10,13 +10,12 @@ import styles from "./demo.module.scss";
 import { CodeDisplay } from "./code-display";
 import { removePosition } from "unist-util-remove-position";
 import { toDocx } from "mdast2docx";
-import {
-  htmlPlugin,
-  imagePlugin,
-  tablePlugin,
-  listPlugin,
-  mathPlugin,
-} from "mdast2docx/dist/plugins";
+import { imagePlugin } from "mdast2docx/dist/plugins/image";
+import { tablePlugin } from "mdast2docx/dist/plugins/table";
+import { listPlugin } from "mdast2docx/dist/plugins/list";
+import { mathPlugin } from "mdast2docx/dist/plugins/math";
+import { htmlPlugin } from "mdast2docx/dist/plugins/html";
+
 // skipcq: JS-R1001
 import demoCode from "./demo.tsx?raw";
 
@@ -36,7 +35,15 @@ export function Demo() {
     toDocx(
       mdast,
       {},
-      { plugins: [imagePlugin(), tablePlugin(), listPlugin(), mathPlugin(), htmlPlugin()] },
+      {
+        plugins: [
+          imagePlugin(),
+          tablePlugin(),
+          listPlugin(),
+          // mathPlugin(),
+          // htmlPlugin(),
+        ],
+      },
       "blob",
     ).then(blob => {
       const url = URL.createObjectURL(blob as Blob);
