@@ -33,6 +33,25 @@
   }
 }
 
+.codeContainer {
+  position: relative;
+}
+
+.copy {
+  all: unset;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
 .demo {
   width: var(--max-width);
   max-width: 95vw;
@@ -43,7 +62,7 @@
   box-shadow: 0 0 8px -2px var(--text-color);
   text-align: center;
   padding-bottom: 25px;
-  button {
+  .btn {
     cursor: pointer;
     padding: 10px 30px;
   }

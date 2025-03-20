@@ -25,7 +25,15 @@ export function CodeDisplay({ code }: CodeDisplayProps) {
           </button>
         ))}
       </div>
-      <Editor className={styles.code} code={code[selectedTab].code} language="tsx" />
+      <div className={styles.codeContainer}>
+        <button
+          className={styles.copy}
+          title="copy"
+          onClick={() => navigator.clipboard.writeText(code[selectedTab].code)}>
+          📋
+        </button>
+        <Editor className={styles.code} code={code[selectedTab].code} language="tsx" />
+      </div>
     </details>
   );
 }

@@ -58,7 +58,9 @@ export function Demo() {
   return (
     <div className={styles.demo}>
       <h1>MDAST (Markdown Abstract Syntax Tree) to DOCX</h1>
-      <button onClick={downloadDocx}>Download as DOCX</button>
+      <button className={styles.btn} onClick={downloadDocx}>
+        Download as DOCX
+      </button>
       <CodeDisplay code={code} />
       {/* <pre>{JSON.stringify(mdast, null, 2)}</pre> */}
     </div>
