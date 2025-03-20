@@ -1,4 +1,4 @@
-import type { Root } from "mdast";
+import type { Root } from "./mdast";
 import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
@@ -35,7 +35,7 @@ const createInlineProcessor = (
   plugins: IPlugin[],
 ) => {
   const processInlineNode: InlineProcessor = async (node, runProps) => {
-    const newRunProps = Object.assign({}, runProps);
+    const newRunProps = Object.assign({}, runProps, node.data);
 
     const docxNodes: InlineDocxNodes[] = (
       await Promise.all(
@@ -101,6 +101,8 @@ const createInlineProcessor = (
           ...docxNodes,
           new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
         ];
+      case "fragment":
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       // Already handled by a plugin
       case "":
         return [...docxNodes];
@@ -142,7 +144,7 @@ export const toSection = async (
 
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
     // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
-    const newParaProps = Object.assign({}, paraProps);
+    const newParaProps = Object.assign({}, paraProps, node.data);
     const docxNodes = (
       await Promise.all(
         plugins.map(
@@ -158,8 +160,8 @@ export const toSection = async (
       )
     ).flat();
     switch (node.type) {
-      case "root":
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+      // case "root":
+      //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "paragraph":
         return [
           ...docxNodes,
@@ -226,6 +228,8 @@ export const toSection = async (
       case "table":
         console.warn("Please add table plugin to support tables.");
         return docxNodes;
+      case "fragment":
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "":
         return docxNodes;
       case "yaml":

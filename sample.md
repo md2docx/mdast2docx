@@ -466,7 +466,7 @@ Or create **inline links** with styles:
 
 <a href="https://openai.com" target="_blank" style="color: blue; text-decoration: none; font-weight: bold;">Visit OpenAI</a>
 
-### 13.2. Block HTML Elements
+<h3>13.2. Block HTML Elements</h3>
 
 #### Tables with HTML
 
