@@ -454,13 +454,13 @@ Using HTML for additional interactivity.
 
 ### 13.1. Inline HTML
 
-This is an example of **inline HTML** inside a paragraph:
+This is an example of <em>inline HTML<em> inside a paragraph:
 
 This is a <span style="color: red; font-weight: bold;">red bold text</span> inside a Markdown paragraph.
 
 You can also add **inline images**:
 
-<img src="https://via.placeholder.com/150" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
+<img src="https://github.com/mayank1513/mayank1513/raw/main/.badges/npm-downloads.svg" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
 
 Or create **inline links** with styles:
 
@@ -492,11 +492,9 @@ Or create **inline links** with styles:
 
 <form action="#" method="post">
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" /><br><br>
-    
+    <input type="text" id="name" name="name" /><br><br>    
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" /><br><br>
-    
+    <input type="email" id="email" name="email" /><br><br>    
     <input type="submit" value="Submit" />
 </form>
 

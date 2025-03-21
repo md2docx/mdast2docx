@@ -191,13 +191,17 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
    * Allows plugins to modify document-level DOCX properties, such as styles, numbering, headers, and footers. This is useful for global formatting customizations.
    */
   root?: (props: IDocxProps) => void;
+  /**
+   * Preprocess mdast tree before conversion
+   */
+  preprocess?: (tree: Root) => void;
 }
 
 export const standardizeColor = (str: string) => {
   const ctx = document.createElement("canvas").getContext("2d");
-  if (!ctx) return str.startsWith("#") ? str : "auto";
+  if (!ctx) return str.startsWith("#") ? str.slice(1) : "auto";
   ctx.fillStyle = str;
-  return ctx.fillStyle;
+  return ctx.fillStyle.slice(1);
 };
 
 /**

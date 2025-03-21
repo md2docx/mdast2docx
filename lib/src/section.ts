@@ -35,8 +35,6 @@ const createInlineProcessor = (
   plugins: IPlugin[],
 ) => {
   const processInlineNode: InlineProcessor = async (node, runProps) => {
-    const newRunProps = Object.assign({}, runProps, node.data);
-
     const docxNodes: InlineDocxNodes[] = (
       await Promise.all(
         plugins.map(
@@ -53,6 +51,7 @@ const createInlineProcessor = (
       )
     ).flat();
 
+    const newRunProps = Object.assign({}, runProps, node.data);
     // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
 
@@ -135,6 +134,8 @@ export const toSection = async (
   props?: ISectionProps,
 ) => {
   const { plugins, useTitle, ...sectionProps } = { ...defaultSectionProps, ...props };
+
+  plugins.forEach(plugin => plugin?.preprocess?.(node));
 
   const processInlineNodeChildren = createInlineProcessor(
     definitions,

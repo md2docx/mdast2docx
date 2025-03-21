@@ -163,6 +163,7 @@ export interface Data extends UnistData {
   smallCaps?: boolean;
   subScript?: boolean;
   superScript?: boolean;
+  color?: string;
   // highlight color
   highlight?: string;
 }
