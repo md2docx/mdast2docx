@@ -148,7 +148,9 @@ export type InlineChildrenProcessor = (
 /**
  * Mutable version of IParagraphOptions where all properties are writable.
  */
-export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children">;
+export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children"> & {
+  checked?: boolean | null;
+};
 
 export type BlockNodeProcessor = (
   node: ExtendedRootContent,

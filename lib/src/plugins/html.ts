@@ -1,18 +1,41 @@
 import { IPlugin, Mutable, standardizeColor } from "../utils";
-import { Data, Heading, Image, Parent, PhrasingContent, RootContent } from "../mdast";
+import {
+  Data,
+  Heading,
+  Image,
+  Parent,
+  PhrasingContent,
+  RootContent,
+  BlockContent,
+  TableRow,
+} from "../mdast";
 import { AlignmentType, BorderStyle, IBorderOptions } from "docx";
 
-const INLINE_TAGS = ["BR", "IMG", "EM", "STRONG", "DEL", "A", "SUP", "SUB", "IMG"] as const;
+const INLINE_TAGS = [
+  "BR",
+  "IMG",
+  "EM",
+  "I",
+  "STRONG",
+  "B",
+  "DEL",
+  "S",
+  "A",
+  "SUP",
+  "SUB",
+  "IMG",
+] as const;
 
 const DOM_TO_MDAST_MAP = {
   BR: "break",
   IMG: "image",
   EM: "emphasis",
+  I: "emphasis",
   STRONG: "strong",
+  B: "strong",
   DEL: "delete",
+  S: "delete",
   A: "link",
-  SUP: "fragment",
-  SUB: "fragment",
 } as const;
 
 const CSS_BORDER_STYLES = [
@@ -92,8 +115,9 @@ const getDocxBorder = (cssBorder?: CssBorder) => {
   return border;
 };
 
-const parseStyles = (el: HTMLElement | SVGElement, inline = true): Data => {
+const parseStyles = (el: Node, inline = true): Data => {
   const data: Data = {};
+  if (!(el instanceof HTMLElement || el instanceof SVGElement)) return data;
   const { textAlign, fontWeight, fontStyle, textDecoration, textTransform, color } = el.style;
   const borders = parseCssBorders(el.getAttribute("style"));
   if (inline && borders.border) {
@@ -139,6 +163,17 @@ const parseStyles = (el: HTMLElement | SVGElement, inline = true): Data => {
 
   if (color) data.color = standardizeColor(color);
 
+  if (el.tagName === "SUP") data.superScript = true;
+  else if (el.tagName === "SUB") data.subScript = true;
+  else if (["STRONG", "B"].includes(el.tagName)) data.bold = true;
+  else if (["EM", "I"].includes(el.tagName)) data.italics = true;
+  else if (["DEL", "S"].includes(el.tagName)) data.strike = true;
+  else if (["U", "INS"].includes(el.tagName)) data.underline = {};
+  else if (el.tagName === "MARK") {
+    data.highlight = "yellow";
+    data.emphasisMark = {};
+  }
+
   return data;
 };
 
@@ -151,9 +186,6 @@ const processInlineDOMNode = (el: Node): PhrasingContent => {
   const attributes: Record<string, string> = el
     .getAttributeNames()
     .reduce((acc, cur) => ({ ...acc, [cur]: el.getAttribute(cur) }), {});
-
-  if (el.tagName === "SUP") data.superScript = true;
-  else if (el.tagName === "SUB") data.subScript = true;
 
   switch (el.tagName) {
     case "BR":
@@ -172,10 +204,11 @@ const processInlineDOMNode = (el: Node): PhrasingContent => {
         data,
       } as Image;
     case "EM":
+    case "I":
     case "STRONG":
+    case "B":
     case "DEL":
-    case "SUP":
-    case "SUB":
+    case "S":
       return { type: DOM_TO_MDAST_MAP[el.tagName], children, data };
     case "A":
       return {
@@ -184,11 +217,42 @@ const processInlineDOMNode = (el: Node): PhrasingContent => {
         children,
         data,
       };
+    case "INPUT":
+      switch ((el as HTMLInputElement).type) {
+        case "radio":
+        case "checkbox":
+          return { type: "checkbox" };
+      }
   }
   return { type: "fragment", children, data };
 };
 
-const processDOMNode = (el: HTMLElement | SVGElement): RootContent => {
+/**
+ * Creates table rows
+ *
+ * TODO: handle rowSpan and colSpan
+ * @param el
+ * @param data_
+ * @returns
+ */
+const createRows = (el: HTMLElement, data_?: Data): TableRow[] =>
+  Array.from(el.children)
+    .map(tr => {
+      const data = { ...data_, ...parseStyles(tr as HTMLElement) };
+      return tr instanceof HTMLTableRowElement
+        ? ({
+            type: "tableRow",
+            children: Array.from(tr.children).map(col => ({
+              type: "tableCell",
+              children: [processInlineDOMNode(col)],
+            })),
+            data,
+          } as TableRow)
+        : createRows(tr as HTMLElement, data);
+    })
+    .flat();
+
+const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
   const data = parseStyles(el);
   switch (el.tagName) {
     case "H1":
@@ -204,21 +268,48 @@ const processDOMNode = (el: HTMLElement | SVGElement): RootContent => {
         data,
       } as Heading;
     case "P":
-      return {
-        type: "paragraph",
-        children: Array.from(el.childNodes).map(processInlineDOMNode),
-        data,
-      };
+    case "DIV":
     case "DETAILS":
     case "SUMMARY":
-      return createFragmentWithParentNodes(el);
+    case "FORM":
+    case "PRE":
+    case "LI":
+      return createFragmentWithParentNodes(el, data);
+    case "UL":
+    case "OL":
+      return {
+        type: "list",
+        ordered: el.tagName === "OL",
+        children: Array.from(el.childNodes).map(node => ({
+          type: "listItem",
+          children: [createFragmentWithParentNodes(node)],
+          data,
+        })),
+      };
+    case "HR":
+      return { type: "thematicBreak", data };
+    case "BLOCKQUOTE":
+      return {
+        type: "blockquote",
+        children: Array.from(el.childNodes).map(node => createFragmentWithParentNodes(node)),
+        data,
+      };
+    case "TABLE": {
+      const children = createRows(el as HTMLElement);
+      console.log("table =---", children);
+      return {
+        type: "table",
+        children,
+        data,
+      };
+    }
   }
-  return { type: "paragraph", children: [{ type: "text", value: el.textContent ?? "" }], data };
+  return { type: "paragraph", children: [processInlineDOMNode(el)], data };
 };
 
-const createFragmentWithParentNodes = (el: HTMLElement | SVGElement): RootContent => {
+const createFragmentWithParentNodes = (el: Node, data?: Data): BlockContent => {
   const childNodes = Array.from(el.childNodes);
-  const children: RootContent[] = [];
+  const children: BlockContent[] = [];
   const tmp: Node[] = [];
   for (const node of childNodes) {
     if (
@@ -234,10 +325,11 @@ const createFragmentWithParentNodes = (el: HTMLElement | SVGElement): RootConten
   }
   if (tmp.length) children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
   return children.length === 1
-    ? children[0]
+    ? { ...children[0], data: { ...data, ...children[0].data } }
     : {
         type: "fragment",
         children,
+        data,
       };
 };
 

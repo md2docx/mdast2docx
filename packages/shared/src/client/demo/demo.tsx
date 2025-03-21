@@ -36,7 +36,7 @@ export function Demo() {
     toDocx(
       mdast,
       {},
-      { plugins: [imagePlugin(), tablePlugin(), listPlugin(), mathPlugin(), htmlPlugin()] },
+      { plugins: [htmlPlugin(), imagePlugin(), tablePlugin(), listPlugin(), mathPlugin()] },
       "blob",
     ).then(blob => {
       const url = URL.createObjectURL(blob as Blob);
