@@ -14,6 +14,7 @@ import type {
 import {
   Bookmark,
   BorderStyle,
+  CheckBox,
   ExternalHyperlink,
   FootnoteReferenceRun,
   InternalHyperlink,
@@ -58,6 +59,8 @@ const createInlineProcessor = (
     switch (node.type) {
       case "text":
         return [...docxNodes, new TextRun({ text: node.value, ...newRunProps })];
+      case "checkbox":
+        return [...docxNodes, new CheckBox({ checked: !!node.checked })];
       case "break":
         return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
@@ -144,7 +147,7 @@ export const toSection = async (
   );
 
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
-    // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
+    // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
     const newParaProps = Object.assign({}, paraProps, node.data);
     const docxNodes = (
       await Promise.all(
@@ -163,11 +166,26 @@ export const toSection = async (
     switch (node.type) {
       // case "root":
       //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "paragraph":
+      case "paragraph": {
+        const checkbox =
+          typeof newParaProps.checked === "boolean"
+            ? [
+                new CheckBox({
+                  checked: newParaProps.checked,
+                  checkedState: { value: "2611" },
+                  uncheckedState: { value: "2610" },
+                }),
+                new TextRun(" "),
+              ]
+            : [];
         return [
           ...docxNodes,
-          new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) }),
+          new Paragraph({
+            ...newParaProps,
+            children: [...checkbox, ...(await processInlineNodeChildren(node))],
+          }),
         ];
+      }
       case "heading":
         return [
           new Paragraph({
@@ -217,6 +235,7 @@ export const toSection = async (
         // newParaProps.indent = { left: 720, hanging: 360 };
         return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "listItem":
+        newParaProps.checked = node.checked;
         return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "thematicBreak":
         return [
