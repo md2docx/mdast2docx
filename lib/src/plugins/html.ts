@@ -209,8 +209,36 @@ const processDOMNode = (el: HTMLElement | SVGElement): RootContent => {
         children: Array.from(el.childNodes).map(processInlineDOMNode),
         data,
       };
+    case "DETAILS":
+    case "SUMMARY":
+      return createFragmentWithParentNodes(el);
   }
-  return { type: "paragraph", children: [{ type: "text", value: el.textContent ?? "" }] };
+  return { type: "paragraph", children: [{ type: "text", value: el.textContent ?? "" }], data };
+};
+
+const createFragmentWithParentNodes = (el: HTMLElement | SVGElement): RootContent => {
+  const childNodes = Array.from(el.childNodes);
+  const children: RootContent[] = [];
+  const tmp: Node[] = [];
+  for (const node of childNodes) {
+    if (
+      (node instanceof HTMLElement || node instanceof SVGAElement) &&
+      !INLINE_TAGS.includes(node.tagName as (typeof INLINE_TAGS)[number])
+    ) {
+      if (tmp.length) {
+        children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
+        tmp.length = 0;
+      }
+      children.push(processDOMNode(node));
+    } else tmp.push(node);
+  }
+  if (tmp.length) children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
+  return children.length === 1
+    ? children[0]
+    : {
+        type: "fragment",
+        children,
+      };
 };
 
 const consolidateInlineHTML = (pNode: Parent) => {
@@ -250,25 +278,8 @@ export const htmlPlugin: () => IPlugin = () => {
       if (node.type === "html") {
         const el = document.createElement("div");
         el.innerHTML = node.value;
-        const childNodes = Array.from(el.childNodes);
-        const children: RootContent[] = [];
-        const tmp: Node[] = [];
-        for (const node of childNodes) {
-          if (
-            (node instanceof HTMLElement || node instanceof SVGAElement) &&
-            !INLINE_TAGS.includes(node.tagName as (typeof INLINE_TAGS)[number])
-          ) {
-            if (tmp.length) {
-              children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
-              tmp.length = 0;
-            }
-            children.push(processDOMNode(node));
-          } else tmp.push(node);
-        }
-        Object.assign(node, {
-          type: "fragment",
-          children,
-        });
+
+        Object.assign(node, createFragmentWithParentNodes(el));
       }
       return [];
     },

@@ -18,7 +18,7 @@ export interface EmptyNode {
 
 export interface Fragment extends Parent {
   type: "fragment";
-  children: PhrasingContent[];
+  children: (RootContent | PhrasingContent)[];
 }
 
 // ## Enumeration
