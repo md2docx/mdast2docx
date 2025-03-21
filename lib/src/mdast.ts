@@ -21,6 +21,11 @@ export interface Fragment extends Parent {
   children: (RootContent | PhrasingContent)[];
 }
 
+export interface Checkbox extends Node {
+  type: "checkbox";
+  checked?: boolean;
+}
+
 // ## Enumeration
 
 /**
@@ -205,6 +210,7 @@ export interface BlockContentMap {
   paragraph: Paragraph;
   table: Table;
   thematicBreak: ThematicBreak;
+  fragment: Fragment;
 }
 
 /**
@@ -336,7 +342,8 @@ export interface PhrasingContentMap {
   strong: Strong;
   text: Text;
   empty: EmptyNode;
-  phrasing: Fragment;
+  fragment: Fragment;
+  checkbox: Checkbox;
 }
 
 /**
