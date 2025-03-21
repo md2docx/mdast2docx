@@ -172,6 +172,7 @@ export interface Data extends UnistData {
   // highlight color
   highlight?: string;
   frame?: IFrameOptions;
+  pre?: boolean;
 }
 
 // ## Content maps

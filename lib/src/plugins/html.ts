@@ -179,6 +179,8 @@ const parseStyles = (el: Node, inline = true): Data => {
   else if (el.tagName === "MARK") {
     data.highlight = "yellow";
     data.emphasisMark = {};
+  } else if (el.tagName === "PRE") {
+    data.pre = true;
   }
 
   return data;
@@ -270,12 +272,12 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
         children: Array.from(el.childNodes).map(processInlineDOMNode),
         data,
       } as Heading;
+    case "PRE":
     case "P":
     case "DIV":
     case "DETAILS":
     case "SUMMARY":
     case "FORM":
-    case "PRE":
     case "LI":
       return createFragmentWithParentNodes(el, data);
     case "UL":
@@ -299,13 +301,18 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
       };
     case "TABLE": {
       const children = createRows(el as HTMLElement);
-      console.log("table =---", children);
       return {
         type: "table",
         children,
         data,
       };
     }
+    case "STYLE":
+      return {
+        type: "paragraph",
+        children: [],
+        data,
+      };
     case "INPUT":
       if (!/(radio|checkbox)/.test((el as HTMLInputElement).type)) {
         const border: IBorderOptions = { style: "single" };

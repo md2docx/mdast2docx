@@ -132,7 +132,7 @@ export const defaultDocxProps: IDocxProps = {
 /**
  * Mutable version of IRunOptions where all properties are writable.
  */
-export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
+export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">> & { pre?: boolean };
 
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | DOCXMath;
 export type InlineProcessor = (
@@ -150,6 +150,7 @@ export type InlineChildrenProcessor = (
  */
 export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children"> & {
   checked?: boolean | null;
+  pre?: boolean;
 };
 
 export type BlockNodeProcessor = (

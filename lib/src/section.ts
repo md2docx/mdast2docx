@@ -18,6 +18,7 @@ import {
   ExternalHyperlink,
   FootnoteReferenceRun,
   InternalHyperlink,
+  IParagraphOptions,
   Paragraph,
   TextRun,
 } from "docx";
@@ -58,7 +59,12 @@ const createInlineProcessor = (
 
     switch (node.type) {
       case "text":
-        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps })];
+        return [
+          ...docxNodes,
+          ...(newRunProps.pre
+            ? node.value.split("\n").map(text => new TextRun({ text, ...newRunProps, break: 1 }))
+            : [new TextRun({ text: node.value, ...newRunProps })]),
+        ];
       case "checkbox":
         return [...docxNodes, new CheckBox({ checked: !!node.checked })];
       case "break":
@@ -148,7 +154,7 @@ export const toSection = async (
 
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
     // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
-    const newParaProps = Object.assign({}, paraProps, node.data);
+    const newParaProps = { ...paraProps };
     const docxNodes = (
       await Promise.all(
         plugins.map(
@@ -163,10 +169,12 @@ export const toSection = async (
         ),
       )
     ).flat();
+    Object.assign(newParaProps, node.data);
     switch (node.type) {
       // case "root":
       //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "paragraph": {
+        const preStyles: IParagraphOptions = newParaProps.pre ? { alignment: "left" } : {};
         const checkbox =
           typeof newParaProps.checked === "boolean"
             ? [
@@ -181,14 +189,20 @@ export const toSection = async (
         return [
           ...docxNodes,
           new Paragraph({
+            ...preStyles,
             ...newParaProps,
-            children: [...checkbox, ...(await processInlineNodeChildren(node))],
+            children: [
+              ...checkbox,
+              // @ts-expect-error -- passing all data
+              ...(await processInlineNodeChildren(node, newParaProps)),
+            ],
           }),
         ];
       }
       case "heading":
         return [
           new Paragraph({
+            ...newParaProps,
             ...docxNodes,
             // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
             heading: useTitle
@@ -199,7 +213,8 @@ export const toSection = async (
             children: [
               new Bookmark({
                 id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
-                children: await processInlineNodeChildren(node),
+                // @ts-expect-error -- passing all data
+                children: await processInlineNodeChildren(node, newParaProps),
               }),
             ],
           }),
@@ -208,11 +223,14 @@ export const toSection = async (
         return [
           ...docxNodes,
           new Paragraph({
+            ...newParaProps,
             alignment: "start",
             style: "blockCode",
             children: node.value.split("\n").map(
               line =>
+                // @ts-expect-error -- ok to pass extra data
                 new TextRun({
+                  ...newParaProps,
                   text: line,
                   break: 1,
                   style: "code",
@@ -240,7 +258,7 @@ export const toSection = async (
       case "thematicBreak":
         return [
           ...docxNodes,
-          new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
+          new Paragraph({ ...node.data, border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
         ];
       case "definition":
       case "footnoteDefinition":
