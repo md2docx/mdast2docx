@@ -1,4 +1,4 @@
-import { AlignmentType, IBorderOptions, IBordersOptions, UnderlineType } from "docx";
+import { AlignmentType, IBorderOptions, IBordersOptions, IFrameOptions, UnderlineType } from "docx";
 import type {
   Data as UnistData,
   Literal as UnistLiteral,
@@ -171,6 +171,7 @@ export interface Data extends UnistData {
   color?: string;
   // highlight color
   highlight?: string;
+  frame?: IFrameOptions;
 }
 
 // ## Content maps

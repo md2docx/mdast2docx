@@ -9,7 +9,14 @@ import {
   BlockContent,
   TableRow,
 } from "../mdast";
-import { AlignmentType, BorderStyle, IBorderOptions } from "docx";
+import {
+  AlignmentType,
+  BorderStyle,
+  FrameAnchorType,
+  HorizontalPositionAlign,
+  IBorderOptions,
+  VerticalPositionAlign,
+} from "docx";
 
 const INLINE_TAGS = [
   "BR",
@@ -218,11 +225,7 @@ const processInlineDOMNode = (el: Node): PhrasingContent => {
         data,
       };
     case "INPUT":
-      switch ((el as HTMLInputElement).type) {
-        case "radio":
-        case "checkbox":
-          return { type: "checkbox" };
-      }
+      if (/(radio|checkbox)/.test((el as HTMLInputElement).type)) return { type: "checkbox" };
   }
   return { type: "fragment", children, data };
 };
@@ -303,6 +306,28 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
         data,
       };
     }
+    case "INPUT":
+      if (!/(radio|checkbox)/.test((el as HTMLInputElement).type)) {
+        const border: IBorderOptions = { style: "single" };
+        return {
+          type: "paragraph",
+          children: [],
+          data: {
+            ...data,
+            frame: {
+              width: 5000,
+              height: 90,
+              alignment: { x: HorizontalPositionAlign.LEFT, y: VerticalPositionAlign.CENTER },
+              anchor: {
+                horizontal: FrameAnchorType.TEXT,
+                vertical: FrameAnchorType.TEXT,
+              },
+              type: "alignment",
+            },
+            border: { left: border, right: border, top: border, bottom: border },
+          },
+        };
+      }
   }
   return { type: "paragraph", children: [processInlineDOMNode(el)], data };
 };
@@ -362,7 +387,7 @@ const consolidateInlineHTML = (pNode: Parent) => {
  * htmlPlugin is in beta and is subject to change or removal without notice.
  * This plugin is a placeholder for future implementation of HTML conversion.
  *
- * Keep this before image plugin to ensure inline html images are processed.
+ * Keep this before image and other plugins to ensure html images, tables, checkboxes, etc. are processed.
  */
 export const htmlPlugin: () => IPlugin = () => {
   return {
