@@ -257,6 +257,9 @@ const createRows = (el: HTMLElement, data_?: Data): TableRow[] =>
     })
     .flat();
 
+const border: IBorderOptions = { style: "single" };
+
+const defaultBorder = { left: border, right: border, top: border, bottom: border };
 const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
   const data = parseStyles(el);
   switch (el.tagName) {
@@ -310,12 +313,11 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
     case "STYLE":
       return {
         type: "paragraph",
-        children: [],
-        data,
+        children: [{ type: "text", value: `Not supported yet!\n\n${el.textContent}` }],
+        data: { ...data, pre: true, border: defaultBorder },
       };
     case "INPUT":
       if (!/(radio|checkbox)/.test((el as HTMLInputElement).type)) {
-        const border: IBorderOptions = { style: "single" };
         return {
           type: "paragraph",
           children: [],
@@ -331,7 +333,7 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
               },
               type: "alignment",
             },
-            border: { left: border, right: border, top: border, bottom: border },
+            border: defaultBorder,
           },
         };
       }
