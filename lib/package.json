@@ -27,14 +27,13 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@testing-library/react": "^16.2.0",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.13.11",
     "@unified-latex/unified-latex-types": "^1.8.0",
-    "@unified-latex/unified-latex-util-parse": "^1.8.2",
-    "@vitest/coverage-v8": "^3.0.8",
+    "@vitest/coverage-v8": "^3.0.9",
     "esbuild-plugin-rdi": "^0.0.0",
     "jsdom": "^26.0.0",
+    "latex-math": "^0.0.1",
     "node-fetch": "^3.3.2",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
@@ -44,7 +43,7 @@
     "unified": "^11.0.5",
     "unist": "^0.0.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   },
   "peerDependencies": {
     "docx": "^9.3.0"
