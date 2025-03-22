@@ -452,6 +452,8 @@ Using HTML for additional interactivity.
   This is hidden content.
 </details>
 
+This is a checkbox - <input type="checkbox" />
+
 ### 13.1. Inline HTML
 
 This is an example of <em>inline HTML<em> inside a paragraph:

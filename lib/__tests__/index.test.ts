@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { toDocx } from "../src"; // Adjust path based on your setup
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remaskGfm from "remark-gfm";
+import remarkGfm from "remark-gfm";
 import fs from "fs";
 import { htmlPlugin, listPlugin, mathPlugin, tablePlugin } from "../src/plugins";
 
@@ -53,7 +53,7 @@ describe("toDocx", () => {
   });
 
   it("should handle footnotes", async ({ expect }) => {
-    const mdast = unified().use(remarkParse).use(remaskGfm).parse(markdown);
+    const mdast = unified().use(remarkParse).use(remarkGfm).parse(markdown);
 
     const docxBlob = await toDocx(
       mdast,
