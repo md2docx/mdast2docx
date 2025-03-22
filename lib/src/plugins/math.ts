@@ -1,5 +1,5 @@
 import { IPlugin } from "../utils";
-import { parseMath } from "@unified-latex/unified-latex-util-parse";
+import { parseMath } from "latex-math";
 // skipcq: JS-C1003
 import * as DOCX from "docx";
 // skipcq: JS-C1003
@@ -279,7 +279,8 @@ const mapMacro = (
     case "hat":
     case "widehat":
       // returnVal = docx.MathAccentCharacter(n)
-      return [];
+      returnVal = new docx.MathAccentCharacter("^");
+      break;
     case "sum": {
       const docNode = new docx.MathSum({
         children: [],

@@ -14,7 +14,7 @@
   "dependencies": {
     "@repo/shared": "workspace:*",
     "mdast2docx": "workspace:*",
-    "next": "^15.2.2",
+    "next": "^15.2.3",
     "nextjs-darkmode-lite": "^1.0.10",
     "nextjs-themes": "^4.0.6",
     "optional": "^0.1.4",
@@ -24,11 +24,11 @@
     "webgl-generative-particles": "^0.0.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.2.2",
+    "@next/eslint-plugin-next": "^15.2.3",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.13.10",
-    "@types/react": "^19.0.10",
+    "@types/node": "^22.13.11",
+    "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "typescript": "^5.8.2"
   }

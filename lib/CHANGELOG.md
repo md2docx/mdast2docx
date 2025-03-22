@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.3.0
+
+### Minor Changes
+
+- 584ceec: Add preprocess function to plugins. This will allow for pre-processing the MDAST before conversion.
+
 ## 0.2.0
 
 ### Minor Changes

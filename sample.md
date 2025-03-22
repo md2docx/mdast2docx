@@ -454,19 +454,25 @@ Using HTML for additional interactivity.
 
 ### 13.1. Inline HTML
 
-This is an example of **inline HTML** inside a paragraph:
+This is an example of <em>inline HTML<em> inside a paragraph:
 
 This is a <span style="color: red; font-weight: bold;">red bold text</span> inside a Markdown paragraph.
 
 You can also add **inline images**:
 
-<img src="https://via.placeholder.com/150" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAYElEQVQYV2NkgIL//xmCgcxMIHaGCu0F0tMZGRnWgviMIAKoqANIlcM0odGtQMU1jEBFPkCJzTgUwYS9QAoPAHn2BBQeBCn8AFTET0DhR5IUEm21J9DabQQ9Q3TwEBvgACT3J/F3uWU/AAAAAElFTkSuQmCC" alt="Sample Image" width="150" height="150" style="border-radius: 10px;" />
 
 Or create **inline links** with styles:
 
 <a href="https://openai.com" target="_blank" style="color: blue; text-decoration: none; font-weight: bold;">Visit OpenAI</a>
 
-### 13.2. Block HTML Elements
+<h3>13.2. Block HTML Elements</h3>
+
+<pre>
+Inside pre tag
+Indentation and formatting etc. here should be preserved.
+      Hmmm...
+</pre>
 
 #### Tables with HTML
 
@@ -492,11 +498,9 @@ Or create **inline links** with styles:
 
 <form action="#" method="post">
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" /><br><br>
-    
+    <input type="text" id="name" name="name" /><br><br>    
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" /><br><br>
-    
+    <input type="email" id="email" name="email" /><br><br>    
     <input type="submit" value="Submit" />
 </form>
 

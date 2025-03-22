@@ -107,17 +107,17 @@ export const listPlugin: (options?: IListPluginOptions) => IPlugin = options => 
      * @param blockChildrenProcessor - Function to process child list items.
      * @returns Processed paragraphs representing the list.
      */
-    block: async (docx, node, paraProps, blockChildrenProcessor) => {
+    block: async (_docx, node, paraProps, blockChildrenProcessor) => {
       if (node.type !== "list") return [];
 
       const level = (paraProps.bullet?.level ?? -1) + 1;
 
-      paraProps.numbering = !defaultBullets
-        ? {
+      paraProps.numbering = defaultBullets
+        ? undefined
+        : {
             level,
             reference: node.ordered ? numReference : bulletReference,
-          }
-        : undefined;
+          };
 
       paraProps.bullet = { level };
 

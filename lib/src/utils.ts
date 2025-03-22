@@ -11,7 +11,7 @@ import {
   Math as DOCXMath,
 } from "docx";
 import * as DOCX from "docx";
-import { BlockContent, DefinitionContent, Parent, Root, RootContent } from "mdast";
+import { BlockContent, Data, DefinitionContent, Parent, Root, RootContent } from "./mdast";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "docx";
 
@@ -52,7 +52,9 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent<T extends { type: string } = { type: "" }> = RootContent | Root | T;
+type ExtendedRootContent<T extends { type: string; data?: Data } = { type: ""; data: {} }> =
+  | RootContent
+  | T;
 
 /**
  * Extracts the textual content from a given MDAST node.
@@ -130,7 +132,7 @@ export const defaultDocxProps: IDocxProps = {
 /**
  * Mutable version of IRunOptions where all properties are writable.
  */
-export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">>;
+export type MutableRunOptions = Mutable<Omit<IRunOptions, "children">> & { pre?: boolean };
 
 export type InlineDocxNodes = TextRun | ImageRun | InternalHyperlink | ExternalHyperlink | DOCXMath;
 export type InlineProcessor = (
@@ -146,7 +148,10 @@ export type InlineChildrenProcessor = (
 /**
  * Mutable version of IParagraphOptions where all properties are writable.
  */
-export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children">;
+export type MutableParaOptions = Omit<Mutable<IParagraphOptions>, "children"> & {
+  checked?: boolean | null;
+  pre?: boolean;
+};
 
 export type BlockNodeProcessor = (
   node: ExtendedRootContent,
@@ -189,26 +194,17 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
    * Allows plugins to modify document-level DOCX properties, such as styles, numbering, headers, and footers. This is useful for global formatting customizations.
    */
   root?: (props: IDocxProps) => void;
+  /**
+   * Preprocess mdast tree before conversion
+   */
+  preprocess?: (tree: Root) => void;
 }
 
-export const inlineMdastNodes = [
-  "text",
-  "break",
-  "inlineCode",
-  "image",
-  "emphasis",
-  "strong",
-  "delete",
-  "link",
-  "linkReference",
-  "footnoteReference",
-];
-
-export const standardize_color = (str: string) => {
+export const standardizeColor = (str: string) => {
   const ctx = document.createElement("canvas").getContext("2d");
-  if (!ctx) return str.startsWith("#") ? str : "auto";
+  if (!ctx) return str.startsWith("#") ? str.slice(1) : "auto";
   ctx.fillStyle = str;
-  return ctx.fillStyle;
+  return ctx.fillStyle.slice(1);
 };
 
 /**

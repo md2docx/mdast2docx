@@ -10,7 +10,7 @@ import {
   convertMillimetersToTwip,
 } from "docx";
 import { IPlugin, Optional } from "../utils";
-import { TableRow as MdTableRow } from "mdast";
+import { TableRow as MdTableRow } from "../mdast";
 
 export type RowProps = Omit<ITableRowOptions, "children">;
 export type TableProps = Omit<ITableOptions, "rows">;

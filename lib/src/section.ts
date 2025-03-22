@@ -1,4 +1,4 @@
-import type { Root } from "mdast";
+import type { Root } from "./mdast";
 import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
@@ -14,9 +14,11 @@ import type {
 import {
   Bookmark,
   BorderStyle,
+  CheckBox,
   ExternalHyperlink,
   FootnoteReferenceRun,
   InternalHyperlink,
+  IParagraphOptions,
   Paragraph,
   TextRun,
 } from "docx";
@@ -35,8 +37,6 @@ const createInlineProcessor = (
   plugins: IPlugin[],
 ) => {
   const processInlineNode: InlineProcessor = async (node, runProps) => {
-    const newRunProps = Object.assign({}, runProps);
-
     const docxNodes: InlineDocxNodes[] = (
       await Promise.all(
         plugins.map(
@@ -53,12 +53,20 @@ const createInlineProcessor = (
       )
     ).flat();
 
+    const newRunProps = Object.assign({}, runProps, node.data);
     // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
     const url = node.url ?? definitions[node.identifier?.toUpperCase()];
 
     switch (node.type) {
       case "text":
-        return [...docxNodes, new TextRun({ text: node.value, ...newRunProps })];
+        return [
+          ...docxNodes,
+          ...(newRunProps.pre
+            ? node.value.split("\n").map(text => new TextRun({ text, ...newRunProps, break: 1 }))
+            : [new TextRun({ text: node.value, ...newRunProps })]),
+        ];
+      case "checkbox":
+        return [...docxNodes, new CheckBox({ checked: !!node.checked })];
       case "break":
         return [...docxNodes, new TextRun({ break: 1 })];
       case "inlineCode":
@@ -84,6 +92,7 @@ const createInlineProcessor = (
       case "linkReference":
         // newRunProps.add("link");
         // newRunProps.style = "link";
+        newRunProps.underline = {};
         return [
           ...docxNodes,
           url.startsWith("#")
@@ -101,6 +110,8 @@ const createInlineProcessor = (
           ...docxNodes,
           new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
         ];
+      case "fragment":
+        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
       // Already handled by a plugin
       case "":
         return [...docxNodes];
@@ -134,6 +145,8 @@ export const toSection = async (
 ) => {
   const { plugins, useTitle, ...sectionProps } = { ...defaultSectionProps, ...props };
 
+  plugins.forEach(plugin => plugin?.preprocess?.(node));
+
   const processInlineNodeChildren = createInlineProcessor(
     definitions,
     footnoteDefinitions,
@@ -141,8 +154,8 @@ export const toSection = async (
   );
 
   const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
-    // TODO: Verify correct calculation of bullet levels for nested lists and blockquotes.
-    const newParaProps = Object.assign({}, paraProps);
+    // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
+    const newParaProps = { ...paraProps };
     const docxNodes = (
       await Promise.all(
         plugins.map(
@@ -157,17 +170,40 @@ export const toSection = async (
         ),
       )
     ).flat();
+    Object.assign(newParaProps, node.data);
     switch (node.type) {
-      case "root":
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "paragraph":
+      // case "root":
+      //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+      case "paragraph": {
+        const preStyles: IParagraphOptions = newParaProps.pre ? { alignment: "left" } : {};
+        const checkbox =
+          typeof newParaProps.checked === "boolean"
+            ? [
+                new CheckBox({
+                  checked: newParaProps.checked,
+                  checkedState: { value: "2611" },
+                  uncheckedState: { value: "2610" },
+                }),
+                new TextRun(" "),
+              ]
+            : [];
         return [
           ...docxNodes,
-          new Paragraph({ ...paraProps, children: await processInlineNodeChildren(node) }),
+          new Paragraph({
+            ...preStyles,
+            ...newParaProps,
+            children: [
+              ...checkbox,
+              // @ts-expect-error -- passing all data
+              ...(await processInlineNodeChildren(node, newParaProps)),
+            ],
+          }),
         ];
+      }
       case "heading":
         return [
           new Paragraph({
+            ...newParaProps,
             ...docxNodes,
             // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
             heading: useTitle
@@ -178,7 +214,8 @@ export const toSection = async (
             children: [
               new Bookmark({
                 id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
-                children: await processInlineNodeChildren(node),
+                // @ts-expect-error -- passing all data
+                children: await processInlineNodeChildren(node, newParaProps),
               }),
             ],
           }),
@@ -187,13 +224,22 @@ export const toSection = async (
         return [
           ...docxNodes,
           new Paragraph({
-            alignment: "start",
+            border: {
+              bottom: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+              left: { style: BorderStyle.SINGLE, space: 10, size: 1 },
+              right: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+              top: { style: BorderStyle.SINGLE, space: 6, size: 1 },
+            },
+            ...newParaProps,
+            alignment: "left",
             style: "blockCode",
             children: node.value.split("\n").map(
-              line =>
+              (line, i) =>
+                // @ts-expect-error -- ok to pass extra data
                 new TextRun({
+                  ...newParaProps,
                   text: line,
-                  break: 1,
+                  break: i === 0 ? 0 : 1,
                   style: "code",
                   font: { name: "Consolas" },
                 }),
@@ -214,11 +260,12 @@ export const toSection = async (
         // newParaProps.indent = { left: 720, hanging: 360 };
         return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "listItem":
+        newParaProps.checked = node.checked;
         return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "thematicBreak":
         return [
           ...docxNodes,
-          new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
+          new Paragraph({ ...node.data, border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
         ];
       case "definition":
       case "footnoteDefinition":
@@ -226,6 +273,8 @@ export const toSection = async (
       case "table":
         console.warn("Please add table plugin to support tables.");
         return docxNodes;
+      case "fragment":
+        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
       case "":
         return docxNodes;
       case "yaml":
