@@ -68,7 +68,7 @@ export interface Alternative {
    * Equivalent content for environments that cannot represent the node as
    * intended.
    */
-  alt?: string | null | undefined;
+  alt?: string | null;
 }
 
 /**
@@ -105,7 +105,7 @@ export interface Association {
    *
    * It can match another node.
    */
-  label?: string | null | undefined;
+  label?: string | null;
 }
 
 /**
@@ -130,7 +130,7 @@ export interface Resource {
    * Advisory information for the resource, such as would be appropriate for
    * a tooltip.
    */
-  title?: string | null | undefined;
+  title?: string | null;
 }
 
 // ## Interfaces
@@ -520,7 +520,7 @@ export interface Node extends UnistNode {
   /**
    * Info from the ecosystem.
    */
-  data?: Data | undefined;
+  data?: Data;
 }
 
 /**
@@ -554,7 +554,7 @@ export interface Blockquote extends Parent {
   /**
    * Data associated with the mdast block quote.
    */
-  data?: BlockquoteData | undefined;
+  data?: BlockquoteData;
 }
 
 /**
@@ -573,7 +573,7 @@ export interface Break extends Node {
   /**
    * Data associated with the mdast break.
    */
-  data?: BreakData | undefined;
+  data?: BreakData;
 }
 
 /**
@@ -592,17 +592,17 @@ export interface Code extends Literal {
   /**
    * Language of computer code being marked up.
    */
-  lang?: string | null | undefined;
+  lang?: string | null;
   /**
    * Custom information relating to the node.
    *
    * If the lang field is present, a meta field can be present.
    */
-  meta?: string | null | undefined;
+  meta?: string | null;
   /**
    * Data associated with the mdast code (flow).
    */
-  data?: CodeData | undefined;
+  data?: CodeData;
 }
 
 /**
@@ -621,7 +621,7 @@ export interface Definition extends Node, Association, Resource {
   /**
    * Data associated with the mdast definition.
    */
-  data?: DefinitionData | undefined;
+  data?: DefinitionData;
 }
 
 /**
@@ -644,7 +644,7 @@ export interface Delete extends Parent {
   /**
    * Data associated with the mdast GFM delete.
    */
-  data?: DeleteData | undefined;
+  data?: DeleteData;
 }
 
 /**
@@ -667,7 +667,7 @@ export interface Emphasis extends Parent {
   /**
    * Data associated with the mdast emphasis.
    */
-  data?: EmphasisData | undefined;
+  data?: EmphasisData;
 }
 
 /**
@@ -690,7 +690,7 @@ export interface FootnoteDefinition extends Parent, Association {
   /**
    * Data associated with the mdast GFM footnote definition.
    */
-  data?: FootnoteDefinitionData | undefined;
+  data?: FootnoteDefinitionData;
 }
 
 /**
@@ -709,7 +709,7 @@ export interface FootnoteReference extends Association, Node {
   /**
    * Data associated with the mdast GFM footnote reference.
    */
-  data?: FootnoteReferenceData | undefined;
+  data?: FootnoteReferenceData;
 }
 
 /**
@@ -738,7 +738,7 @@ export interface Heading extends Parent {
   /**
    * Data associated with the mdast heading.
    */
-  data?: HeadingData | undefined;
+  data?: HeadingData;
 }
 
 /**
@@ -757,7 +757,7 @@ export interface Html extends Literal {
   /**
    * Data associated with the mdast HTML.
    */
-  data?: HtmlData | undefined;
+  data?: HtmlData;
 }
 
 /**
@@ -784,7 +784,7 @@ export interface Image extends Alternative, Node, Resource {
   /**
    * Data associated with the mdast image.
    */
-  data?: ImageData | undefined;
+  data?: ImageData;
 }
 
 /**
@@ -806,7 +806,7 @@ export interface ImageReference extends Alternative, Node, Reference {
   /**
    * Data associated with the mdast image reference.
    */
-  data?: ImageReferenceData | undefined;
+  data?: ImageReferenceData;
 }
 
 /**
@@ -825,7 +825,7 @@ export interface InlineCode extends Literal {
   /**
    * Data associated with the mdast code (text).
    */
-  data?: InlineCodeData | undefined;
+  data?: InlineCodeData;
 }
 
 /**
@@ -848,7 +848,7 @@ export interface Link extends Parent, Resource {
   /**
    * Data associated with the mdast link.
    */
-  data?: LinkData | undefined;
+  data?: LinkData;
 }
 
 /**
@@ -871,7 +871,7 @@ export interface LinkReference extends Parent, Reference {
   /**
    * Data associated with the mdast link reference.
    */
-  data?: LinkReferenceData | undefined;
+  data?: LinkReferenceData;
 }
 
 /**
@@ -891,16 +891,16 @@ export interface List extends Parent {
    * Whether the items have been intentionally ordered (when `true`), or that
    * the order of items is not important (when `false` or not present).
    */
-  ordered?: boolean | null | undefined;
+  ordered?: boolean | null;
   /**
    * The starting number of the list, when the `ordered` field is `true`.
    */
-  start?: number | null | undefined;
+  start?: number | null;
   /**
    * Whether one or more of the children are separated with a blank line from
    * its siblings (when `true`), or not (when `false` or not present).
    */
-  spread?: boolean | null | undefined;
+  spread?: boolean | null;
   /**
    * Children of list.
    */
@@ -908,7 +908,7 @@ export interface List extends Parent {
   /**
    * Data associated with the mdast list.
    */
-  data?: ListData | undefined;
+  data?: ListData;
 }
 
 /**
@@ -930,12 +930,12 @@ export interface ListItem extends Parent {
    * When `true`, the item is complete.
    * When `false`, the item is incomplete.
    */
-  checked?: boolean | null | undefined;
+  checked?: boolean | null;
   /**
    * Whether one or more of the children are separated with a blank line from
    * its siblings (when `true`), or not (when `false` or not present).
    */
-  spread?: boolean | null | undefined;
+  spread?: boolean | null;
   /**
    * Children of list item.
    */
@@ -943,7 +943,7 @@ export interface ListItem extends Parent {
   /**
    * Data associated with the mdast list item.
    */
-  data?: ListItemData | undefined;
+  data?: ListItemData;
 }
 
 /**
@@ -966,7 +966,7 @@ export interface Paragraph extends Parent {
   /**
    * Data associated with the mdast paragraph.
    */
-  data?: ParagraphData | undefined;
+  data?: ParagraphData;
 }
 
 /**
@@ -987,7 +987,7 @@ export interface Root extends Parent {
   /**
    * Data associated with the mdast root.
    */
-  data?: RootData | undefined;
+  data?: RootData;
 }
 
 /**
@@ -1010,7 +1010,7 @@ export interface Strong extends Parent {
   /**
    * Data associated with the mdast strong.
    */
-  data?: StrongData | undefined;
+  data?: StrongData;
 }
 
 /**
@@ -1029,7 +1029,7 @@ export interface Table extends Parent {
   /**
    * How cells in columns are aligned.
    */
-  align?: AlignType[] | null | undefined;
+  align?: AlignType[] | null;
   /**
    * Children of GFM table.
    */
@@ -1037,7 +1037,7 @@ export interface Table extends Parent {
   /**
    * Data associated with the mdast GFM table.
    */
-  data?: TableData | undefined;
+  data?: TableData;
 }
 
 /**
@@ -1060,7 +1060,7 @@ export interface TableRow extends Parent {
   /**
    * Data associated with the mdast GFM table row.
    */
-  data?: TableRowData | undefined;
+  data?: TableRowData;
 }
 
 /**
@@ -1083,7 +1083,7 @@ export interface TableCell extends Parent {
   /**
    * Data associated with the mdast GFM table cell.
    */
-  data?: TableCellData | undefined;
+  data?: TableCellData;
 }
 
 /**
@@ -1102,7 +1102,7 @@ export interface Text extends Literal {
   /**
    * Data associated with the mdast text.
    */
-  data?: TextData | undefined;
+  data?: TextData;
 }
 
 /**
@@ -1121,7 +1121,7 @@ export interface ThematicBreak extends Node {
   /**
    * Data associated with the mdast thematic break.
    */
-  data?: ThematicBreakData | undefined;
+  data?: ThematicBreakData;
 }
 
 /**
@@ -1140,7 +1140,7 @@ export interface Yaml extends Literal {
   /**
    * Data associated with the mdast YAML.
    */
-  data?: YamlData | undefined;
+  data?: YamlData;
 }
 
 /**
