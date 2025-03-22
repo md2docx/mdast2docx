@@ -279,7 +279,8 @@ const mapMacro = (
     case "hat":
     case "widehat":
       // returnVal = docx.MathAccentCharacter(n)
-      return [];
+      returnVal = new docx.MathAccentCharacter("^");
+      break;
     case "sum": {
       const docNode = new docx.MathSum({
         children: [],

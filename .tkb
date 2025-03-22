@@ -29,7 +29,17 @@
     "e4p-5JQoPvimux5iNndBS": {
       "id": "e4p-5JQoPvimux5iNndBS",
       "description": "Code styles - option 1. allow users to select code font, option 2. allow user to pass in the styles",
-      "columnId": "column-todo"
+      "columnId": "column-doing"
+    },
+    "w613zO338XW97YYqYp-5L": {
+      "id": "w613zO338XW97YYqYp-5L",
+      "description": "Support bockquotes",
+      "columnId": "column-doing"
+    },
+    "ASoG81Ce18lJiXk5hKV8F": {
+      "id": "ASoG81Ce18lJiXk5hKV8F",
+      "description": "Support GFM emojis - https://gist.github.com/rxaviers/7360908",
+      "columnId": "column-doing"
     }
   },
   "columns": [
@@ -38,14 +48,17 @@
       "title": "To do",
       "tasksIds": [
         "MLLUsAhCKaKxvEXFY0HSq",
-        "dC7QDBLH8BmHUfaYmIt81",
-        "e4p-5JQoPvimux5iNndBS"
+        "dC7QDBLH8BmHUfaYmIt81"
       ]
     },
     {
       "id": "column-doing",
       "title": "Doing",
-      "tasksIds": []
+      "tasksIds": [
+        "e4p-5JQoPvimux5iNndBS",
+        "w613zO338XW97YYqYp-5L",
+        "ASoG81Ce18lJiXk5hKV8F"
+      ]
     },
     {
       "id": "column-done",

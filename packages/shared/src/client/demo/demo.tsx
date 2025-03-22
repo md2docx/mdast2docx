@@ -19,9 +19,11 @@ import {
 } from "mdast2docx/dist/plugins";
 // skipcq: JS-R1001
 import demoCode from "./demo.tsx?raw";
+import { useState } from "react";
 
 /** React live demo */
 export function Demo() {
+  const [loading, setLoading] = useState(false);
   const docxProcessor = unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -33,6 +35,7 @@ export function Demo() {
   removePosition(mdast);
 
   const downloadDocx = () => {
+    setLoading(true);
     toDocx(
       mdast,
       {},
@@ -45,6 +48,7 @@ export function Demo() {
       link.download = "my-document.docx";
       link.click();
       URL.revokeObjectURL(url);
+      setLoading(false);
     });
   };
 
@@ -58,8 +62,8 @@ export function Demo() {
   return (
     <div className={styles.demo}>
       <h1>MDAST (Markdown Abstract Syntax Tree) to DOCX</h1>
-      <button className={styles.btn} onClick={downloadDocx}>
-        Download as DOCX
+      <button className={styles.btn} disabled={loading} onClick={downloadDocx}>
+        {loading ? "Downloading..." : "Download as DOCX"}
       </button>
       <CodeDisplay code={code} />
       {/* <pre>{JSON.stringify(mdast, null, 2)}</pre> */}

@@ -92,6 +92,7 @@ const createInlineProcessor = (
       case "linkReference":
         // newRunProps.add("link");
         // newRunProps.style = "link";
+        newRunProps.underline = {};
         return [
           ...docxNodes,
           url.startsWith("#")
@@ -223,16 +224,22 @@ export const toSection = async (
         return [
           ...docxNodes,
           new Paragraph({
+            border: {
+              bottom: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+              left: { style: BorderStyle.SINGLE, space: 10, size: 1 },
+              right: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+              top: { style: BorderStyle.SINGLE, space: 6, size: 1 },
+            },
             ...newParaProps,
-            alignment: "start",
+            alignment: "left",
             style: "blockCode",
             children: node.value.split("\n").map(
-              line =>
+              (line, i) =>
                 // @ts-expect-error -- ok to pass extra data
                 new TextRun({
                   ...newParaProps,
                   text: line,
-                  break: 1,
+                  break: i === 0 ? 0 : 1,
                   style: "code",
                   font: { name: "Consolas" },
                 }),
