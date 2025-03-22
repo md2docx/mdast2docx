@@ -133,6 +133,9 @@ importers:
       docx:
         specifier: ^9.3.0
         version: 9.3.0
+      latex-math:
+        specifier: ^0.0.1
+        version: 0.0.1
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -140,9 +143,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../packages/config-typescript
-      '@testing-library/react':
-        specifier: ^16.2.0
-        version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
@@ -161,9 +161,6 @@ importers:
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0(canvas@3.1.0)
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
