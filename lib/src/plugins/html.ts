@@ -187,7 +187,7 @@ const parseStyles = (el: Node, inline = true): Data => {
 };
 
 const processInlineDOMNode = (el: Node): PhrasingContent => {
-  if (!(el instanceof HTMLElement || el instanceof SVGAElement))
+  if (!(el instanceof HTMLElement || el instanceof SVGElement))
     return { type: "text", value: el.textContent ?? "" };
 
   const children = Array.from(el.childNodes).map(processInlineDOMNode);
@@ -347,7 +347,7 @@ const createFragmentWithParentNodes = (el: Node, data?: Data): BlockContent => {
   const tmp: Node[] = [];
   for (const node of childNodes) {
     if (
-      (node instanceof HTMLElement || node instanceof SVGAElement) &&
+      (node instanceof HTMLElement || node instanceof SVGElement) &&
       !INLINE_TAGS.includes(node.tagName as (typeof INLINE_TAGS)[number])
     ) {
       if (tmp.length) {
