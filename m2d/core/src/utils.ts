@@ -52,7 +52,7 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent<T extends { type: string; data?: Data } = { type: ""; data: {} }> =
+type ExtendedRootContent<T extends { type: string; data?: Data } = { type: ""; data: Data }> =
   | RootContent
   | T;
 

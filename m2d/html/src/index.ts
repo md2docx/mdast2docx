@@ -293,6 +293,7 @@ const createFragmentWithParentNodes = (el: Node, data?: Data): BlockContent => {
         children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
         tmp.length = 0;
       }
+      // skipcq: JS-0357
       children.push(processDOMNode(node));
     } else tmp.push(node);
   }

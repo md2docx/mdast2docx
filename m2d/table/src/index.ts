@@ -38,6 +38,9 @@ type ITablePluginProps = Optional<IDefaultTablePluginProps>;
 
 const border = { style: BorderStyle.SINGLE, color: "auto", size: 1 };
 
+/**
+ * default table options
+ */
 export const defaultTableOptions: IDefaultTablePluginProps = {
   tableProps: {
     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -67,6 +70,9 @@ export const defaultTableOptions: IDefaultTablePluginProps = {
   },
 };
 
+/**
+ * Plugin to convert Markdown tables (MDAST) to DOCX with support for rich formatting and seamless integration into mdast2docx.
+ */
 export const tablePlugin: (options?: ITablePluginProps) => IPlugin = options => {
   return {
     block: async (docx, node, _paraProps, _blockChildrenProcessor, inlineChildrenProcessor) => {
@@ -92,6 +98,9 @@ export const tablePlugin: (options?: ITablePluginProps) => IPlugin = options => 
         }
       });
 
+      /**
+       * Create table row
+       */
       const createRow = async (row: MdTableRow, rowIndex: number) =>
         new TableRow({
           ...rowProps,
