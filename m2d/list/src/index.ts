@@ -21,7 +21,7 @@ interface IDefaultListPluginOptions {
 /** Type representing optional list plugin options. */
 export type IListPluginOptions = Optional<IDefaultListPluginOptions>;
 
-const levelFormats = [
+const levelFormats: (typeof LevelFormat)[keyof typeof LevelFormat][] = [
   LevelFormat.DECIMAL,
   LevelFormat.DECIMAL,
   LevelFormat.DECIMAL,

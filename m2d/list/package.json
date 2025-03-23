@@ -29,7 +29,7 @@
     "@repo/typescript-config": "workspace:*",
     "@m2d/core": "workspace:*",
     "@types/node": "^22.13.11",
-    "@unified-latex/unified-latex-types": "^1.8.0",
+    "docx": "^9.3.0",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
