@@ -20,6 +20,9 @@ import {
   VerticalPositionAlign,
 } from "docx";
 
+/**
+ * HTML inline tags supported by the plugin for conversion.
+ */
 const INLINE_TAGS = [
   "BR",
   "IMG",
@@ -35,6 +38,9 @@ const INLINE_TAGS = [
   "IMG",
 ] as const;
 
+/**
+ * Mapping of DOM tag names to MDAST node types.
+ */
 const DOM_TO_MDAST_MAP = {
   BR: "break",
   IMG: "image",
@@ -47,6 +53,9 @@ const DOM_TO_MDAST_MAP = {
   A: "link",
 } as const;
 
+/**
+ * CSS border styles that are recognized for conversion.
+ */
 const CSS_BORDER_STYLES = [
   "solid",
   "dashed",
@@ -59,9 +68,22 @@ const CSS_BORDER_STYLES = [
   "outset",
 ];
 
+/**
+ * Parsed CSS border representation.
+ */
 type CssBorder = { width?: number; color?: string; style?: string };
+
+/**
+ * Border settings parsed from individual sides.
+ */
 type CssBorders = Partial<Record<"border" | "top" | "bottom" | "left" | "right", CssBorder>>;
 
+/**
+ * Extracts individual border styles from a CSS style string.
+ *
+ * @param borderString - Raw style string from the `style` attribute.
+ * @returns Parsed border information by edge.
+ */
 const parseCssBorders = (borderString: string | null): CssBorders => {
   if (!borderString) return {};
   const borders: CssBorders = {};
@@ -95,12 +117,9 @@ const parseCssBorders = (borderString: string | null): CssBorders => {
   return borders;
 };
 
-// Example Usage:
-// console.log(parseCssBorder("border-left: dashed 5px orange; border-right: 3px;"));
-// console.log(parseCssBorder("border: 2px red dashed; border-top: solid blue 4px;"));
-// console.log(parseCssBorder("border-bottom: 1px gray solid; border-top: none;"));
-// console.log(parseCssBorder("border: none;"));
-
+/**
+ * Maps CSS border styles to docx-compatible border styles.
+ */
 const STYLE_MAP = {
   solid: BorderStyle.SINGLE,
   dashed: BorderStyle.DASHED,
@@ -113,6 +132,12 @@ const STYLE_MAP = {
   outset: BorderStyle.OUTSET,
 } as const;
 
+/**
+ * Converts a parsed CSS border to a docx-compatible IBorderOptions.
+ *
+ * @param cssBorder - Parsed border properties.
+ * @returns docx-compatible border settings or undefined.
+ */
 const getDocxBorder = (cssBorder?: CssBorder) => {
   if (!cssBorder || !Object.keys(cssBorder).length) return undefined;
   const { width, color, style } = cssBorder;
@@ -124,7 +149,14 @@ const getDocxBorder = (cssBorder?: CssBorder) => {
   return border;
 };
 
-// skipcq: JS-R1005
+/**
+ * Parses inline or block style metadata from a DOM node.
+ *
+ * @param el - DOM element to extract style from.
+ * @param inline - Flag indicating if the style is for inline content.
+ * @returns Style metadata as `Data`.
+ * skipcq: JS-R1005
+ */
 const parseStyles = (el: Node, inline = true): Data => {
   const data: Data = {};
   if (!(el instanceof HTMLElement || el instanceof SVGElement)) return data;
@@ -189,6 +221,12 @@ const parseStyles = (el: Node, inline = true): Data => {
   return data;
 };
 
+/**
+ * Converts an inline HTML DOM node into MDAST `PhrasingContent`.
+ *
+ * @param el - DOM node to process.
+ * @returns PhrasingContent-compatible node.
+ */
 const processInlineDOMNode = (el: Node): PhrasingContent => {
   if (!(el instanceof HTMLElement || el instanceof SVGElement))
     return { type: "text", value: el.textContent ?? "" };
@@ -236,12 +274,44 @@ const processInlineDOMNode = (el: Node): PhrasingContent => {
 };
 
 /**
- * Creates table rows
+ * Converts DOM structure into a paragraph or fragment of block nodes.
  *
- * TODO: handle rowSpan and colSpan
- * @param el
- * @param data_
- * @returns
+ * @param el - Root DOM node to process.
+ * @param data - Optional metadata to apply.
+ * @returns A BlockContent node or fragment node.
+ */
+const createFragmentWithParentNodes = (el: Node, data?: Data): BlockContent => {
+  const childNodes = Array.from(el.childNodes);
+  const children: BlockContent[] = [];
+  const tmp: Node[] = [];
+  for (const node of childNodes) {
+    if (
+      (node instanceof HTMLElement || node instanceof SVGElement) &&
+      !INLINE_TAGS.includes(node.tagName as (typeof INLINE_TAGS)[number])
+    ) {
+      if (tmp.length) {
+        children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
+        tmp.length = 0;
+      }
+      children.push(processDOMNode(node));
+    } else tmp.push(node);
+  }
+  if (tmp.length) children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
+  return children.length === 1
+    ? { ...children[0], data: { ...data, ...children[0].data } }
+    : {
+        type: "fragment",
+        children,
+        data,
+      };
+};
+
+/**
+ * Generates MDAST `tableRow` nodes from DOM table rows.
+ *
+ * @param el - Table DOM node.
+ * @param data_ - Optional style metadata.
+ * @returns List of table rows.
  */
 const createRows = (el: HTMLElement, data_?: Data): TableRow[] =>
   Array.from(el.children)
@@ -260,9 +330,18 @@ const createRows = (el: HTMLElement, data_?: Data): TableRow[] =>
     })
     .flat();
 
+/**
+ * Default table border style for DOCX tables.
+ */
 const border: IBorderOptions = { style: "single" };
-
 const defaultBorder = { left: border, right: border, top: border, bottom: border };
+
+/**
+ * Converts block-level HTML elements into MDAST `BlockContent` nodes.
+ *
+ * @param el - HTML or SVG element to process.
+ * @returns Converted block content node.
+ */
 const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
   const data = parseStyles(el);
   switch (el.tagName) {
@@ -344,32 +423,11 @@ const processDOMNode = (el: HTMLElement | SVGElement): BlockContent => {
   return { type: "paragraph", children: [processInlineDOMNode(el)], data };
 };
 
-const createFragmentWithParentNodes = (el: Node, data?: Data): BlockContent => {
-  const childNodes = Array.from(el.childNodes);
-  const children: BlockContent[] = [];
-  const tmp: Node[] = [];
-  for (const node of childNodes) {
-    if (
-      (node instanceof HTMLElement || node instanceof SVGElement) &&
-      !INLINE_TAGS.includes(node.tagName as (typeof INLINE_TAGS)[number])
-    ) {
-      if (tmp.length) {
-        children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
-        tmp.length = 0;
-      }
-      children.push(processDOMNode(node));
-    } else tmp.push(node);
-  }
-  if (tmp.length) children.push({ type: "paragraph", children: tmp.map(processInlineDOMNode) });
-  return children.length === 1
-    ? { ...children[0], data: { ...data, ...children[0].data } }
-    : {
-        type: "fragment",
-        children,
-        data,
-      };
-};
-
+/**
+ * Consolidates inline HTML tag children inside valid tag-matching groups.
+ *
+ * @param pNode - MDAST parent node.
+ */
 const consolidateInlineHTML = (pNode: Parent) => {
   const children: RootContent[] = [];
   const htmlNodeStack: (Parent & { tag: string })[] = [];
@@ -395,11 +453,13 @@ const consolidateInlineHTML = (pNode: Parent) => {
 };
 
 /**
- * @beta
- * htmlPlugin is in beta and is subject to change or removal without notice.
- * This plugin is a placeholder for future implementation of HTML conversion.
+ * HTML plugin for MDAST-to-DOCX conversion.
+ * Converts inline and block-level HTML content within markdown into structured MDAST nodes.
  *
- * Keep this before image and other plugins to ensure html images, tables, checkboxes, etc. are processed.
+ * Supports `<br>`, `<img>`, `<strong>`, `<em>`, `<table>`, `<ul>`, `<input>`, and other inline tags.
+ * Should be used before `image`, `table`, or other content plugins in the pipeline.
+ *
+ * @returns Configured HTML plugin for MDAST parsing.
  */
 export const htmlPlugin: () => IPlugin = () => {
   return {
