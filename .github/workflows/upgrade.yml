@@ -32,6 +32,8 @@ jobs:
         name: Update dependencies
       - run: pnpm build --filter @example/nextjs
         name: Build all apps to make sure it is not broken due to dependency upgrades
+      - run: pnpm build --filter mdast2docx
+        name: Build @m2d/* packages
       - name: Run unit tests
         run: pnpm test
       - name: Save upgraded packages back to repo
