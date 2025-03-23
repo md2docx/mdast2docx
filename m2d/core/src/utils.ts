@@ -71,12 +71,6 @@ export const getTextContent = (node: ExtendedRootContent): string => {
 };
 
 /**
- * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
- * @returns
- */
-export const uuid = () => Math.random().toString(16).slice(2);
-
-/**
  * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
  */
 interface IDefaultMdastToDocxSectionProps extends Omit<DOCX.ISectionOptions, "children"> {
