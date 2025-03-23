@@ -69,7 +69,7 @@
     "export",
     "document-generation",
     "customizable",
-    "core",
+    "@m2d/core",
     "renderer",
     "plugin-system",
     "footnotes",

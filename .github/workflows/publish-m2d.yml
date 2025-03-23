@@ -8,9 +8,7 @@ on:
 
 jobs:
   publish:
-    # Don't run just after creating repo from template
-    # Also avoid running after merging set-up PR
-    if: github.run_number > 2 && github.event.repository.owner.login == 'tiny-md'
+    if: github.event.repository.owner.login == 'tiny-md'
     runs-on: ubuntu-latest
     permissions:
       contents: write
