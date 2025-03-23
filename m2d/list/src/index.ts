@@ -1,6 +1,12 @@
 import { AlignmentType, convertInchesToTwip, ILevelsOptions, LevelFormat } from "docx";
-import { IPlugin, Optional } from "@m2d/core";
-import { uuid } from "@m2d/core/dist/utils";
+import type { IPlugin, Optional } from "@m2d/core";
+
+/**
+ * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
+ * @returns
+ */
+const uuid = () => Math.random().toString(16).slice(2);
+
 /**
  * Default options for the list plugin.
  */

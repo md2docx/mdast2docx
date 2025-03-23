@@ -32,8 +32,7 @@
     "@types/node": "^22.13.11",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.2",
-    "unist": "^0.0.1"
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "docx": "^9.3.0"

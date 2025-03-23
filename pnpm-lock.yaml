@@ -231,9 +231,6 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
-      unist:
-        specifier: ^0.0.1
-        version: 0.0.1
 
   m2d/html:
     dependencies:
@@ -310,6 +307,10 @@ importers:
         version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
 
   m2d/list:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
     devDependencies:
       '@m2d/core':
         specifier: workspace:*
@@ -323,9 +324,6 @@ importers:
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
-      docx:
-        specifier: ^9.3.0
-        version: 9.3.0
       esbuild-plugin-rdi:
         specifier: ^0.0.0
         version: 0.0.0
@@ -3761,10 +3759,6 @@ packages:
 
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
-
-  unist@0.0.1:
-    resolution: {integrity: sha512-bnzuF8b6d47WubA4a5yLqFbuZz/v/NS6eRwUIdOaDmsqzwTlyv8yS1g3M7ISdtBQrigPD3qKK87Cu7zhEfCF3A==}
-    deprecated: Use @types/unist instead
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -7628,8 +7622,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
-
-  unist@0.0.1: {}
 
   universalify@0.1.2: {}
 

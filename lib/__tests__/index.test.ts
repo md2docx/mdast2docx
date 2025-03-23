@@ -52,15 +52,15 @@ describe("toDocx", () => {
     }
   });
 
-  // it("should handle footnotes", async ({ expect }) => {
-  //   const mdast = unified().use(remarkParse).use(remarkGfm).parse(markdown);
+  it("should handle footnotes", async ({ expect }) => {
+    const mdast = unified().use(remarkParse).use(remarkGfm).parse(markdown);
 
-  //   const docxBlob = await toDocx(
-  //     mdast,
-  //     { title: "Test Document" },
-  //     { plugins: [htmlPlugin(), listPlugin(), imagePlugin(), mathPlugin(), tablePlugin()] },
-  //   );
+    const docxBlob = await toDocx(
+      mdast,
+      { title: "Test Document" },
+      { plugins: [htmlPlugin(), listPlugin(), imagePlugin(), mathPlugin(), tablePlugin()] },
+    );
 
-  //   expect(docxBlob).toBeInstanceOf(Blob);
-  // });
+    expect(docxBlob).toBeInstanceOf(Blob);
+  });
 });
