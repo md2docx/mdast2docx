@@ -1,4 +1,4 @@
-# `@m2d/math`
+# `@m2d/math` <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
 ![Version](https://img.shields.io/npm/v/@m2d/math?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/math) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/math)
 
