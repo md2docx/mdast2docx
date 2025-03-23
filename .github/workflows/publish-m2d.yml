@@ -29,8 +29,6 @@ jobs:
           git config --global user.email "mayank.srmu@gmail.com"
       - run: npm i -g pnpm && pnpm i
         name: Install dependencies
-      - run: pnpm build --filter mdast2docx
-        name: Build @m2d/* packages
         # fail and not publish if any of the unit tests are failing
       - name: Test
         run: pnpm test

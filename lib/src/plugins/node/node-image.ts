@@ -183,7 +183,7 @@ export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = o
   inline: async (docx, node, _, definitions) => {
     if (/^image/.test(node.type)) {
       // Extract image URL from the node or definitions
-      // @ts-expect-error - node might not have a URL or identifier, but those cases are handled
+      // @ts-ignore - node might not have a URL or identifier, but those cases are handled
       const url = node.url ?? definitions[node.identifier?.toUpperCase()];
       // @ts-ignore - node might not have alt text
       const alt = node.alt ?? url?.split("/").pop();
