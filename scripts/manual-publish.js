@@ -1,7 +1,7 @@
 /**
  * allow only patch changes from release branches.
  * Major and minor changes allowed only from main branch.
- * pre-release only from branch containing dev or alpha in the branchname
+ * pre-release only from branch containing dev or alpha in the branchName
  */
 
 /** Let the following error be thrown by npm. There are situations where publish could have failed for different reasons. */
