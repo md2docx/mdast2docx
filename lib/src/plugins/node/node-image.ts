@@ -50,7 +50,7 @@ const handleDataUrls: NodeImageResolver = async (
   const width = metadata.width ?? 100;
   const height = metadata.height ?? 100;
   const imgType = src.split(";")[0].split("/")[1];
-  // @ts-expect-error -- ok
+  // @ts-ignore -- ok
   if (SUPPORTED_IMAGE_TYPES.includes(imgType)) {
     return {
       type: imgType as SupportedImageType,
@@ -185,7 +185,7 @@ export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = o
       // Extract image URL from the node or definitions
       // @ts-expect-error - node might not have a URL or identifier, but those cases are handled
       const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-      // @ts-expect-error - node might not have alt text
+      // @ts-ignore - node might not have alt text
       const alt = node.alt ?? url?.split("/").pop();
       node.type = "";
       return [
