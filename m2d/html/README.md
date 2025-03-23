@@ -129,3 +129,5 @@ If you find this useful:
 ## 🧾 License
 
 MIT © [Mayank Chaudhari](https://github.com/mayankchaudhari)
+
+<p align="center">Made with 💖 by <a href="https://mayank-chaudhari.vercel.app" target="_blank">Mayank Kumar Chaudhari</a></p>
