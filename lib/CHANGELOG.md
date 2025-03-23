@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.3.1
+
+### Patch Changes
+
+- 66454f4: Use scooped packages.
+
 ## 0.3.0
 
 ### Minor Changes
