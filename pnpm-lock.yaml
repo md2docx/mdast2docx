@@ -137,6 +137,12 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
     devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../m2d/core
+      '@m2d/math':
+        specifier: workspace:*
+        version: link:../m2d/math
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../packages/eslint-config

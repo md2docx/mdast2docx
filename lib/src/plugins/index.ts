@@ -1,5 +1,5 @@
 export * from "./image";
 export * from "./table";
 export * from "./list";
-export * from "./math";
+export * from "@m2d/math";
 export * from "./html";

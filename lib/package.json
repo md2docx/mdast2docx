@@ -27,6 +27,8 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@m2d/core": "workspace:*",
+    "@m2d/math": "workspace:*",
     "@types/mdast": "^4.0.4",
     "@types/node": "^22.13.11",
     "@unified-latex/unified-latex-types": "^1.8.0",
