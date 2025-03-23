@@ -13,15 +13,10 @@
 ✅ **Tables support** — Converts Markdown tables into DOCX tables  
 ✅ **Hyperlink support** — External and internal hyperlinks are now fully functional  
 ✅ **New Plugin Architecture** — Extend and customize DOCX output with plugins  
-✅ **Customizable image handling** — Images are now supported via `imagePlugin`
+✅ **Customizable image handling** — Images are now supported via `@m2d/image` plugin
 
-> **Note:** Images are no longer supported by default. To enable image support, use the `imagePlugin` explicitly.
->
+> **Note:** Images are no longer supported by default. To enable image support, use the image plugin from `@m2d/image` or `mdast2docx/plugins` explicitly.  
 > This change helps us keep the library lean and extensible by community via plugins.
-
----
-
-Got it! Here's an improved version of the **"🚀 Relevance to Generative AI"** section that reflects this process accurately:
 
 ---
 
@@ -57,26 +52,18 @@ By integrating **MDAST to DOCX**, AI applications can **seamlessly export Markdo
 
 ---
 
----
-
 ## **📦 Installation**
 
-Install the package using `pnpm`, `npm`, or `yarn`:
+### **Install Everything at Once**
 
 ```bash
 pnpm add mdast2docx
 ```
 
-**_or_**
+### **Or Install Only What You Need (Scoped Packages)**
 
 ```bash
-npm install mdast2docx
-```
-
-**_or_**
-
-```bash
-yarn add mdast2docx
+pnpm add @m2d/core @m2d/html @m2d/image @m2d/math @m2d/table @m2d/list @m2d/mdast
 ```
 
 ---
@@ -152,8 +139,8 @@ const mdast = unified().use(remarkParse).use(remarkMmd).parse(markdown);
 | Footnotes `[^1]`                   | ✅                                    |
 | Tables                             | ✅ _(via `tablePlugin`)_              |
 | Hyperlinks (external & internal)   | ✅                                    |
-| Latex Math                         | 🚧 _(via `mathPlugin`; in progress)_  |
-| HTML Tags                          | 🚧 _(Work in progress; beta)_         |
+| Latex Math                         | ✅ _(via `mathPlugin`)_               |
+| HTML Tags                          | ✅ _(via `htmlPlugin`)_               |
 
 ---
 
@@ -181,8 +168,11 @@ const docxBlob = await toDocx(mdast, docxProps, sectionProps);
 Plugins allow extending functionality like adding image or table support.
 
 ```typescript
-import { toDocx } from "mdast2docx";
-import { imagePlugin, tablePlugin, listPlugin, mathPlugin } from "mdast2docx/dist/plugins";
+import { toDocx } from "@m2d/core";
+import { imagePlugin } from "@m2d/image";
+import { tablePlugin } from "@m2d/table";
+import { listPlugin } from "@m2d/list";
+import { mathPlugin } from "@m2d/math";
 
 const downloadDocx = () => {
   toDocx(
@@ -205,6 +195,16 @@ const downloadDocx = () => {
 
 - [DOCX.js Document Properties](https://docx.js.org/#/usage/document)
 - [DOCX.js Section Options](https://docx.js.org/#/usage/sections)
+
+---
+
+## **🧠 Relevance in Generative AI**
+
+AI tools often generate Markdown as output (e.g., reports, documentation, summaries). This library makes it easy to convert those Markdown-based outputs into rich DOCX documents.
+
+- Supports both **client-side** and **server-side** usage
+- Enables **offloading document generation** to users' browsers or running high-performance server renderers
+- Combine it with `unified` and `remark` to parse Markdown into MDAST, and then convert to DOCX seamlessly
 
 ---
 
