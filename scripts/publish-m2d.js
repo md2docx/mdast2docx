@@ -47,7 +47,7 @@ fs.readdirSync("m2d").forEach(pkg => {
           stdio: "inherit",
         });
       } catch (err) {
-        console.error(`Error publishing ${pkg}:`, err);
+        console.error(`Error publishing @${org}/${pkg}:`, err);
       }
     });
   } catch {
