@@ -401,15 +401,15 @@ importers:
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
       tsup:
         specifier: ^8.4.0
         version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
-      unist:
-        specifier: ^0.0.1
-        version: 0.0.1
 
   m2d/table:
     dependencies:
