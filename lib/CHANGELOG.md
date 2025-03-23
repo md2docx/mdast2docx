@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.3.2
+
+### Patch Changes
+
+- 2bd9f79: Fix package versions
+
 ## 0.3.1
 
 ### Patch Changes
