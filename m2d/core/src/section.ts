@@ -36,94 +36,96 @@ const createInlineProcessor = (
   footnoteDefinitions: FootnoteDefinitions,
   plugins: IPlugin[],
 ) => {
-  const processInlineNode: InlineProcessor = async (node, runProps) => {
-    const docxNodes: InlineDocxNodes[] = (
-      await Promise.all(
-        plugins.map(
-          plugin =>
-            plugin.inline?.(
-              docx,
-              node,
-              runProps,
-              definitions,
-              footnoteDefinitions,
-              processInlineNodeChildren,
-            ) ?? [],
-        ),
-      )
-    ).flat();
-
-    const newRunProps = Object.assign({}, runProps, node.data);
-    // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
-    const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-
-    switch (node.type) {
-      case "text":
-        return [
-          ...docxNodes,
-          ...(newRunProps.pre
-            ? node.value.split("\n").map(text => new TextRun({ text, ...newRunProps, break: 1 }))
-            : [new TextRun({ text: node.value, ...newRunProps })]),
-        ];
-      case "checkbox":
-        return [...docxNodes, new CheckBox({ checked: !!node.checked })];
-      case "break":
-        return [...docxNodes, new TextRun({ break: 1 })];
-      case "inlineCode":
-        return [
-          ...docxNodes,
-          new TextRun({
-            text: node.value,
-            ...newRunProps,
-            style: "code",
-            font: { name: "Consolas" },
-          }),
-        ];
-      case "emphasis":
-        newRunProps.italics = true;
-        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
-      case "strong":
-        newRunProps.bold = true;
-        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
-      case "delete":
-        newRunProps.strike = true;
-        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
-      case "link":
-      case "linkReference":
-        // newRunProps.add("link");
-        // newRunProps.style = "link";
-        newRunProps.underline = {};
-        return [
-          ...docxNodes,
-          url.startsWith("#")
-            ? new InternalHyperlink({
-                anchor: url.slice(1),
-                children: await processInlineNodeChildren(node, newRunProps),
-              })
-            : new ExternalHyperlink({
-                link: url,
-                children: await processInlineNodeChildren(node, newRunProps),
-              }),
-        ];
-      case "footnoteReference":
-        return [
-          ...docxNodes,
-          new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
-        ];
-      case "fragment":
-        return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
-      // Already handled by a plugin
-      case "":
-        return [...docxNodes];
-      default:
-        console.warn(`Unsupported inline node type: ${node.type}`);
-        return [...docxNodes];
-    }
-  };
-
   const processInlineNodeChildren: InlineChildrenProcessor = async (node, runProps = {}) =>
     (
-      await Promise.all(node.children?.map(child => processInlineNode(child, runProps)) ?? [])
+      await Promise.all(
+        node.children?.map(async node => {
+          const docxNodes: InlineDocxNodes[] = (
+            await Promise.all(
+              plugins.map(
+                plugin =>
+                  plugin.inline?.(
+                    docx,
+                    node,
+                    runProps,
+                    definitions,
+                    footnoteDefinitions,
+                    processInlineNodeChildren,
+                  ) ?? [],
+              ),
+            )
+          ).flat();
+
+          const newRunProps = Object.assign({}, runProps, node.data);
+          // @ts-expect-error - node might not have url or identifier, but we are already handling those cases.
+          const url = node.url ?? definitions[node.identifier?.toUpperCase()];
+
+          switch (node.type) {
+            case "text":
+              return [
+                ...docxNodes,
+                ...(newRunProps.pre
+                  ? node.value
+                      .split("\n")
+                      .map(text => new TextRun({ text, ...newRunProps, break: 1 }))
+                  : [new TextRun({ text: node.value, ...newRunProps })]),
+              ];
+            case "checkbox":
+              return [...docxNodes, new CheckBox({ checked: !!node.checked })];
+            case "break":
+              return [...docxNodes, new TextRun({ break: 1 })];
+            case "inlineCode":
+              return [
+                ...docxNodes,
+                new TextRun({
+                  text: node.value,
+                  ...newRunProps,
+                  style: "code",
+                  font: { name: "Consolas" },
+                }),
+              ];
+            case "emphasis":
+              newRunProps.italics = true;
+              return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
+            case "strong":
+              newRunProps.bold = true;
+              return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
+            case "delete":
+              newRunProps.strike = true;
+              return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
+            case "link":
+            case "linkReference":
+              // newRunProps.add("link");
+              // newRunProps.style = "link";
+              newRunProps.underline = {};
+              return [
+                ...docxNodes,
+                url.startsWith("#")
+                  ? new InternalHyperlink({
+                      anchor: url.slice(1),
+                      children: await processInlineNodeChildren(node, newRunProps),
+                    })
+                  : new ExternalHyperlink({
+                      link: url,
+                      children: await processInlineNodeChildren(node, newRunProps),
+                    }),
+              ];
+            case "footnoteReference":
+              return [
+                ...docxNodes,
+                new FootnoteReferenceRun(footnoteDefinitions[node.identifier].id ?? 0),
+              ];
+            case "fragment":
+              return [...docxNodes, ...(await processInlineNodeChildren(node, newRunProps))];
+            // Already handled by a plugin
+            case "":
+              return [...docxNodes];
+            default:
+              console.warn(`Unsupported inline node type: ${node.type}`);
+              return [...docxNodes];
+          }
+        }) ?? [],
+      )
     ).flat();
 
   return processInlineNodeChildren;
