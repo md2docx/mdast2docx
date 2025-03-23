@@ -18,6 +18,8 @@ jobs:
           node-version: 20
       - run: npm i -g pnpm && pnpm i
         name: Install dependencies
+      - run: pnpm build --filter mdast2docx
+        name: Build @m2d/* packages
       - name: Run unit tests
         run: pnpm test
         working-directory: ./lib
