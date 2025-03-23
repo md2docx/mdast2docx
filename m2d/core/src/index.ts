@@ -77,4 +77,4 @@ export const toDocx = async (
 
 export type { ISectionProps, IDocxProps, IInputMDAST };
 export type { IPlugin, Mutable, Optional } from "./utils";
-export type * from "./mdast";
+export type * from "@m2d/mdast";

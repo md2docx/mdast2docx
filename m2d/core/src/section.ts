@@ -1,4 +1,4 @@
-import type { Root } from "./mdast";
+import type { Root } from "@m2d/mdast";
 import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,

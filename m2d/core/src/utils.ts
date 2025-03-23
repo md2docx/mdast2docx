@@ -11,7 +11,7 @@ import {
   Math as DOCXMath,
 } from "docx";
 import * as DOCX from "docx";
-import { BlockContent, Data, DefinitionContent, Parent, Root, RootContent } from "./mdast";
+import { BlockContent, Data, DefinitionContent, Parent, Root, RootContent } from "@m2d/mdast";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "docx";
 
