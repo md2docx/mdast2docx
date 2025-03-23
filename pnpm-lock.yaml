@@ -231,6 +231,9 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
 
   m2d/html:
     dependencies:
@@ -250,9 +253,6 @@ importers:
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
-      '@unified-latex/unified-latex-types':
-        specifier: ^1.8.0
-        version: 1.8.0
       esbuild-plugin-rdi:
         specifier: ^0.0.0
         version: 0.0.0
@@ -287,9 +287,6 @@ importers:
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
-      '@unified-latex/unified-latex-types':
-        specifier: ^1.8.0
-        version: 1.8.0
       esbuild-plugin-rdi:
         specifier: ^0.0.0
         version: 0.0.0
