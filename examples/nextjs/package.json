@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@repo/shared": "workspace:*",
+    "@m2d/remark-docx": "workspace:*",
     "mdast2docx": "workspace:*",
     "next": "^15.2.3",
     "nextjs-darkmode-lite": "^1.0.10",
