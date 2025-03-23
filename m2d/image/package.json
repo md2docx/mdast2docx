@@ -1,0 +1,87 @@
+{
+  "name": "@m2d/image",
+  "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
+  "private": false,
+  "version": "0.0.0",
+  "description": "Convert Markdown Abstract Syntax Tree (MDAST) to DOCX seamlessly. Supports footnotes, images, links, and customizable document properties.",
+  "license": "MPL-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "repository": "github:tiny-md/mdast2docx",
+  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
+  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch && tsc -p tsconfig-build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "test": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@m2d/core": "workspace:*",
+    "@types/node": "^22.13.11",
+    "@unified-latex/unified-latex-types": "^1.8.0",
+    "esbuild-plugin-rdi": "^0.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.9"
+  },
+  "dependencies": {
+    "latex-math": "^0.0.1"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/tiny-md"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
+    }
+  ],
+  "keywords": [
+    "mdast",
+    "markdown",
+    "generative-ai",
+    "docx",
+    "markdown-to-docx",
+    "mdast-to-docx",
+    "converter",
+    "remark",
+    "unified",
+    "footnotes",
+    "images",
+    "hyperlinks",
+    "text-processing",
+    "document-generator",
+    "typescript",
+    "open-source",
+    "modern",
+    "customizable",
+    "seamless-integration",
+    "cutting-edge",
+    "compatibility",
+    "progressive",
+    "frontend",
+    "web-development",
+    "document-generation",
+    "rich-text",
+    "export",
+    "ms-word",
+    "automation",
+    "mayank1513"
+  ]
+}
