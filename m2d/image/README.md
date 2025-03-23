@@ -1,6 +1,6 @@
 # `@m2d/image` <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/image?color=green) ![Downloads](https://img.shields.io/npm/dm/@m2d/image) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/image)
+![Version](https://img.shields.io/npm/v/@m2d/image?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/image) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/image)
 
 > Converts Markdown (`![alt](url)`) and HTML `<img>` nodes into **DOCX-compatible** `ImageRun` elements.
 

@@ -1,6 +1,6 @@
 # `@m2d/list` <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/list?color=green) ![Downloads](https://img.shields.io/npm/dm/@m2d/list) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/list)
+![Version](https://img.shields.io/npm/v/@m2d/list?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/list) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/list)
 
 > Enables **ordered list** support in DOCX output from Markdown.
 
