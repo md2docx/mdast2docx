@@ -27,19 +27,27 @@ fs.readdirSync("m2d").forEach(pkg => {
   // Publish
   try {
     // First publish
-    execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
-      cwd: pkgDir,
-      stdio: "inherit", // Optional: inherit output to console
-    });
-
-    ["md2docx", "mdast2docx"].forEach(org => {
-      pkgJson.name = `@${org}/${pkg}`;
-      fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2));
-
+    try {
       execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
         cwd: pkgDir,
-        stdio: "inherit",
+        stdio: "inherit", // Optional: inherit output to console
       });
+    } catch (err) {
+      console.error(`Error publishing ${pkg}:`, err);
+    }
+
+    ["md2docx", "mdast2docx"].forEach(org => {
+      try {
+        pkgJson.name = `@${org}/${pkg}`;
+        fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2));
+
+        execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
+          cwd: pkgDir,
+          stdio: "inherit",
+        });
+      } catch (err) {
+        console.error(`Error publishing ${pkg}:`, err);
+      }
     });
   } catch {
     // empty
