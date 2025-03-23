@@ -1,20 +1,32 @@
 {
   "name": "@m2d/table",
-  "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
-  "private": false,
   "version": "0.0.0",
-  "description": "Convert Markdown Abstract Syntax Tree (MDAST) to DOCX seamlessly. Supports footnotes, images, links, and customizable document properties.",
+  "private": false,
+  "description": "Plugin to convert Markdown tables (MDAST) to DOCX with support for rich formatting and seamless integration into mdast2docx.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "github:tiny-md/mdast2docx",
-  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
-  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
   "sideEffects": false,
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/table",
   "scripts": {
     "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
     "clean": "rm -rf dist",
@@ -23,6 +35,9 @@
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "test": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -36,9 +51,6 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.9"
   },
-  "peerDependencies": {
-    "docx": "^9.3.0"
-  },
   "funding": [
     {
       "type": "github",
@@ -50,35 +62,26 @@
     }
   ],
   "keywords": [
-    "mdast",
-    "markdown",
-    "generative-ai",
-    "docx",
-    "markdown-to-docx",
-    "mdast-to-docx",
-    "converter",
-    "remark",
-    "unified",
-    "footnotes",
-    "images",
-    "hyperlinks",
-    "text-processing",
-    "document-generator",
-    "typescript",
-    "open-source",
-    "modern",
-    "customizable",
-    "seamless-integration",
-    "cutting-edge",
-    "compatibility",
-    "progressive",
-    "frontend",
-    "web-development",
-    "document-generation",
-    "rich-text",
-    "export",
-    "ms-word",
     "automation",
-    "mayank1513"
+    "converter",
+    "docx",
+    "document generator",
+    "export",
+    "markdown",
+    "markdown-to-docx",
+    "mdast",
+    "mdast2docx",
+    "mdast tables",
+    "ms-word",
+    "open-source",
+    "remark",
+    "rich text",
+    "seamless integration",
+    "table plugin",
+    "tables",
+    "text-processing",
+    "typescript",
+    "unified",
+    "web-development"
   ]
 }
