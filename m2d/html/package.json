@@ -1,20 +1,32 @@
 {
   "name": "@m2d/html",
-  "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
-  "private": false,
   "version": "0.0.0",
-  "description": "Convert Markdown Abstract Syntax Tree (MDAST) to DOCX seamlessly. Supports footnotes, images, links, and customizable document properties.",
+  "private": false,
+  "description": "Extend MDAST by parsing embedded HTML in Markdown. Converts HTML into structured MDAST nodes compatible with @m2d/core for DOCX generation.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "github:tiny-md/mdast2docx",
-  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
-  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
   "sideEffects": false,
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/html",
   "scripts": {
     "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
     "clean": "rm -rf dist",
@@ -24,20 +36,19 @@
     "lint:fix": "eslint src/ --fix",
     "test": "vitest run --coverage"
   },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@m2d/core": "workspace:*",
     "@types/node": "^22.13.11",
-    "@unified-latex/unified-latex-types": "^1.8.0",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.9"
-  },
-  "peerDependencies": {
-    "docx": "^9.3.0"
   },
   "funding": [
     {
@@ -51,34 +62,28 @@
   ],
   "keywords": [
     "mdast",
+    "html",
     "markdown",
     "generative-ai",
     "docx",
+    "html-to-mdast",
     "markdown-to-docx",
     "mdast-to-docx",
-    "converter",
     "remark",
     "unified",
-    "footnotes",
-    "images",
-    "hyperlinks",
-    "text-processing",
-    "document-generator",
+    "converter",
+    "extended-mdast",
+    "html-in-markdown",
+    "customizable",
     "typescript",
     "open-source",
+    "parser",
     "modern",
-    "customizable",
-    "seamless-integration",
-    "cutting-edge",
-    "compatibility",
-    "progressive",
-    "frontend",
     "web-development",
-    "document-generation",
-    "rich-text",
-    "export",
-    "ms-word",
+    "text-processing",
     "automation",
-    "mayank1513"
+    "export",
+    "rich-text",
+    "seamless-integration"
   ]
 }
