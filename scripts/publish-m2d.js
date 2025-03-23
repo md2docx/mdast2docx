@@ -39,6 +39,7 @@ fs.readdirSync("m2d").forEach(pkg => {
     ["md2docx", "mdast2docx"].forEach(org => {
       try {
         pkgJson.name = `@${org}/${pkg}`;
+        console.log("publishing -- ", pkgJson.name);
         fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2));
 
         execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
