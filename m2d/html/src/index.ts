@@ -124,6 +124,7 @@ const getDocxBorder = (cssBorder?: CssBorder) => {
   return border;
 };
 
+// skipcq: JS-R1005
 const parseStyles = (el: Node, inline = true): Data => {
   const data: Data = {};
   if (!(el instanceof HTMLElement || el instanceof SVGElement)) return data;

@@ -15,6 +15,7 @@
 	"editor.formatOnSaveMode": "file",
 	"mayank1513.trello-kanban.Workspace.filePath": ".tkb",
 	"cSpell.words": [
-		"mdast"
+		"mdast",
+		"skipcq"
 	]
 }
