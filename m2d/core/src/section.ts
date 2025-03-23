@@ -157,7 +157,6 @@ export const toSection = async (
     (
       await Promise.all(
         node.children?.map(async node => {
-          // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
           const newParaProps = { ...paraProps };
           const docxNodes = (
             await Promise.all(

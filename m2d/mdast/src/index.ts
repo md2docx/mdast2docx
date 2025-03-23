@@ -161,8 +161,10 @@ export interface Data extends UnistData {
   alignment?: (typeof AlignmentType)[keyof typeof AlignmentType];
   bold?: boolean;
   italics?: boolean;
-  underline?: { type: (typeof UnderlineType)[keyof typeof UnderlineType]; color: string } | {};
-  emphasisMark?: {};
+  underline?:
+    | { type: (typeof UnderlineType)[keyof typeof UnderlineType]; color: string }
+    | Record<string, never>;
+  emphasisMark?: Record<string, never>;
   strike?: boolean;
   allCaps?: boolean;
   smallCaps?: boolean;
