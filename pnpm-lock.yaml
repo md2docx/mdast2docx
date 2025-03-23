@@ -52,7 +52,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       webgl-generative-particles:
         specifier: ^0.0.1
         version: 0.0.1(@types/react@19.0.12)(react@19.0.0)
@@ -101,7 +101,7 @@ importers:
         version: 0.0.5(@types/react@19.0.12)(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       react18-themes:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
@@ -158,15 +158,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../packages/config-typescript
-      '@types/mdast':
-        specifier: ^4.0.4
-        version: 4.0.4
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
-      '@unified-latex/unified-latex-types':
-        specifier: ^1.8.0
-        version: 1.8.0
       '@vitest/coverage-v8':
         specifier: ^3.0.9
         version: 3.0.9(vitest@3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0))
@@ -246,9 +240,6 @@ importers:
       docx:
         specifier: ^9.3.0
         version: 9.3.0
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
     devDependencies:
       '@m2d/core':
         specifier: workspace:*
@@ -286,9 +277,6 @@ importers:
       docx:
         specifier: ^9.3.0
         version: 9.3.0
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
     devDependencies:
       '@m2d/core':
         specifier: workspace:*
@@ -326,9 +314,6 @@ importers:
       docx:
         specifier: ^9.3.0
         version: 9.3.0
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
     devDependencies:
       '@m2d/core':
         specifier: workspace:*
@@ -406,9 +391,6 @@ importers:
       docx:
         specifier: ^9.3.0
         version: 9.3.0
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
     devDependencies:
       '@m2d/core':
         specifier: workspace:*
@@ -513,7 +495,7 @@ importers:
         version: 4.1.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -6956,7 +6938,7 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react18-loaders@1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0):
+  react18-loaders@1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0):
     dependencies:
       '@types/react': 19.0.12
       r18gs: 2.1.0(@types/react@19.0.12)(react@19.0.0)
