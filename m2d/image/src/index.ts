@@ -1,437 +1,218 @@
+import type { IImageOptions } from "docx";
 import { IPlugin } from "@m2d/core";
-import { parseMath } from "latex-math";
-// skipcq: JS-C1003
-import * as DOCX from "docx";
-// skipcq: JS-C1003
-import type * as latex from "@unified-latex/unified-latex-types";
 
 /**
- * Checks if the argument has curly brackets.
+ * List of image types fully supported by docx. SVG requires fallback thus we do not include that here.
  */
-const hasCurlyBrackets = (arg: latex.Argument | undefined): arg is latex.Argument => {
-  return Boolean(arg && arg.openMark === "{" && arg.closeMark === "}");
-};
-
-/** convert to MathRun */
-const mapString = (docx: typeof DOCX, s: string): DOCX.MathRun => new docx.MathRun(s);
-
-const LATEX_SYMBOLS: Record<string, string> = {
-  textasciitilde: "~",
-  textasciicircum: "^",
-  textbackslash: "∖",
-  textbar: "|",
-  textless: "<",
-  textgreater: ">",
-  neq: "≠",
-  sim: "∼",
-  simeq: "≃",
-  approx: "≈",
-  fallingdotseq: "≒",
-  risingdotseq: "≓",
-  equiv: "≡",
-  geq: "≥",
-  geqq: "≧",
-  leq: "≤",
-  leqq: "≦",
-  gg: "≫",
-  ll: "≪",
-  times: "×",
-  div: "÷",
-  pm: "±",
-  mp: "∓",
-  oplus: "⊕",
-  ominus: "⊖",
-  otimes: "⊗",
-  oslash: "⊘",
-  circ: "∘",
-  cdot: "⋅",
-  bullet: "∙",
-  ltimes: "⋉",
-  rtimes: "⋊",
-  in: "∈",
-  ni: "∋",
-  notin: "∉",
-  subset: "⊂",
-  supset: "⊃",
-  subseteq: "⊆",
-  supseteq: "⊇",
-  nsubseteq: "⊈",
-  nsupseteq: "⊉",
-  subsetneq: "⊊",
-  supsetneq: "⊋",
-  cap: "∩",
-  cup: "∪",
-  emptyset: "∅",
-  infty: "∞",
-  partial: "∂",
-  aleph: "ℵ",
-  hbar: "ℏ",
-  wp: "℘",
-  Re: "ℜ",
-  Im: "ℑ",
-  alpha: "α",
-  beta: "β",
-  gamma: "γ",
-  delta: "δ",
-  epsilon: "ϵ",
-  zeta: "ζ",
-  eta: "η",
-  theta: "θ",
-  iota: "ι",
-  kappa: "κ",
-  lambda: "λ",
-  mu: "μ",
-  nu: "ν",
-  xi: "ξ",
-  pi: "π",
-  rho: "ρ",
-  sigma: "σ",
-  tau: "τ",
-  upsilon: "υ",
-  phi: "ϕ",
-  chi: "χ",
-  psi: "ψ",
-  omega: "ω",
-  varepsilon: "ε",
-  vartheta: "ϑ",
-  varrho: "ϱ",
-  varsigma: "ς",
-  varphi: "φ",
-  Gamma: "Γ",
-  Delta: "Δ",
-  Theta: "Θ",
-  Lambda: "Λ",
-  Xi: "Ξ",
-  Pi: "Π",
-  Sigma: "Σ",
-  Upsilon: "Υ",
-  Phi: "Φ",
-  Psi: "Ψ",
-  Omega: "Ω",
-  int: "∫",
-  oint: "∮",
-  prod: "∏",
-  coprod: "∐",
-  sum: "∑",
-  log: "log",
-  exp: "exp",
-  lim: "lim",
-  inf: "∞",
-  perp: "⊥",
-  and: "∧",
-  or: "∨",
-  not: "¬",
-  to: "→",
-  gets: "⟹",
-  implies: "⟹",
-  impliedby: "⟸",
-  forall: "∀",
-  exists: "∃",
-  empty: "∅",
-  nabla: "∇",
-  top: "⊤",
-  bot: "⊥",
-  angle: "∠",
-  backslash: "∖",
-  neg: "¬",
-  lnot: "¬",
-  flat: "♭",
-  natural: "♮",
-  sharp: "♯",
-  clubsuit: "♣",
-  diamondsuit: "♦",
-  heartsuit: "♥",
-  spadesuit: "♠",
-  varnothing: "∅",
-  S: "∖",
-  P: "∏",
-  bigcap: "⋀",
-  bigcup: "⋁",
-  bigwedge: "⊓",
-  bigvee: "⊔",
-  bigsqcap: "⊓",
-  bigsqcup: "⊔",
-  biguplus: "⊕",
-  bigoplus: "⊕",
-  bigotimes: "⊗",
-  bigodot: "⊙",
-  biginterleave: "⊺",
-  bigtimes: "⨯",
-};
-
-/** convert group to Math */
-const mapGroup = (docx: typeof DOCX, nodes: latex.Node[]): DOCX.MathRun[] => {
-  const group: DOCX.MathRun[] = [];
-  for (const c of nodes) {
-    // skipcq: JS-0357
-    group.push(...(mapNode(docx, c, group) || []));
-  }
-  return group;
-};
-
-/** Handle Macros */
-// skipcq: JS-R1005
-const mapMacro = (
-  docx: typeof DOCX,
-  node: latex.Macro,
-  runs: DOCX.MathRun[],
-): DOCX.MathRun[] | DOCX.MathRun | null => {
-  let returnVal: DOCX.MathRun[] | DOCX.MathRun | null = null;
-  switch (node.content) {
-    case "newline":
-    case "\\":
-      // line break
-      return null;
-    case "textcolor": {
-      const args = node.args ?? [];
-      // const _color = (hasCurlyBrackets(args[1]) && args[1]?.content?.[0]?.content) || "";
-      if (hasCurlyBrackets(args[2])) {
-        returnVal = mapGroup(docx, args[2].content);
-      }
-      break;
-    }
-    case "text": {
-      const args = node.args ?? [];
-      if (hasCurlyBrackets(args[0])) {
-        returnVal = mapGroup(docx, args[0].content);
-      }
-      break;
-    }
-    case "^": {
-      const prev = runs.pop();
-      if (!prev) break;
-      const superScript = mapGroup(docx, node.args?.[0]?.content ?? []);
-      // @ts-expect-error -- using extra vars
-      if (prev.isSum) {
-        const docNode = new docx.MathSum({
-          children: [],
-          superScript,
-          // @ts-expect-error -- reading extra field
-          subScript: prev.sub,
-        });
-
-        // @ts-expect-error -- attaching extra field
-        docNode.sub = prev.sub;
-        // @ts-expect-error -- attaching extra field
-        docNode.sup = superScript;
-        // @ts-expect-error -- attaching extra field
-        docNode.isSum = 1;
-        return docNode;
-        // @ts-expect-error -- attaching extra field
-      } else if (prev.sub) {
-        return new docx.MathSubSuperScript({
-          // @ts-expect-error -- attaching extra field
-          subScript: prev.sub,
-          superScript,
-          // @ts-expect-error -- attaching extra field
-          children: [prev.prev],
-        });
-      }
-      const docxNode = new docx.MathSuperScript({
-        children: [prev],
-        superScript,
-      });
-      // @ts-expect-error -- attaching extra field
-      docxNode.sup = superScript;
-      // @ts-expect-error -- attaching extra field
-      docxNode.prev = prev;
-      return docxNode;
-    }
-    case "_": {
-      const prev = runs.pop();
-      if (!prev) break;
-      const subScript = mapGroup(docx, node.args?.[0]?.content ?? []);
-      // @ts-expect-error -- attaching extra field
-      if (prev.isSum) {
-        const docNode = new docx.MathSum({
-          children: [],
-          subScript,
-          // @ts-expect-error -- reading extra field
-          superScript: prev.sup,
-        });
-        // @ts-expect-error -- attaching extra field
-        docNode.sup = prev.sup;
-        // @ts-expect-error -- attaching extra field
-        docNode.sub = subScript;
-        // @ts-expect-error -- attaching extra field
-        docNode.isSum = 1;
-        return docNode;
-        // @ts-expect-error -- attaching extra field
-      } else if (prev.sup) {
-        return new docx.MathSubSuperScript({
-          subScript,
-          // @ts-expect-error -- attaching extra field
-          superScript: prev.sup,
-          // @ts-expect-error -- attaching extra field
-          children: [prev.prev],
-        });
-      }
-      const docxNode = new docx.MathSubScript({
-        children: [prev],
-        subScript,
-      });
-      // @ts-expect-error -- attaching extra field
-      docxNode.sub = subScript;
-      // @ts-expect-error -- attaching extra field
-      docxNode.prev = prev;
-      return docxNode;
-    }
-    case "hat":
-    case "widehat":
-      // returnVal = docx.MathAccentCharacter(n)
-      returnVal = new docx.MathAccentCharacter("^");
-      break;
-    case "sum": {
-      const docNode = new docx.MathSum({
-        children: [],
-      });
-      // @ts-expect-error - extra var
-      docNode.isSum = 1;
-      return docNode;
-    }
-    case "frac":
-    case "tfrac":
-    case "dfrac": {
-      const args = node.args ?? [];
-      if (args.length === 2 && hasCurlyBrackets(args[0]) && hasCurlyBrackets(args[1])) {
-        returnVal = new docx.MathFraction({
-          numerator: mapGroup(docx, args[0].content),
-          denominator: mapGroup(docx, args[1].content),
-        });
-      }
-      break;
-    }
-    case "sqrt": {
-      const args = node.args ?? [];
-      if (args.length === 1) {
-        returnVal = new docx.MathRadical({
-          children: mapGroup(docx, args[0].content),
-        });
-      } else if (args.length === 2) {
-        returnVal = new docx.MathRadical(
-          args[0].content
-            ? {
-                children: mapGroup(docx, args[1].content),
-                degree: mapGroup(docx, args[0].content),
-              }
-            : { children: mapGroup(docx, args[1].content) },
-        );
-      }
-      break;
-    }
-    case "left":
-    case "right":
-    case "vec":
-      return [];
-    case "mathbf":
-      return mapGroup(docx, node.args?.[0]?.content ?? []);
-    default:
-      returnVal = mapString(docx, LATEX_SYMBOLS[node.content] ?? node.content);
-  }
-  // @ts-expect-error -- reading extra field
-  if (runs[runs.length - 1]?.isSum && returnVal) {
-    const prev = runs.pop();
-    return [
-      new docx.MathSum({
-        children: Array.isArray(returnVal) ? returnVal : [returnVal],
-        // @ts-expect-error -- reading extra field
-        superScript: prev.sup,
-        // @ts-expect-error -- reading extra field
-        subScript: prev.sub,
-      }),
-    ];
-  }
-  return returnVal;
-};
-
-/** Process node */
-const mapNode = (
-  docx: typeof DOCX,
-  node: latex.Node,
-  runs: DOCX.MathRun[],
-): DOCX.MathRun[] | false => {
-  let docxNodes: DOCX.MathRun[] = [];
-  switch (node.type) {
-    case "string":
-      docxNodes = [mapString(docx, node.content)];
-      break;
-    case "whitespace":
-      docxNodes = [mapString(docx, " ")];
-      break;
-    case "macro": {
-      const run = mapMacro(docx, node, runs);
-      if (!run) {
-        // line break
-        return false;
-      } else {
-        docxNodes = Array.isArray(run) ? run : [run];
-      }
-      break;
-    }
-    case "group":
-      docxNodes = mapGroup(docx, node.content);
-      break;
-    case "environment":
-      // NOT SUPPORTED BY DOCX library
-      break;
-    default:
-  }
-
-  // @ts-expect-error -- reading extra field
-  if (node.type !== "macro" && runs[runs.length - 1]?.isSum) {
-    const prev = runs.pop();
-    return [
-      new docx.MathSum({
-        children: docxNodes,
-        // @ts-expect-error -- reading extra field
-        superScript: prev.sup,
-        // @ts-expect-error -- reading extra field
-        subScript: prev.sub,
-      }),
-    ];
-  }
-
-  return docxNodes;
-};
-
-/** Parse latex and convert to DOCX MathRun nodes */
-export const parseLatex = (docx: typeof DOCX, value: string): DOCX.MathRun[][] => {
-  const latexNodes = parseMath(value);
-
-  const paragraphs: DOCX.MathRun[][] = [[]];
-  let runs: DOCX.MathRun[] = paragraphs[0];
-
-  for (const node of latexNodes) {
-    const res = mapNode(docx, node, runs);
-    if (!res) {
-      // line break
-      paragraphs.push((runs = []));
-    } else {
-      runs.push(...res);
-    }
-  }
-  return paragraphs;
-};
+export const SUPPORTED_IMAGE_TYPES = ["jpeg", "jpg", "bmp", "gif", "png"] as const;
 
 /**
- * Math Plugin
+ * Resolves an image source URL into the appropriate image options for DOCX conversion.
  */
-export const mathPlugin: () => IPlugin<{
-  type: "" | "math" | "inlineMath";
-  value?: string;
-}> = () => {
-  return {
-    inline: async (docx, node) => {
-      if (node.type !== "inlineMath" && node.type !== "math") return [];
-      node.type = "";
-      return [new docx.Math({ children: await parseLatex(docx, node.value ?? "").flat() })];
+export type ImageResolver = (src: string, options?: IImagePluginOptions) => Promise<IImageOptions>;
+
+/**
+ * Options for the image plugin.
+ */
+export interface IImagePluginOptions {
+  /**
+   * Scaling factor for base64-encoded images.
+   * @default 3
+   */
+  scale?: number;
+  /**
+   * Fallback image type if the image type cannot be determined or is not supported.
+   * @default "png"
+   */
+  fallbackImageType?: "png" | "jpg" | "bmp" | "gif";
+
+  /**
+   * Custom image resolver to resolve an image source URL into the appropriate image options for DOCX conversion.
+   */
+  imageResolver?: ImageResolver;
+}
+
+/**
+ * Determines the MIME type of an image based on its binary signature.
+ *
+ * @param buffer - The image buffer (ArrayBuffer or Buffer).
+ * @returns The detected MIME type as a string.
+ */
+export const getImageMimeType = (buffer: Buffer | ArrayBuffer) => {
+  const signatureArray = new Uint8Array(buffer).slice(0, 4);
+
+  if (signatureArray[0] === 66 && signatureArray[1] === 77) return "bmp";
+
+  const signature = signatureArray.reduce(
+    (acc, byte) => acc + byte.toString(16).padStart(2, "0"),
+    "",
+  );
+
+  switch (signature) {
+    case "89504E47":
+      return "png";
+    case "47494638":
+      return "gif";
+    case "FFD8FFE0": // JPEG signatures
+    case "FFD8FFE1":
+    case "FFD8FFE2":
+    case "FFD8FFE3":
+    case "FFD8FFE8":
+      return "jpg";
+  }
+};
+
+/** Default scale factor for base64-encoded images */
+const DEFAULT_SCALE_FACTOR = 3;
+
+/**
+ * Processes base64-encoded images, extracts dimensions, and returns image options.
+ *
+ * @param src - Base64 image source.
+ * @param scaleFactor - Scaling factor for resolution adjustment.
+ * @returns Image options with transformation details.
+ */
+const handleDataUrls = async (
+  src: string,
+  options?: IImagePluginOptions,
+): Promise<IImageOptions> => {
+  const scaleFactor = options?.scale ?? DEFAULT_SCALE_FACTOR;
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas context not available");
+
+  const img = new Image();
+  img.src = src;
+  await new Promise(resolve => (img.onload = resolve));
+
+  const width = img.width * scaleFactor;
+  const height = img.height * scaleFactor;
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(img, 0, 0, width, height);
+
+  const imgType = src.split(";")[0].split("/")[1];
+
+  // skipcq: JS-0323
+  if (SUPPORTED_IMAGE_TYPES.includes(imgType as any)) {
+    return {
+      data: src,
+      // @ts-expect-error -- ok as one of SUPPORTED_TYPES
+      type: imgType,
+      transformation: {
+        width: width / scaleFactor,
+        height: height / scaleFactor,
+      },
+    };
+  }
+
+  const fallbackImageType = options?.fallbackImageType ?? "png";
+
+  const imgData: IImageOptions = {
+    data: canvas.toDataURL(`image/${fallbackImageType}`),
+    type: fallbackImageType,
+    transformation: {
+      width: width / scaleFactor,
+      height: height / scaleFactor,
     },
-    block: async (docx, node) => {
-      if (node.type !== "math" && node.type !== "inlineMath") return [];
-      node.type = "";
-      return await parseLatex(docx, node.value ?? "").map(
-        runs => new docx.Paragraph({ children: [new docx.Math({ children: runs })] }),
-      );
+  };
+
+  return src.includes("svg")
+    ? {
+        ...imgData,
+        type: "svg",
+        data: src,
+        fallback: {
+          type: fallbackImageType,
+          data: imgData.data,
+        },
+      }
+    : imgData;
+};
+
+/**
+ * Fetches an image from an external URL, determines its type, and extracts dimensions.
+ *
+ * @param url - Image URL.
+ * @returns Image options with metadata.
+ */
+const handleNonDataUrls = async (
+  url: string,
+  options?: IImagePluginOptions,
+): Promise<IImageOptions> => {
+  const response = await fetch(
+    url.startsWith("http") ? url : `${window.location.origin}/${url.replace(/^\/+/, "")}`,
+  );
+
+  if (/(svg|xml)/.test(response.headers.get("content-type") ?? "") || url.endsWith(".svg")) {
+    const svgText = await response.text();
+    return handleDataUrls(`data:image/svg+xml;base64,${btoa(svgText)}`, options);
+  }
+  const arrayBuffer = await response.arrayBuffer();
+  const mimeType = getImageMimeType(arrayBuffer) || "png";
+
+  const imageBitmap = await createImageBitmap(new Blob([arrayBuffer], { type: mimeType }));
+
+  if (!SUPPORTED_IMAGE_TYPES.includes(mimeType)) {
+    console.warn(`${mimeType} not supported by docx. Using one of the supported mime types.`);
+    return handleDataUrls(url, options);
+  }
+
+  return {
+    type: mimeType,
+    data: arrayBuffer,
+    transformation: {
+      width: imageBitmap.width,
+      height: imageBitmap.height,
     },
   };
 };
+
+/**
+ * Resolves an image source (base64 or external URL) into image options for DOCX conversion.
+ *
+ * @param src - Image source URL.
+ * @param options - Plugin options including scaling factor.
+ * @returns The resolved image options.
+ */
+const imageResolver: ImageResolver = async (src: string, options?: IImagePluginOptions) => {
+  try {
+    return src.startsWith("data:")
+      ? await handleDataUrls(src, options)
+      : await handleNonDataUrls(src, options);
+  } catch (error) {
+    console.error(`Error resolving image: ${src}`, error);
+    return {
+      type: "png",
+      data: Buffer.from([]),
+      transformation: {
+        width: 100,
+        height: 100,
+      },
+    };
+  }
+};
+
+/**
+ * Image plugin for processing inline image nodes in Markdown AST.
+ * This plugin is designed for client-side (web) environments.
+ */
+export const imagePlugin: (options?: IImagePluginOptions) => IPlugin = options => ({
+  inline: async (docx, node, _, definitions) => {
+    if (/^image/.test(node.type)) {
+      // Extract image URL from the node or definitions
+      // @ts-expect-error - node might not have a URL or identifier, but those cases are handled
+      const url = node.url ?? definitions[node.identifier?.toUpperCase()];
+      // @ts-expect-error - node might not have alt text
+      const alt = node.alt ?? url?.split("/").pop();
+      node.type = "";
+      return [
+        new docx.ImageRun({
+          ...(await (options?.imageResolver ?? imageResolver)(url, options)),
+          altText: { description: alt, name: alt, title: alt },
+        }),
+      ];
+    }
+    return [];
+  },
+});

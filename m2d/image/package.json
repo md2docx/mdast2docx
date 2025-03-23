@@ -36,9 +36,6 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.9"
   },
-  "dependencies": {
-    "latex-math": "^0.0.1"
-  },
   "peerDependencies": {
     "docx": "^9.3.0"
   },
