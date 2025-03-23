@@ -2,13 +2,11 @@ import type { Root } from "@m2d/mdast";
 import { defaultSectionProps, getTextContent } from "./utils";
 import type {
   BlockNodeChildrenProcessor,
-  BlockNodeProcessor,
   Definitions,
   FootnoteDefinitions,
   ISectionProps,
   InlineChildrenProcessor,
   InlineDocxNodes,
-  InlineProcessor,
   IPlugin,
 } from "./utils";
 import {
@@ -155,140 +153,145 @@ export const toSection = async (
     plugins,
   );
 
-  const processBlockNode: BlockNodeProcessor = async (node, paraProps) => {
-    // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
-    const newParaProps = { ...paraProps };
-    const docxNodes = (
+  const processBlockNodeChildren: BlockNodeChildrenProcessor = async (node, paraProps) =>
+    (
       await Promise.all(
-        plugins.map(
-          plugin =>
-            plugin.block?.(
-              docx,
-              node,
-              newParaProps,
-              processBlockNodeChildren,
-              processInlineNodeChildren,
-            ) ?? [],
-        ),
+        node.children?.map(async node => {
+          // TODO: Verify correct calculation of bullet levels for nested lists and block quotes.
+          const newParaProps = { ...paraProps };
+          const docxNodes = (
+            await Promise.all(
+              plugins.map(
+                plugin =>
+                  plugin.block?.(
+                    docx,
+                    node,
+                    newParaProps,
+                    processBlockNodeChildren,
+                    processInlineNodeChildren,
+                  ) ?? [],
+              ),
+            )
+          ).flat();
+          Object.assign(newParaProps, node.data);
+          switch (node.type) {
+            // case "root":
+            //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+            case "paragraph": {
+              const preStyles: IParagraphOptions = newParaProps.pre ? { alignment: "left" } : {};
+              const checkbox =
+                typeof newParaProps.checked === "boolean"
+                  ? [
+                      new CheckBox({
+                        checked: newParaProps.checked,
+                        checkedState: { value: "2611" },
+                        uncheckedState: { value: "2610" },
+                      }),
+                      new TextRun(" "),
+                    ]
+                  : [];
+              return [
+                ...docxNodes,
+                new Paragraph({
+                  ...preStyles,
+                  ...newParaProps,
+                  children: [
+                    ...checkbox,
+                    // @ts-expect-error -- passing all data
+                    ...(await processInlineNodeChildren(node, newParaProps)),
+                  ],
+                }),
+              ];
+            }
+            case "heading":
+              return [
+                new Paragraph({
+                  ...newParaProps,
+                  ...docxNodes,
+                  // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
+                  heading: useTitle
+                    ? node.depth === 1
+                      ? "Title"
+                      : `Heading${node.depth - 1}`
+                    : `Heading${node.depth}`,
+                  children: [
+                    new Bookmark({
+                      id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
+                      // @ts-expect-error -- passing all data
+                      children: await processInlineNodeChildren(node, newParaProps),
+                    }),
+                  ],
+                }),
+              ];
+            case "code":
+              return [
+                ...docxNodes,
+                new Paragraph({
+                  border: {
+                    bottom: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+                    left: { style: BorderStyle.SINGLE, space: 10, size: 1 },
+                    right: { style: BorderStyle.SINGLE, space: 5, size: 1 },
+                    top: { style: BorderStyle.SINGLE, space: 6, size: 1 },
+                  },
+                  ...newParaProps,
+                  alignment: "left",
+                  style: "blockCode",
+                  children: node.value.split("\n").map(
+                    (line, i) =>
+                      // @ts-expect-error -- ok to pass extra data
+                      new TextRun({
+                        ...newParaProps,
+                        text: line,
+                        break: i === 0 ? 0 : 1,
+                        style: "code",
+                        font: { name: "Consolas" },
+                      }),
+                  ),
+                }),
+              ];
+            case "list":
+              if (node.ordered) {
+                newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
+                console.warn(
+                  "Please add numbering plugin to support ordered lists. For now, we use only bullets for both the ordered and the unordered list.",
+                );
+              } else {
+                newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
+              }
+              return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+            case "blockquote":
+              // newParaProps.indent = { left: 720, hanging: 360 };
+              return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+            case "listItem":
+              newParaProps.checked = node.checked;
+              return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+            case "thematicBreak":
+              return [
+                ...docxNodes,
+                new Paragraph({
+                  ...node.data,
+                  border: { top: { style: BorderStyle.SINGLE, size: 6 } },
+                }),
+              ];
+            case "definition":
+            case "footnoteDefinition":
+              return docxNodes;
+            case "table":
+              console.warn("Please add table plugin to support tables.");
+              return docxNodes;
+            case "fragment":
+              return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
+            case "":
+              return docxNodes;
+            case "yaml":
+            case "html":
+            default:
+              console.warn(`May be an unsupported node type: ${node.type}`, node);
+              return docxNodes;
+          }
+        }),
       )
     ).flat();
-    Object.assign(newParaProps, node.data);
-    switch (node.type) {
-      // case "root":
-      //   return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "paragraph": {
-        const preStyles: IParagraphOptions = newParaProps.pre ? { alignment: "left" } : {};
-        const checkbox =
-          typeof newParaProps.checked === "boolean"
-            ? [
-                new CheckBox({
-                  checked: newParaProps.checked,
-                  checkedState: { value: "2611" },
-                  uncheckedState: { value: "2610" },
-                }),
-                new TextRun(" "),
-              ]
-            : [];
-        return [
-          ...docxNodes,
-          new Paragraph({
-            ...preStyles,
-            ...newParaProps,
-            children: [
-              ...checkbox,
-              // @ts-expect-error -- passing all data
-              ...(await processInlineNodeChildren(node, newParaProps)),
-            ],
-          }),
-        ];
-      }
-      case "heading":
-        return [
-          new Paragraph({
-            ...newParaProps,
-            ...docxNodes,
-            // @ts-expect-error - TypeScript does not infer depth to always be between 1 and 6, but it is ensured by MDAST specs
-            heading: useTitle
-              ? node.depth === 1
-                ? "Title"
-                : `Heading${node.depth - 1}`
-              : `Heading${node.depth}`,
-            children: [
-              new Bookmark({
-                id: getTextContent(node).replace(/[. ]+/g, "-").toLowerCase(),
-                // @ts-expect-error -- passing all data
-                children: await processInlineNodeChildren(node, newParaProps),
-              }),
-            ],
-          }),
-        ];
-      case "code":
-        return [
-          ...docxNodes,
-          new Paragraph({
-            border: {
-              bottom: { style: BorderStyle.SINGLE, space: 5, size: 1 },
-              left: { style: BorderStyle.SINGLE, space: 10, size: 1 },
-              right: { style: BorderStyle.SINGLE, space: 5, size: 1 },
-              top: { style: BorderStyle.SINGLE, space: 6, size: 1 },
-            },
-            ...newParaProps,
-            alignment: "left",
-            style: "blockCode",
-            children: node.value.split("\n").map(
-              (line, i) =>
-                // @ts-expect-error -- ok to pass extra data
-                new TextRun({
-                  ...newParaProps,
-                  text: line,
-                  break: i === 0 ? 0 : 1,
-                  style: "code",
-                  font: { name: "Consolas" },
-                }),
-            ),
-          }),
-        ];
-      case "list":
-        if (node.ordered) {
-          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
-          console.warn(
-            "Please add numbering plugin to support ordered lists. For now, we use only bullets for both the ordered and the unordered list.",
-          );
-        } else {
-          newParaProps.bullet = { level: (newParaProps.bullet?.level ?? -1) + 1 };
-        }
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "blockquote":
-        // newParaProps.indent = { left: 720, hanging: 360 };
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "listItem":
-        newParaProps.checked = node.checked;
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "thematicBreak":
-        return [
-          ...docxNodes,
-          new Paragraph({ ...node.data, border: { top: { style: BorderStyle.SINGLE, size: 6 } } }),
-        ];
-      case "definition":
-      case "footnoteDefinition":
-        return docxNodes;
-      case "table":
-        console.warn("Please add table plugin to support tables.");
-        return docxNodes;
-      case "fragment":
-        return [...docxNodes, ...(await processBlockNodeChildren(node, newParaProps))];
-      case "":
-        return docxNodes;
-      case "yaml":
-      case "html":
-      default:
-        console.warn(`May be an unsupported node type: ${node.type}`, node);
-        return docxNodes;
-    }
-  };
-
-  const processBlockNodeChildren: BlockNodeChildrenProcessor = async (node, paraProps) =>
-    (await Promise.all(node.children?.map(child => processBlockNode(child, paraProps)))).flat();
 
   return { ...sectionProps, children: await processBlockNodeChildren(node, {}) };
 };
