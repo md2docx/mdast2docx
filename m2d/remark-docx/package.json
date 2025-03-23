@@ -1,0 +1,90 @@
+{
+  "name": "@m2d/remark-docx",
+  "version": "0.0.0",
+  "description": "A unified plugin to prepare MDAST trees for DOCX conversion using mdast2docx.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
+  "license": "MPL-2.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/remark-docx",
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch && tsc -p tsconfig-build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "test": "vitest run --coverage"
+  },
+  "keywords": [
+    "automation",
+    "customizable",
+    "docx",
+    "docx formatting",
+    "document generator",
+    "footnotes",
+    "hyperlinks",
+    "images",
+    "markdown",
+    "markdown-to-docx",
+    "mdast",
+    "mdast2docx",
+    "mdast extensions",
+    "ms-word",
+    "nodes",
+    "open-source",
+    "remark",
+    "remark plugin",
+    "rich text",
+    "text-processing",
+    "typescript",
+    "unified",
+    "unist",
+    "unist custom nodes",
+    "web-development"
+  ],
+  "dependencies": {
+    "mdast2docx": "^0.3.2",
+    "unified": "^11.0.5"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.13.11",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/tiny-md"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
+    }
+  ]
+}

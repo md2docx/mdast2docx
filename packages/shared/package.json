@@ -41,6 +41,7 @@
   "dependencies": {
     "@mayank1513/fork-me": "^2.1.3",
     "@repo/scripts": "workspace:*",
+    "@m2d/remark-docx": "workspace:*",
     "docx": "^9.3.0",
     "esbuild-raw-plugin": "^0.2.0",
     "mdast2docx": "workspace:*",

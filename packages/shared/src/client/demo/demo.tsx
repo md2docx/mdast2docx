@@ -9,47 +9,46 @@ import remarkMath from "remark-math";
 import styles from "./demo.module.scss";
 import { CodeDisplay } from "./code-display";
 import { removePosition } from "unist-util-remove-position";
-import { toDocx } from "mdast2docx";
-import {
-  htmlPlugin,
-  imagePlugin,
-  tablePlugin,
-  listPlugin,
-  mathPlugin,
-} from "mdast2docx/dist/plugins";
 // skipcq: JS-R1001
 import demoCode from "./demo.tsx?raw";
 import { useState } from "react";
+import { remarkDocx } from "@m2d/remark-docx";
 
 /** React live demo */
 export function Demo() {
   const [loading, setLoading] = useState(false);
-  const docxProcessor = unified()
+  const mdastProcessor = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkFrontmatter)
     .use(remarkMath);
 
-  const mdast = docxProcessor.parse(md);
+  const mdast = mdastProcessor.parse(md);
 
   removePosition(mdast);
 
+  const docxProcessor = unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkFrontmatter)
+    .use(remarkMath)
+    .use(remarkDocx);
+
   const downloadDocx = () => {
     setLoading(true);
-    toDocx(
-      mdast,
-      {},
-      { plugins: [htmlPlugin(), imagePlugin(), tablePlugin(), listPlugin(), mathPlugin()] },
-      "blob",
-    ).then(blob => {
-      const url = URL.createObjectURL(blob as Blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "my-document.docx";
-      link.click();
-      URL.revokeObjectURL(url);
-      setLoading(false);
-    });
+
+    docxProcessor
+      .process(md)
+      .then(res => res.result)
+      .then(blob => {
+        const url = URL.createObjectURL(blob as Blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "my-document.docx";
+        link.click();
+        URL.revokeObjectURL(url);
+        setLoading(false);
+      });
   };
 
   // console.log(docxProcessor.processSync(md));
