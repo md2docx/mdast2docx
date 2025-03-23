@@ -1,0 +1,90 @@
+{
+  "name": "@m2d/math",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Plugin to convert mathematical expressions in Markdown (MDAST) to DOCX using LaTeX-style syntax. Integrates seamlessly with mdast2docx.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
+  "license": "MPL-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/math",
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch && tsc -p tsconfig-build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "test": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
+  "dependencies": {
+    "latex-math": "^0.0.1"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@m2d/core": "workspace:*",
+    "@types/node": "^22.13.11",
+    "@unified-latex/unified-latex-types": "^1.8.0",
+    "esbuild-plugin-rdi": "^0.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.9"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/tiny-md"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
+    }
+  ],
+  "keywords": [
+    "automation",
+    "docx",
+    "document generator",
+    "export",
+    "latex",
+    "markdown",
+    "markdown-to-docx",
+    "math",
+    "math expressions",
+    "math plugin",
+    "mdast",
+    "mdast2docx",
+    "ms-word",
+    "open-source",
+    "remark",
+    "rich text",
+    "seamless integration",
+    "text-processing",
+    "typescript",
+    "unified",
+    "web-development"
+  ]
+}

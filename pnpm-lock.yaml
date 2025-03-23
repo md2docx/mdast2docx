@@ -130,12 +130,27 @@ importers:
 
   lib:
     dependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../m2d/core
+      '@m2d/html':
+        specifier: workspace:*
+        version: link:../m2d/html
+      '@m2d/image':
+        specifier: workspace:*
+        version: link:../m2d/image
+      '@m2d/list':
+        specifier: workspace:*
+        version: link:../m2d/list
+      '@m2d/math':
+        specifier: workspace:*
+        version: link:../m2d/math
+      '@m2d/table':
+        specifier: workspace:*
+        version: link:../m2d/table
       docx:
         specifier: ^9.3.0
         version: 9.3.0
-      latex-math:
-        specifier: ^0.0.1
-        version: 0.0.1
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -143,15 +158,12 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../packages/config-typescript
-      '@types/mdast':
-        specifier: ^4.0.4
-        version: 4.0.4
       '@types/node':
         specifier: ^22.13.11
         version: 22.13.11
-      '@unified-latex/unified-latex-types':
-        specifier: ^1.8.0
-        version: 1.8.0
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@vitest/coverage-v8':
         specifier: ^3.0.9
         version: 3.0.9(vitest@3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0))
@@ -182,9 +194,244 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
-      unist:
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/core:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@m2d/mdast':
+        specifier: workspace:*
+        version: link:../mdast
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/html:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../core
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/image:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../core
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/list:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../core
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/math:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+      latex-math:
         specifier: ^0.0.1
         version: 0.0.1
+    devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../core
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      '@unified-latex/unified-latex-types':
+        specifier: ^1.8.0
+        version: 1.8.0
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
+      vitest:
+        specifier: ^3.0.9
+        version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.11)(jsdom@26.0.0(canvas@3.1.0))(sass@1.86.0)
+
+  m2d/mdast:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
+  m2d/table:
+    dependencies:
+      docx:
+        specifier: ^9.3.0
+        version: 9.3.0
+    devDependencies:
+      '@m2d/core':
+        specifier: workspace:*
+        version: link:../core
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: ^22.13.11
+        version: 22.13.11
+      '@unified-latex/unified-latex-types':
+        specifier: ^1.8.0
+        version: 1.8.0
+      esbuild-plugin-rdi:
+        specifier: ^0.0.0
+        version: 0.0.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.11)(sass@1.86.0))
@@ -3509,10 +3756,6 @@ packages:
 
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
-
-  unist@0.0.1:
-    resolution: {integrity: sha512-bnzuF8b6d47WubA4a5yLqFbuZz/v/NS6eRwUIdOaDmsqzwTlyv8yS1g3M7ISdtBQrigPD3qKK87Cu7zhEfCF3A==}
-    deprecated: Use @types/unist instead
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -7376,8 +7619,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
-
-  unist@0.0.1: {}
 
   universalify@0.1.2: {}
 

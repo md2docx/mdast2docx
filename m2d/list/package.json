@@ -1,0 +1,86 @@
+{
+  "name": "@m2d/list",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Plugin to convert ordered and unordered lists from Markdown (MDAST) to DOCX. Supports nesting, custom bullets, and numbering styles.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
+  "license": "MPL-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/list",
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch && tsc -p tsconfig-build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "test": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@m2d/core": "workspace:*",
+    "@types/node": "^22.13.11",
+    "esbuild-plugin-rdi": "^0.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.9"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/tiny-md"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
+    }
+  ],
+  "keywords": [
+    "mdast",
+    "markdown",
+    "docx",
+    "markdown-to-docx",
+    "mdast-to-docx",
+    "ordered-list",
+    "unordered-list",
+    "nested-lists",
+    "bullet-points",
+    "numbered-lists",
+    "document-generation",
+    "text-processing",
+    "open-source",
+    "typescript",
+    "converter",
+    "automation",
+    "unified",
+    "remark",
+    "web-development",
+    "export",
+    "rich-text"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "name": "@m2d/image",
+  "version": "0.0.0",
+  "private": false,
+  "description": "MDAST to DOCX plugin for resolving and embedding images. Supports base64, URLs, and custom resolvers for seamless DOCX image integration.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
+  "license": "MPL-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/image",
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch && tsc -p tsconfig-build.json -w",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "test": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@m2d/core": "workspace:*",
+    "@types/node": "^22.13.11",
+    "esbuild-plugin-rdi": "^0.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.9"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/tiny-md"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mayank1513"
+    }
+  ],
+  "keywords": [
+    "mdast",
+    "markdown",
+    "generative-ai",
+    "docx",
+    "markdown-to-docx",
+    "mdast-to-docx",
+    "images",
+    "image-resolver",
+    "base64",
+    "remote-image",
+    "docx-image",
+    "export",
+    "document-generation",
+    "typescript",
+    "converter",
+    "remark",
+    "unified",
+    "open-source",
+    "web-development",
+    "automation",
+    "seamless-integration",
+    "customizable",
+    "rich-text",
+    "image-embedding",
+    "image-plugin"
+  ]
+}

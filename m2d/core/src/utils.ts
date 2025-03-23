@@ -11,7 +11,7 @@ import {
   Math as DOCXMath,
 } from "docx";
 import * as DOCX from "docx";
-import { BlockContent, Data, DefinitionContent, Parent, Root, RootContent } from "./mdast";
+import { BlockContent, Data, DefinitionContent, Parent, Root, RootContent } from "@m2d/mdast";
 
 export { convertInchesToTwip, convertMillimetersToTwip } from "docx";
 
@@ -52,7 +52,7 @@ export const getDefinitions = (nodes: RootContent[]) => {
 /** Type representing an extended RootContent node
  * - this type is used to avoid type errors when setting type to empty string (in case you want to avoid reprocessing that node.) in plugins
  */
-type ExtendedRootContent<T extends { type: string; data?: Data } = { type: ""; data: {} }> =
+type ExtendedRootContent<T extends { type: string; data?: Data } = { type: ""; data: Data }> =
   | RootContent
   | T;
 
@@ -69,12 +69,6 @@ export const getTextContent = (node: ExtendedRootContent): string => {
 
   return (node as { value?: string }).value ?? "";
 };
-
-/**
- * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
- * @returns
- */
-export const uuid = () => Math.random().toString(16).slice(2);
 
 /**
  * Default configuration for converting MDAST to DOCX, including title handling and plugin extensions.
@@ -199,13 +193,6 @@ export interface IPlugin<T extends { type: string } = { type: "" }> {
    */
   preprocess?: (tree: Root) => void;
 }
-
-export const standardizeColor = (str: string) => {
-  const ctx = document.createElement("canvas").getContext("2d");
-  if (!ctx) return str.startsWith("#") ? str.slice(1) : "auto";
-  ctx.fillStyle = str;
-  return ctx.fillStyle.slice(1);
-};
 
 /**
  * @mayank/docx is a fork of the `docx` library with minor modifications,

@@ -3,7 +3,7 @@
  */
 
 import { IImageOptions } from "docx";
-import { IPlugin } from "../../utils";
+import { IPlugin } from "@m2d/core";
 import sharp from "sharp";
 import fetch from "node-fetch";
 

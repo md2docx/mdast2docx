@@ -1,5 +1,5 @@
 import { AlignmentType, convertInchesToTwip, ILevelsOptions, LevelFormat } from "docx";
-import { IPlugin, Optional, uuid } from "../utils";
+import type { IPlugin, Optional } from "@m2d/core";
 
 /**
  * Default options for the list plugin.
@@ -21,7 +21,7 @@ interface IDefaultListPluginOptions {
 /** Type representing optional list plugin options. */
 export type IListPluginOptions = Optional<IDefaultListPluginOptions>;
 
-const levelFormats = [
+const levelFormats: (typeof LevelFormat)[keyof typeof LevelFormat][] = [
   LevelFormat.DECIMAL,
   LevelFormat.DECIMAL,
   LevelFormat.DECIMAL,
@@ -89,7 +89,7 @@ const defaultListPluginOptions: IDefaultListPluginOptions = {
  * @returns An `IPlugin` instance for handling lists in the document.
  */
 export const listPlugin: (options?: IListPluginOptions) => IPlugin = options => {
-  const uId = uuid();
+  const uId = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
   const numReference = `numbering-${uId}`;
   const bulletReference = `bullet-${uId}`;
   const { levels, bulletLevels, bullets, defaultBullets } = {

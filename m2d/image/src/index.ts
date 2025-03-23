@@ -1,5 +1,5 @@
 import type { IImageOptions } from "docx";
-import { IPlugin } from "../utils";
+import { IPlugin } from "@m2d/core";
 
 /**
  * List of image types fully supported by docx. SVG requires fallback thus we do not include that here.

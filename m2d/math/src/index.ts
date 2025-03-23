@@ -1,4 +1,4 @@
-import { IPlugin } from "../utils";
+import { IPlugin } from "@m2d/core";
 import { parseMath } from "latex-math";
 // skipcq: JS-C1003
 import * as DOCX from "docx";

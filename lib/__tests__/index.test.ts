@@ -4,7 +4,7 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import fs from "fs";
-import { htmlPlugin, listPlugin, mathPlugin, tablePlugin } from "../src/plugins";
+import { htmlPlugin, listPlugin, mathPlugin, tablePlugin, imagePlugin } from "../src/plugins";
 
 const markdown = fs.readFileSync("../sample.md", "utf-8");
 
@@ -58,7 +58,7 @@ describe("toDocx", () => {
     const docxBlob = await toDocx(
       mdast,
       { title: "Test Document" },
-      { plugins: [htmlPlugin(), listPlugin(), mathPlugin(), tablePlugin()] },
+      { plugins: [htmlPlugin(), listPlugin(), imagePlugin(), mathPlugin(), tablePlugin()] },
     );
 
     expect(docxBlob).toBeInstanceOf(Blob);

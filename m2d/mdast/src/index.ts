@@ -5,7 +5,7 @@ import type {
   Node as UnistNode,
   Parent as UnistParent,
 } from "unist";
-import { Mutable } from "./utils";
+export type Mutable<T> = { -readonly [K in keyof T]: T[K] extends object ? Mutable<T> : T[K] };
 
 /**
  * This is used to avoid multiple times processing of a given node.
@@ -161,8 +161,10 @@ export interface Data extends UnistData {
   alignment?: (typeof AlignmentType)[keyof typeof AlignmentType];
   bold?: boolean;
   italics?: boolean;
-  underline?: { type: (typeof UnderlineType)[keyof typeof UnderlineType]; color: string } | {};
-  emphasisMark?: {};
+  underline?:
+    | { type: (typeof UnderlineType)[keyof typeof UnderlineType]; color: string }
+    | Record<string, never>;
+  emphasisMark?: Record<string, never>;
   strike?: boolean;
   allCaps?: boolean;
   smallCaps?: boolean;

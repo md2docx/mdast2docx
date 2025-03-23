@@ -3,6 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const packageJSON = require("../package.json");
 
+execSync("pnpm turbo telemetry disable");
+
 const PNPM_VERSION = execSync("pnpm -v").toString().trim();
 packageJSON.packageManager = `pnpm@${PNPM_VERSION}`;
 
