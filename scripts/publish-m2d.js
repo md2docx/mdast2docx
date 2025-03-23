@@ -1,5 +1,5 @@
 /** It is assumed that this is called only from the default branch. */
-const { execSync } = require("child_process");
+const { execSync, execFileSync } = require("child_process");
 const fs = require("fs");
 
 const BRANCH = process.env.BRANCH;
@@ -26,11 +26,20 @@ fs.readdirSync("m2d").forEach(pkg => {
 
   // Publish
   try {
-    execSync(`cd ${pkgDir} && npm publish --access public --provenance`);
+    // First publish
+    execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
+      cwd: pkgDir,
+      stdio: "inherit", // Optional: inherit output to console
+    });
+
     ["md2docx", "mdast2docx"].forEach(org => {
       pkgJson.name = `@${org}/${pkg}`;
-      fs.writeFileSync(`${pkgDir}/package.json`, JSON.stringify(pkgJson, null, 2));
-      execSync(`cd ${pkgDir} && npm publish --access public --provenance`);
+      fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2));
+
+      execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
+        cwd: pkgDir,
+        stdio: "inherit",
+      });
     });
   } catch {
     // empty
