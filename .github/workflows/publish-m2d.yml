@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish @m2d packages to NPM
 
 # publish only when package json has changed - assuming version upgrade
 on:
