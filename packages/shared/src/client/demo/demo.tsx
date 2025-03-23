@@ -37,18 +37,16 @@ export function Demo() {
   const downloadDocx = () => {
     setLoading(true);
 
-    docxProcessor
-      .process(md)
-      .then(res => res.result)
-      .then(blob => {
-        const url = URL.createObjectURL(blob as Blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "my-document.docx";
-        link.click();
-        URL.revokeObjectURL(url);
-        setLoading(false);
-      });
+    const { result } = docxProcessor.processSync(md) as { result: Promise<Blob> };
+    result.then(blob => {
+      const url = URL.createObjectURL(blob as Blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "my-document.docx";
+      link.click();
+      URL.revokeObjectURL(url);
+      setLoading(false);
+    });
   };
 
   // console.log(docxProcessor.processSync(md));

@@ -1,112 +1,219 @@
-# `@m2d/mdast` <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
+# @m2d/remark-docx <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/mdast?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/mdast) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/mdast)
+![Version](https://img.shields.io/npm/v/@m2d/remark-docx?color=green)
+![Downloads](https://img.shields.io/npm/d18m/@m2d/remark-docx)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/remark-docx)
 
-> Extended MDAST types and nodes with custom properties and extra formatting data for `mdast2docx`.
+> A Unified/Remark plugin that injects a DOCX compiler using [`mdast2docx`](https://github.com/tiny-md/mdast2docx) and outputs `.docx` files from Markdown.
+
+---
+
+## 🧭 Overview
+
+`@m2d/remark-docx` enables direct export of Markdown content to Microsoft Word (`.docx`) using the Unified ecosystem. It seamlessly bridges `remark` with the [`mdast2docx`](https://github.com/tiny-md/mdast2docx) compiler and auto-injects common plugins like GFM tables, math, lists, and inline HTML support.
+
+It’s designed for both **browser** and **Node.js** environments, handling environment-specific features like image or HTML parsing smartly.
+
+---
+
+## ✨ Features
+
+- 📄 Converts Markdown to `.docx` using `mdast2docx`
+- 🔌 Auto-injects plugins for GFM tables, math, lists, images, and HTML
+- 🧠 Smart: excludes DOM-only plugins in Node.js
+- 💥 Supports both `.process()` and `.processSync()` with an async `.result`
+- 🔄 Output as `Blob`, `Buffer`, or `base64`
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install @m2d/mdast
+npm install @m2d/remark-docx docx
 ```
+
+Also install any optional plugins you wish to include in your pipeline:
 
 ```bash
-pnpm add @m2d/mdast
+npm install remark-parse remark-gfm remark-math remark-frontmatter
 ```
+
+Other package managers:
 
 ```bash
-yarn add @m2d/mdast
+yarn add @m2d/remark-docx docx
+pnpm add @m2d/remark-docx docx
 ```
 
 ---
 
-## 🚀 Overview
+## 🚀 Usage
 
-The `@m2d/mdast` package enhances the standard [MDAST](https://github.com/syntax-tree/mdast) specification by introducing:
-
-- New **custom node types** to support advanced features.
-- Extended **`.data`** fields for compatibility with the `docx` library.
-- Internal utilities used by the `mdast2docx` ecosystem for fine-grained control.
-
-This allows the entire processing pipeline to recognize, style, and transform nodes with rich document semantics during DOCX generation.
-
----
-
-## ✨ Extended Node Types
+### 🔗 Browser Example (Async)
 
 ```ts
-export interface EmptyNode {
-  type: ""; // Used to skip further processing
-  [key: string]: unknown;
-}
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import remarkFrontmatter from "remark-frontmatter";
+import { remarkDocx } from "@m2d/remark-docx";
 
-export interface Fragment extends Parent {
-  type: "fragment";
-  children: (RootContent | PhrasingContent)[];
-}
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkFrontmatter)
+  .use(remarkMath)
+  .use(remarkDocx);
 
-export interface Checkbox extends Node {
-  type: "checkbox";
-  checked?: boolean;
-}
+const downloadDocx = () => {
+  processor
+    .process(md)
+    .then(res => res.result)
+    .then(blob => {
+      const url = URL.createObjectURL(blob as Blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "document.docx";
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+};
 ```
 
-### 💡 Why?
-
-- `EmptyNode`: Prevents duplicate processing (similar to `event.stopPropagation()`).
-- `Fragment`: Acts like a container node for grouping without injecting a parent block (like React fragments).
-- `Checkbox`: Represents checkbox nodes parsed from GFM syntax or HTML input tags.
-
----
-
-## 🛠️ Extended Data Props
-
-The `data` field on MDAST nodes is enriched to include DOCX-compatible styling options:
+### ⚡ Browser Example (Sync + Async Result)
 
 ```ts
-export interface Data extends UnistData {
-  border?: IBorderOptions | IBordersOptions;
-  alignment?: AlignmentType;
-  bold?: boolean;
-  italics?: boolean;
-  underline?: { type: UnderlineType; color: string } | {};
-  emphasisMark?: {};
-  strike?: boolean;
-  allCaps?: boolean;
-  smallCaps?: boolean;
-  subScript?: boolean;
-  superScript?: boolean;
-  color?: string;
-  highlight?: string; // highlight color
-  frame?: IFrameOptions;
-  pre?: boolean;
-}
+const { result } = processor.processSync(md) as { result: Promise<Blob> };
+result.then(blob => {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "document.docx";
+  link.click();
+  URL.revokeObjectURL(url);
+});
 ```
 
-### 📌 Use Cases
+---
 
-- Styling from inline/block HTML is parsed into these fields for direct use with `docx`.
-- Rich formatting control like highlights, alignment, text effects, and borders.
-- Useful when transforming MDAST to Word-compatible components.
+### 🐢 Node.js Example
+
+```ts
+import fs from "node:fs";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import remarkFrontmatter from "remark-frontmatter";
+import { remarkDocx } from "@m2d/remark-docx";
+
+const markdown = `
+# Hello DOCX
+
+This is a *Markdown* document with **tables**, math, and more.
+
+| A | B |
+|---|---|
+| 1 | 2 |
+
+Inline math: $x^2 + y^2 = z^2$
+`;
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkFrontmatter)
+  .use(remarkMath)
+  .use(remarkDocx, "buffer"); // outputType = "buffer" in Node
+
+const { result } = processor.processSync(markdown) as { result: Promise<Buffer> };
+
+result.then(buffer => {
+  fs.writeFileSync("output.docx", buffer);
+  console.log("✔ DOCX file written: output.docx");
+});
+```
 
 ---
 
-## 🧩 Integration
+## 🧩 Plugin Behavior
 
-This package is used internally by:
+By default, these `mdast2docx` plugins are included:
 
-- [`@m2d/core`](https://www.npmjs.com/package/@m2d/core)
-- Plugins like [`@m2d/html`](https://www.npmjs.com/package/@m2d/html), [`@m2d/image`](https://www.npmjs.com/package/@m2d/image), etc.
+| Plugin        | Description             |
+| ------------- | ----------------------- |
+| `htmlPlugin`  | Parses inline HTML      |
+| `tablePlugin` | GFM table support       |
+| `listPlugin`  | Ordered/unordered lists |
+| `mathPlugin`  | KaTeX math blocks       |
+| `imagePlugin` | Resolves images         |
 
-You don’t need to use this package directly unless you're working on custom plugins or extending the MDAST tree manually.
+On **Node.js**, `htmlPlugin` and `imagePlugin` are automatically excluded to avoid DOM dependency issues.
+
+To override this behavior, pass custom plugins using `sectionProps.plugins`.
 
 ---
 
-## 🧾 License
+## 📘 API
 
-MIT © [Mayank Chaudhari](https://github.com/mayankchaudhari)
+### `remarkDocx(outputType?, docxProps?, sectionProps?)`
+
+| Param          | Type                                 | Description                         |
+| -------------- | ------------------------------------ | ----------------------------------- |
+| `outputType`   | `"blob"` \| `"buffer"` \| `"base64"` | Default is `"blob"`                 |
+| `docxProps`    | `IDocxProps`                         | Global DOCX config (optional)       |
+| `sectionProps` | `ISectionProps`                      | Section + plugin control (optional) |
+
+Returns a `Processor` where `.result` on `vfile` is a `Promise<Blob | Buffer | string>` depending on the mode.
+
+---
+
+## 🔥 Output Handling
+
+Both `.process()` and `.processSync()` return a `vfile` with a `result` field:
+
+```ts
+const file = await processor.process(md);
+const blobOrBuffer = await file.result;
+```
+
+> This makes the plugin environment-safe and decoupled from internal mutation or I/O.
+
+---
+
+## 🛠 Development
+
+```bash
+npm run dev       # Watch mode
+npm run build     # Compile to /dist
+npm run lint      # Lint source
+npm run test      # Run tests
+```
+
+---
+
+## 📄 License
+
+Licensed under the [MPL-2.0 License](https://www.mozilla.org/en-US/MPL/2.0/).
+
+---
+
+## 💖 Sponsors
+
+Support the project & its ecosystem:
+
+- [@tiny-md](https://github.com/sponsors/tiny-md)
+- [@mayank1513](https://github.com/sponsors/mayank1513)
+
+---
+
+## 🔗 Related Projects
+
+- [`mdast2docx`](https://github.com/tiny-md/mdast2docx) – The DOCX engine
+- [`docx`](https://github.com/dolanmiu/docx) – Low-level DOCX generation
+- [`unified`](https://unifiedjs.com) – Processor pipeline
+- [`remark`](https://github.com/remarkjs/remark) – Markdown parser
 
 ---
 
