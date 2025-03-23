@@ -1,20 +1,25 @@
 {
   "name": "@m2d/core",
-  "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
-  "private": false,
   "version": "0.0.0",
-  "description": "Convert Markdown Abstract Syntax Tree (MDAST) to DOCX seamlessly. Supports footnotes, images, links, and customizable document properties.",
+  "private": false,
+  "description": "Core engine to convert extended MDAST to DOCX. Supports plugins for footnotes, images, lists, tables, and more. Designed for seamless Markdown-to-DOCX conversion.",
+  "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "github:tiny-md/mdast2docx",
-  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
-  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
   "sideEffects": false,
   "files": [
     "dist/**"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiny-md/mdast2docx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiny-md/mdast2docx/issues"
+  },
+  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/core",
   "scripts": {
     "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
     "clean": "rm -rf dist",
@@ -24,6 +29,9 @@
     "lint:fix": "eslint src/ --fix",
     "test": "vitest run --coverage"
   },
+  "peerDependencies": {
+    "docx": "^9.3.0"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
@@ -32,10 +40,8 @@
     "@types/node": "^22.13.11",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
-  },
-  "peerDependencies": {
-    "docx": "^9.3.0"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
   },
   "funding": [
     {
@@ -54,29 +60,31 @@
     "docx",
     "markdown-to-docx",
     "mdast-to-docx",
-    "converter",
     "remark",
     "unified",
-    "footnotes",
-    "images",
-    "hyperlinks",
     "text-processing",
     "document-generator",
     "typescript",
     "open-source",
-    "modern",
+    "export",
+    "document-generation",
     "customizable",
+    "core",
+    "renderer",
+    "plugin-system",
+    "footnotes",
+    "tables",
+    "lists",
+    "images",
+    "headings",
+    "automation",
+    "generative-ai",
+    "rich-text",
     "seamless-integration",
     "cutting-edge",
-    "compatibility",
-    "progressive",
+    "modern",
     "frontend",
-    "web-development",
-    "document-generation",
-    "rich-text",
-    "export",
-    "ms-word",
-    "automation",
+    "compatibility",
     "mayank1513"
   ]
 }
