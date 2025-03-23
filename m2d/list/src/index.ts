@@ -2,12 +2,6 @@ import { AlignmentType, convertInchesToTwip, ILevelsOptions, LevelFormat } from 
 import type { IPlugin, Optional } from "@m2d/core";
 
 /**
- * Creates a random string - used to add as a random suffix to make style/numbering reference names unique
- * @returns
- */
-const uuid = () => Math.random().toString(16).slice(2);
-
-/**
  * Default options for the list plugin.
  */
 interface IDefaultListPluginOptions {
@@ -95,7 +89,7 @@ const defaultListPluginOptions: IDefaultListPluginOptions = {
  * @returns An `IPlugin` instance for handling lists in the document.
  */
 export const listPlugin: (options?: IListPluginOptions) => IPlugin = options => {
-  const uId = uuid();
+  const uId = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
   const numReference = `numbering-${uId}`;
   const bulletReference = `bullet-${uId}`;
   const { levels, bulletLevels, bullets, defaultBullets } = {
