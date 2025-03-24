@@ -73,6 +73,7 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^22.13.11",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
