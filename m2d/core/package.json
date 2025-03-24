@@ -60,11 +60,11 @@
     "docx": "^9.3.0"
   },
   "devDependencies": {
-    "@m2d/mdast": "latest",
+    "@m2d/mdast": "^0.0.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^22.13.12",
+    "@types/node": "^22.13.13",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",

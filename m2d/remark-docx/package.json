@@ -64,7 +64,7 @@
     "web-development"
   ],
   "dependencies": {
-    "mdast2docx": "^0.3.2",
+    "mdast2docx": "^0.3.3",
     "unified": "^11.0.5"
   },
   "peerDependencies": {
@@ -74,7 +74,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^22.13.12",
+    "@types/node": "^22.13.13",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },
