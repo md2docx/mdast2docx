@@ -28,7 +28,7 @@ const { version: OLD_VERSION, name } = pkgJson;
 
 fs.writeFileSync("lib/package.json", JSON.stringify(pkgJson, null, 2) + "\n");
 
-execSync("pnpm update --latest -r");
+execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
 
 if (!isLatestRelease) {
   /** pre-release branch name should be the tag name (e.g., beta, canery, etc.) or tag name followed by a '-' and version or other specifiers. e.g. beta-2.0 */

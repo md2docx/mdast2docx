@@ -31,7 +31,7 @@ let LATEST_VERSION = "0.0.-1";
 
 fs.writeFileSync("lib/package.json", JSON.stringify(pkgJson, null, 2) + "\n");
 
-execSync("pnpm update --latest -r");
+execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
 
 try {
   LATEST_VERSION = execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";

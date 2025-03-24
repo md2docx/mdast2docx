@@ -1,6 +1,7 @@
 /** It is assumed that this is called only from the default branch. */
 const { execSync } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
 const BRANCH = process.env.BRANCH;
 
@@ -30,8 +31,15 @@ fs.readdirSync("m2d").forEach(pkg => {
   });
 
   fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2) + "\n");
+});
 
-  execSync("pnpm update --latest -r");
+execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
+
+fs.readdirSync("m2d").forEach(pkg => {
+  const pkgDir = `m2d/${pkg}`;
+  const pkgJson = JSON.parse(fs.readFileSync(`${pkgDir}/package.json`, "utf8"));
+
+  execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
 
   try {
     execSync("npm publish --access public --provenance", { cwd: pkgDir });
