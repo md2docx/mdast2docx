@@ -1,5 +1,6 @@
 /** It is assumed that this is called only from the default branch. */
 const { execSync } = require("child_process");
+const fs = require("fs");
 
 const BRANCH = process.env.BRANCH;
 
@@ -27,6 +28,8 @@ let LATEST_VERSION = "0.0.-1";
     if (pkgJson[deps][dep] === "workspace:*") pkgJson[deps][dep] = "latest";
   });
 });
+
+fs.writeFileSync("lib/package.json", JSON.stringify(pkgJson, null, 2) + "\n");
 
 execSync("pnpm update --latest -r");
 

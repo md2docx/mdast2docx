@@ -29,6 +29,8 @@ fs.readdirSync("m2d").forEach(pkg => {
     });
   });
 
+  fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2) + "\n");
+
   execSync("pnpm update --latest -r");
 
   try {

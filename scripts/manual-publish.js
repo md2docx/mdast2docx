@@ -26,6 +26,8 @@ const { version: OLD_VERSION, name } = pkgJson;
   });
 });
 
+fs.writeFileSync("lib/package.json", JSON.stringify(pkgJson, null, 2) + "\n");
+
 execSync("pnpm update --latest -r");
 
 if (!isLatestRelease) {
