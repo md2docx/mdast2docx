@@ -40,7 +40,7 @@
     "docx": "^9.3.0"
   },
   "dependencies": {
-    "@m2d/core": "^0.0.1",
+    "@m2d/core": "workspace:*",
     "latex-math": "^0.0.2"
   },
   "devDependencies": {

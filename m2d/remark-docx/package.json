@@ -64,7 +64,7 @@
     "web-development"
   ],
   "dependencies": {
-    "mdast2docx": "^0.3.3",
+    "mdast2docx": "workspace:*",
     "unified": "^11.0.5"
   },
   "peerDependencies": {

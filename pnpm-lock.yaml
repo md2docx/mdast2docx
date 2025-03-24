@@ -55,7 +55,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
@@ -110,7 +110,7 @@ importers:
         version: 0.0.5(@types/react@19.0.12)(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       react18-themes:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
@@ -140,23 +140,23 @@ importers:
   lib:
     dependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/core
       '@m2d/html':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/html
       '@m2d/image':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/image
       '@m2d/list':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/list
       '@m2d/math':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/math
       '@m2d/table':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../m2d/table
       docx:
         specifier: ^9.3.0
         version: 9.3.0
@@ -213,8 +213,8 @@ importers:
   m2d/core:
     devDependencies:
       '@m2d/mdast':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../mdast
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -246,8 +246,8 @@ importers:
   m2d/html:
     devDependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../core
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -279,8 +279,8 @@ importers:
   m2d/image:
     devDependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../core
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -312,8 +312,8 @@ importers:
   m2d/list:
     devDependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../core
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -345,8 +345,8 @@ importers:
   m2d/math:
     dependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../core
       latex-math:
         specifier: ^0.0.2
         version: 0.0.2
@@ -409,8 +409,8 @@ importers:
   m2d/remark-docx:
     dependencies:
       mdast2docx:
-        specifier: ^0.3.3
-        version: 0.3.3(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../../lib
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -440,8 +440,8 @@ importers:
   m2d/table:
     devDependencies:
       '@m2d/core':
-        specifier: ^0.0.1
-        version: 0.0.1(docx@9.3.0)
+        specifier: workspace:*
+        version: link:../core
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -566,7 +566,7 @@ importers:
         version: 4.1.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
+        version: 1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -1166,41 +1166,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@m2d/core@0.0.1':
-    resolution: {integrity: sha512-x84zZ2z03EQbU6ROiphr+kiyvr7xOZxAoUb7QaA1JS4DVHfbIs3K1+4k0feGUZHNpkJzYi4+m7a25PJbB64Lng==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/html@0.0.1':
-    resolution: {integrity: sha512-RUFwzDu3VzViUoKdHpXyIVi+K4qcVN794Hy3+XJfpwbsxyeR/jt1kdbAD+xgcN4TJzsHq+opARGj9ukLtNeeUw==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/image@0.0.1':
-    resolution: {integrity: sha512-pSeKkmvkhcIYRJJ+tOUKTCMC+34+P4vAaZlGYs6k5KwuMeU1BfBIicX+xPvIHryvFYloUBYn8Oh1Dvexr3hJxA==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/list@0.0.1':
-    resolution: {integrity: sha512-zYFiCBwmUWwB6+oUWIB9ApPq40yHAfbiV0L2pj/NZb76Yfh6DUQyG9kyOTaNfajJjTuf9uWFQ9SWxbKT/5yj4g==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/math@0.0.1':
-    resolution: {integrity: sha512-p4ySsaSaFNGuaVPrjKi/9wpIPqhDpMGVjko0yJrXtPLbHNWTw0yD7CjkS8hqNL6BfvnHXgsezefrMghaXZSvVg==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/mdast@0.0.1':
-    resolution: {integrity: sha512-PUn54lJcEhj4uhdaGOTUUTy3E4JrC0erPCnSyMRN8MOn092kQl6/jVsFCclAmcJ0VZ/l6cSitH6R/WjoGSuBog==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/table@0.0.1':
-    resolution: {integrity: sha512-EVTqekrk5Xooq9rJw3Uy5r60Nfe9AO2tjEodSfa4XF7TelWMGrJQFQdd55xBG1vJRWu9IOkGlqBC6ukQ0MBMaQ==}
-    peerDependencies:
-      docx: ^9.3.0
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -2806,11 +2771,6 @@ packages:
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
-
-  mdast2docx@0.3.3:
-    resolution: {integrity: sha512-6/Px1TKc13bG+stLKcem/HZIw9dB2NHFPeY6I1A2fkZ0zETvU5R/IR5PDoMT/ZiMEWwWMVe4Xiu1789TfyXPEw==}
-    peerDependencies:
-      docx: ^9.3.0
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -4616,35 +4576,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@m2d/core@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-
-  '@m2d/html@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-
-  '@m2d/image@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-
-  '@m2d/list@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-
-  '@m2d/math@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-      latex-math: 0.0.2
-
-  '@m2d/mdast@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
-
-  '@m2d/table@0.0.1(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -6469,16 +6400,6 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdast2docx@0.3.3(docx@9.3.0):
-    dependencies:
-      '@m2d/core': 0.0.1(docx@9.3.0)
-      '@m2d/html': 0.0.1(docx@9.3.0)
-      '@m2d/image': 0.0.1(docx@9.3.0)
-      '@m2d/list': 0.0.1(docx@9.3.0)
-      '@m2d/math': 0.0.1(docx@9.3.0)
-      '@m2d/table': 0.0.1(docx@9.3.0)
-      docx: 9.3.0
-
   merge2@1.4.1: {}
 
   micromark-core-commonmark@2.0.3:
@@ -7100,7 +7021,7 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react18-loaders@1.1.4(@types/react@19.0.12)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0):
+  react18-loaders@1.1.4(@types/react@19.0.12)(next@15.2.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.86.0))(react@19.0.0):
     dependencies:
       '@types/react': 19.0.12
       r18gs: 2.1.0(@types/react@19.0.12)(react@19.0.0)

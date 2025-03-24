@@ -40,7 +40,7 @@
     "docx": "^9.3.0"
   },
   "devDependencies": {
-    "@m2d/core": "^0.0.1",
+    "@m2d/core": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.13",

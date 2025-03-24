@@ -60,7 +60,7 @@
     "docx": "^9.3.0"
   },
   "devDependencies": {
-    "@m2d/mdast": "^0.0.1",
+    "@m2d/mdast": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/mdast": "^4.0.4",

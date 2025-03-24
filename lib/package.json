@@ -70,12 +70,12 @@
     "vitest": "^3.0.9"
   },
   "dependencies": {
-    "@m2d/core": "^0.0.1",
-    "@m2d/html": "^0.0.1",
-    "@m2d/image": "^0.0.1",
-    "@m2d/list": "^0.0.1",
-    "@m2d/math": "^0.0.1",
-    "@m2d/table": "^0.0.1"
+    "@m2d/core": "workspace:*",
+    "@m2d/html": "workspace:*",
+    "@m2d/image": "workspace:*",
+    "@m2d/list": "workspace:*",
+    "@m2d/math": "workspace:*",
+    "@m2d/table": "workspace:*"
   },
   "peerDependencies": {
     "docx": "^9.3.0"
