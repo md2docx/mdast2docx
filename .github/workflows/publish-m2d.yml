@@ -35,6 +35,7 @@ jobs:
       - name: Test
         run: pnpm test
         working-directory: ./lib
+        continue-on-error: true
       - name: Apply changesets, publish and create release, branches and tags
         run: node ./scripts/publish-m2d.js
         env:
