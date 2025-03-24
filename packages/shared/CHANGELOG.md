@@ -1,5 +1,22 @@
 # @repo/shared
 
+## 0.0.7
+
+### Patch Changes
+
+- 2673cbc: Update dependencies
+- Updated dependencies [2673cbc]
+- Updated dependencies [b14ade1]
+  - mdast2docx@0.3.3
+  - @m2d/core@0.0.1
+  - @m2d/html@0.0.1
+  - @m2d/image@0.0.1
+  - @m2d/list@0.0.1
+  - @m2d/math@0.0.1
+  - @m2d/mdast@0.0.1
+  - @m2d/remark-docx@0.0.1
+  - @m2d/table@0.0.1
+
 ## 0.0.6
 
 ### Patch Changes

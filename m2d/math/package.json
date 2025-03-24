@@ -1,6 +1,6 @@
 {
   "name": "@m2d/math",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
   "description": "Plugin to convert mathematical expressions in Markdown (MDAST) to DOCX using LaTeX-style syntax. Integrates seamlessly with mdast2docx.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",

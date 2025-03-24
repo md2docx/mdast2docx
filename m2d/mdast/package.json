@@ -1,6 +1,6 @@
 {
   "name": "@m2d/mdast",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
   "description": "Extended MDAST types and custom node data for mdast2docx with support for DOCX formatting.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
