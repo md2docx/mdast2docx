@@ -12,6 +12,33 @@
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./section": {
+      "types": "./dist/section.d.ts",
+      "import": "./dist/section.mjs",
+      "require": "./dist/section.js"
+    },
+    "./dist/section": {
+      "types": "./dist/section.d.ts",
+      "import": "./dist/section.mjs",
+      "require": "./dist/section.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.js"
+    },
+    "./dist/utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tiny-md/mdast2docx.git"
@@ -33,11 +60,11 @@
     "docx": "^9.3.0"
   },
   "devDependencies": {
+    "@m2d/mdast": "latest",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@m2d/mdast": "workspace:*",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^22.13.11",
+    "@types/node": "^22.13.12",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
