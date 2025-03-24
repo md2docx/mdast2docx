@@ -18,8 +18,17 @@ try {
   // no changesets to be applied
 }
 
-const { version: VERSION, name } = require("../lib/package.json");
+const pkgJson = require("../lib/package.json");
+const { version: VERSION, name } = pkgJson;
 let LATEST_VERSION = "0.0.-1";
+
+["dependencies", "devDependencies", "peerDependencies"].forEach(deps => {
+  Object.keys(pkgJson[deps] || {}).forEach(dep => {
+    if (pkgJson[deps][dep] === "workspace:*") pkgJson[deps][dep] = "latest";
+  });
+});
+
+execSync("pnpm update --latest -r");
 
 try {
   LATEST_VERSION = execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";

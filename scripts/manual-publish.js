@@ -17,7 +17,17 @@ const DEFAULT_BRANCH = process.env.DEFAULT_BRANCH;
 const isLatestRelease = BRANCH === DEFAULT_BRANCH || BRANCH.includes("release-");
 let tag = "";
 
-const { version: OLD_VERSION, name } = require("../lib/package.json");
+const pkgJson = require("../lib/package.json");
+const { version: OLD_VERSION, name } = pkgJson;
+
+["dependencies", "devDependencies", "peerDependencies"].forEach(deps => {
+  Object.keys(pkgJson[deps] || {}).forEach(dep => {
+    if (pkgJson[deps][dep] === "workspace:*") pkgJson[deps][dep] = "latest";
+  });
+});
+
+execSync("pnpm update --latest -r");
+
 if (!isLatestRelease) {
   /** pre-release branch name should be the tag name (e.g., beta, canery, etc.) or tag name followed by a '-' and version or other specifiers. e.g. beta-2.0 */
   tag = BRANCH.split("-")[0];
