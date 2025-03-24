@@ -1,6 +1,6 @@
 # @m2d/remark-docx <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/remark-docx?color=green)
+[![Version](https://img.shields.io/npm/v/@m2d/remark-docx?color=green)](https://www.npmjs.com/package/@m2d/remark-docx)
 ![Downloads](https://img.shields.io/npm/d18m/@m2d/remark-docx)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/remark-docx)
 

@@ -1,6 +1,6 @@
 # `@m2d/table` <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" height="40"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/table?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/table) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/table)
+[![Version](https://img.shields.io/npm/v/@m2d/table?color=green)](https://www.npmjs.com/package/@m2d/table) ![Downloads](https://img.shields.io/npm/d18m/@m2d/table) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/table)
 
 > A plugin that converts Markdown tables into rich, styled Word tables with full alignment, border, and header support.
 

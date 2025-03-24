@@ -1,6 +1,6 @@
 # **@m2d/core** <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 40px"/>
 
-![Version](https://img.shields.io/npm/v/@m2d/core?color=green) ![Downloads](https://img.shields.io/npm/d18m/@m2d/core) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/core)
+[![Version](https://img.shields.io/npm/v/@m2d/core?color=green)](https://www.npmjs.com/package/@m2d/core) ![Downloads](https://img.shields.io/npm/d18m/@m2d/core) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/core)
 
 > The core engine that powers `mdast2docx` — convert Markdown Abstract Syntax Trees (MDAST) into DOCX effortlessly.
 
