@@ -40,14 +40,15 @@
     "docx": "^9.3.0"
   },
   "dependencies": {
+    "@m2d/core": "^0.0.1",
     "latex-math": "^0.0.2"
   },
   "devDependencies": {
-    "@m2d/core": "^0.0.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.13",
     "@unified-latex/unified-latex-types": "^1.8.0",
+    "docx": "^9.3.0",
     "esbuild-plugin-rdi": "^0.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
