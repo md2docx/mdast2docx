@@ -15,6 +15,33 @@
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.mjs",
+      "require": "./dist/plugins/index.js"
+    },
+    "./dist/plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.mjs",
+      "require": "./dist/plugins/index.js"
+    },
+    "./plugins/node": {
+      "types": "./dist/plugins/node/index.d.ts",
+      "import": "./dist/plugins/node/index.mjs",
+      "require": "./dist/plugins/node/index.js"
+    },
+    "./dist/plugins/node": {
+      "types": "./dist/plugins/node/index.d.ts",
+      "import": "./dist/plugins/node/index.mjs",
+      "require": "./dist/plugins/node/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
     "clean": "rm -rf dist",
