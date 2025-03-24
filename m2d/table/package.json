@@ -1,6 +1,6 @@
 {
   "name": "@m2d/table",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "Plugin to convert Markdown tables (MDAST) to DOCX with support for rich formatting and seamless integration into mdast2docx.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",

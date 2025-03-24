@@ -1,6 +1,6 @@
 {
   "name": "@m2d/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "Core engine to convert extended MDAST to DOCX. Supports plugins for footnotes, images, lists, tables, and more. Designed for seamless Markdown-to-DOCX conversion.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",

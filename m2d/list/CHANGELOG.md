@@ -1,5 +1,11 @@
 # @m2d/list
 
+## 0.0.3
+
+### Patch Changes
+
+- f24fdf2: Fix the workspace:\* deps
+
 ## 0.0.1
 
 ### Patch Changes

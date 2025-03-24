@@ -1,5 +1,13 @@
 # @m2d/math
 
+## 0.0.3
+
+### Patch Changes
+
+- f24fdf2: Fix the workspace:\* deps
+- Updated dependencies [f24fdf2]
+  - @m2d/core@0.0.3
+
 ## 0.0.1
 
 ### Patch Changes

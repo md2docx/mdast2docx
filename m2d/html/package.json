@@ -1,6 +1,6 @@
 {
   "name": "@m2d/html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "Extend MDAST by parsing embedded HTML in Markdown. Converts HTML into structured MDAST nodes compatible with @m2d/core for DOCX generation.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",

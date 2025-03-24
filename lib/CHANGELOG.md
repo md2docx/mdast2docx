@@ -1,5 +1,18 @@
 # mdast2docx
 
+## 0.3.5
+
+### Patch Changes
+
+- f24fdf2: Fix the workspace:\* deps
+- Updated dependencies [f24fdf2]
+  - @m2d/core@0.0.3
+  - @m2d/html@0.0.3
+  - @m2d/image@0.0.3
+  - @m2d/list@0.0.3
+  - @m2d/math@0.0.3
+  - @m2d/table@0.0.3
+
 ## 0.3.4
 
 ### Patch Changes

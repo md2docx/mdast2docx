@@ -1,5 +1,13 @@
 # @m2d/remark-docx
 
+## 0.0.4
+
+### Patch Changes
+
+- f24fdf2: Fix the workspace:\* deps
+- Updated dependencies [f24fdf2]
+  - mdast2docx@0.3.5
+
 ## 0.0.3
 
 ### Patch Changes

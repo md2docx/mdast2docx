@@ -1,5 +1,21 @@
 # @repo/shared
 
+## 0.0.9
+
+### Patch Changes
+
+- f24fdf2: Fix the workspace:\* deps
+- Updated dependencies [f24fdf2]
+  - mdast2docx@0.3.5
+  - @m2d/core@0.0.3
+  - @m2d/html@0.0.3
+  - @m2d/image@0.0.3
+  - @m2d/list@0.0.3
+  - @m2d/math@0.0.3
+  - @m2d/mdast@0.0.3
+  - @m2d/remark-docx@0.0.4
+  - @m2d/table@0.0.3
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@m2d/image",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "MDAST to DOCX plugin for resolving and embedding images. Supports base64, URLs, and custom resolvers for seamless DOCX image integration.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
