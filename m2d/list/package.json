@@ -1,6 +1,6 @@
 {
   "name": "@m2d/list",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "Plugin to convert ordered and unordered lists from Markdown (MDAST) to DOCX. Supports nesting, custom bullets, and numbering styles.",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
