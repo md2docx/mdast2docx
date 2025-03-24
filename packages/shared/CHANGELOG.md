@@ -1,5 +1,13 @@
 # @repo/shared
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [ba94e11]
+  - mdast2docx@0.3.4
+  - @m2d/remark-docx@0.0.3
+
 ## 0.0.7
 
 ### Patch Changes
