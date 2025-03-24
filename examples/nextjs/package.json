@@ -12,8 +12,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@repo/shared": "workspace:*",
     "@m2d/remark-docx": "workspace:*",
+    "@repo/shared": "workspace:*",
     "mdast2docx": "workspace:*",
     "next": "^15.2.3",
     "nextjs-darkmode-lite": "^1.0.10",
@@ -28,9 +28,10 @@
     "@next/eslint-plugin-next": "^15.2.3",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.13.11",
+    "@types/node": "^22.13.12",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "unified": "^11.0.5"
   }
 }
