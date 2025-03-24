@@ -28,7 +28,7 @@ fs.readdirSync("m2d").forEach(pkg => {
   try {
     // First publish
     try {
-      execFileSync("npm", ["publish", "--access", "public", "--provenance"], {
+      execFileSync("pnpm build && npm", ["publish", "--access", "public", "--provenance"], {
         cwd: pkgDir,
         stdio: "inherit", // Optional: inherit output to console
       });
