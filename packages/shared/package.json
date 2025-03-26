@@ -19,9 +19,9 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
+    "@m2d/remark-docx": "^0.0.4",
     "@repo/eslint-config": "workspace:*",
     "@repo/scripts": "workspace:*",
-    "@m2d/remark-docx": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.13.13",
