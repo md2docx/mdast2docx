@@ -21,12 +21,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tiny-md/mdast2docx.git"
+    "url": "https://github.com/md2docx/mdast2docx.git"
   },
   "bugs": {
-    "url": "https://github.com/tiny-md/mdast2docx/issues"
+    "url": "https://github.com/md2docx/mdast2docx/issues"
   },
-  "homepage": "https://github.com/tiny-md/mdast2docx/tree/main/m2d/mdast",
+  "homepage": "https://github.com/md2docx/mdast2docx/tree/main/m2d/mdast",
   "scripts": {
     "build": "tsup && tsc -p tsconfig-build.json && gzip -c dist/index.js | wc -c",
     "clean": "rm -rf dist",
@@ -51,7 +51,7 @@
   "funding": [
     {
       "type": "github",
-      "url": "https://github.com/sponsors/tiny-md"
+      "url": "https://github.com/sponsors/md2docx"
     },
     {
       "type": "github",

@@ -1,6 +1,6 @@
 {
   "packageName": "mdast2docx",
-  "owner": "tiny-md",
+  "owner": "md2docx",
   "repo": "mdast2docx",
   "title": "MDAST (Markdown Abstract Syntax Tree) to DOCX"
 }

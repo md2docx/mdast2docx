@@ -8,9 +8,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "github:tiny-md/mdast2docx",
-  "bugs": "https://github.com/tiny-md/mdast2docx/issues",
-  "homepage": "https://github.com/tiny-md/mdast2docx/#readme",
+  "repository": "github:md2docx/mdast2docx",
+  "bugs": "https://github.com/md2docx/mdast2docx/issues",
+  "homepage": "https://github.com/md2docx/mdast2docx/#readme",
   "sideEffects": false,
   "files": [
     "dist/**"
@@ -84,7 +84,7 @@
   "funding": [
     {
       "type": "github",
-      "url": "https://github.com/sponsors/tiny-md"
+      "url": "https://github.com/sponsors/md2docx"
     },
     {
       "type": "github",

@@ -12,7 +12,7 @@
 
 If you find this useful:
 
-- ⭐ Star [mdast2docx](https://github.com/tiny-md/mdast2docx) on GitHub
+- ⭐ Star [mdast2docx](https://github.com/md2docx/mdast2docx) on GitHub
 - ❤️ Consider [sponsoring](https://github.com/sponsors/mayank1513)
 
 ---

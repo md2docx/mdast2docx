@@ -2,7 +2,7 @@
 
 🚀 **Effortlessly convert Markdown Abstract Syntax Trees (MDAST) to DOCX.**
 
-[![Test](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml/badge.svg)](https://github.com/tiny-md/mdast2docx/actions/workflows/test.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/aa896ec14c570f3bb274/maintainability)](https://codeclimate.com/github/tiny-md/mdast2docx/maintainability) [![Code Coverage](https://codecov.io/gh/tiny-md/mdast2docx/graph/badge.svg)](https://codecov.io/gh/tiny-md/mdast2docx) [![Version](https://img.shields.io/npm/v/mdast2docx.svg?colorB=green)](https://www.npmjs.com/package/mdast2docx) [![Downloads](https://img.shields.io/npm/d18m/mdast2docx)](https://www.npmjs.com/package/mdast2docx) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/mdast2docx)
+[![Test](https://github.com/md2docx/mdast2docx/actions/workflows/test.yml/badge.svg)](https://github.com/md2docx/mdast2docx/actions/workflows/test.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/aa896ec14c570f3bb274/maintainability)](https://codeclimate.com/github/md2docx/mdast2docx/maintainability) [![Code Coverage](https://codecov.io/gh/md2docx/mdast2docx/graph/badge.svg)](https://codecov.io/gh/md2docx/mdast2docx) [![Version](https://img.shields.io/npm/v/mdast2docx.svg?colorB=green)](https://www.npmjs.com/package/mdast2docx) [![Downloads](https://img.shields.io/npm/d18m/mdast2docx)](https://www.npmjs.com/package/mdast2docx) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/mdast2docx)
 
 ---
 
@@ -220,7 +220,7 @@ We welcome contributions! To get started:
 
 ### **Extend Functionality with Plugins**
 
-The community can create plugins to extend the functionality of this library. For inspiration, check out the existing plugins in the [`lib/src/plugins`](https://github.com/tiny-md/mdast2docx/tree/main/lib/src/plugins) folder.
+The community can create plugins to extend the functionality of this library. For inspiration, check out the existing plugins in the [`lib/src/plugins`](https://github.com/md2docx/mdast2docx/tree/main/lib/src/plugins) folder.
 
 ---
 

@@ -38,7 +38,7 @@
 - [ ] Create your library and update examples
 - [ ] Update README as required
 - [ ] Set up GitHub pages to deploy docs
-  - Go to [repo settings](https://github.com/tiny-md/mdast2docx/settings/pages) -> pages (On the left panel); Select deploy from a branch; Then Select `main` and `/docs`
+  - Go to [repo settings](https://github.com/md2docx/mdast2docx/settings/pages) -> pages (On the left panel); Select deploy from a branch; Then Select `main` and `/docs`
 - [ ] (Optional) Set up [Deepsource](https://app.deepsource.com/login) for static code analysis
 - [ ] Push your changes/Create PR and see your library being automatically tested and published
 - [ ] Optionally deploy your examples to Vercel.

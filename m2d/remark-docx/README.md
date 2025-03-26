@@ -4,13 +4,13 @@
 ![Downloads](https://img.shields.io/npm/d18m/@m2d/remark-docx)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/@m2d/remark-docx)
 
-> A Unified/Remark plugin that injects a DOCX compiler using [`mdast2docx`](https://github.com/tiny-md/mdast2docx) and outputs `.docx` files from Markdown.
+> A Unified/Remark plugin that injects a DOCX compiler using [`mdast2docx`](https://github.com/md2docx/mdast2docx) and outputs `.docx` files from Markdown.
 
 ---
 
 ## 🧭 Overview
 
-`@m2d/remark-docx` enables direct export of Markdown content to Microsoft Word (`.docx`) using the Unified ecosystem. It seamlessly bridges `remark` with the [`mdast2docx`](https://github.com/tiny-md/mdast2docx) compiler and auto-injects common plugins like GFM tables, math, lists, and inline HTML support.
+`@m2d/remark-docx` enables direct export of Markdown content to Microsoft Word (`.docx`) using the Unified ecosystem. It seamlessly bridges `remark` with the [`mdast2docx`](https://github.com/md2docx/mdast2docx) compiler and auto-injects common plugins like GFM tables, math, lists, and inline HTML support.
 
 It’s designed for both **browser** and **Node.js** environments, handling environment-specific features like image or HTML parsing smartly.
 
@@ -203,14 +203,14 @@ Licensed under the [MPL-2.0 License](https://www.mozilla.org/en-US/MPL/2.0/).
 
 Support the project & its ecosystem:
 
-- [@tiny-md](https://github.com/sponsors/tiny-md)
+- [@md2docx](https://github.com/sponsors/md2docx)
 - [@mayank1513](https://github.com/sponsors/mayank1513)
 
 ---
 
 ## 🔗 Related Projects
 
-- [`mdast2docx`](https://github.com/tiny-md/mdast2docx) – The DOCX engine
+- [`mdast2docx`](https://github.com/md2docx/mdast2docx) – The DOCX engine
 - [`docx`](https://github.com/dolanmiu/docx) – Low-level DOCX generation
 - [`unified`](https://unifiedjs.com) – Processor pipeline
 - [`remark`](https://github.com/remarkjs/remark) – Markdown parser

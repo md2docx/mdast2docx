@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    if: github.event.repository.owner.login == 'tiny-md'
+    if: github.event.repository.owner.login == 'md2docx'
     runs-on: ubuntu-latest
     permissions:
       contents: write
