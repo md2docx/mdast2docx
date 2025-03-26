@@ -3,3 +3,4 @@ export * from "@m2d/table";
 export * from "@m2d/list";
 export * from "@m2d/math";
 export * from "@m2d/html";
+export * from "@m2d/emoji";
