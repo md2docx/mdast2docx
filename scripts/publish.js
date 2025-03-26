@@ -1,6 +1,5 @@
 /** It is assumed that this is called only from the default branch. */
 const { execSync } = require("child_process");
-const fs = require("fs");
 
 const BRANCH = process.env.BRANCH;
 
@@ -19,19 +18,8 @@ try {
   // no changesets to be applied
 }
 
-const pkgJson = require("../lib/package.json");
-const { version: VERSION, name } = pkgJson;
+const { version: VERSION, name } = require("../lib/package.json");
 let LATEST_VERSION = "0.0.-1";
-
-["dependencies", "devDependencies", "peerDependencies"].forEach(deps => {
-  Object.keys(pkgJson[deps] || {}).forEach(dep => {
-    if (pkgJson[deps][dep] === "workspace:*") pkgJson[deps][dep] = "latest";
-  });
-});
-
-fs.writeFileSync("lib/package.json", JSON.stringify(pkgJson, null, 2) + "\n");
-
-execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
 
 try {
   LATEST_VERSION = execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";
