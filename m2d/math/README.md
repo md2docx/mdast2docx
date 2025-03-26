@@ -4,6 +4,9 @@
 
 > **Note:** This package has been relocated to [https://github.com/md2docx/math](https://github.com/md2docx/math) as part of the changes outlined in the following discussion: [Incident Report – mdast2docx#14](https://github.com/md2docx/mdast2docx/discussions/14).
 
+<br>
+<br>
+
 ## ⭐ Support Us
 
 If you find this useful:
