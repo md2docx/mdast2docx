@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.3.6
+
+### Patch Changes
+
+- f1cab43: Make docx as dependency instead of peer-dependency
+
 ## 0.3.5
 
 ### Patch Changes
