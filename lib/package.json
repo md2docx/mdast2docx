@@ -54,7 +54,7 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "^3.0.9",
     "esbuild-plugin-rdi": "^0.0.0",
@@ -76,9 +76,7 @@
     "@m2d/image": "^0.0.3",
     "@m2d/list": "^0.0.3",
     "@m2d/math": "^0.0.3",
-    "@m2d/table": "^0.0.3"
-  },
-  "peerDependencies": {
+    "@m2d/table": "^0.0.3",
     "docx": "^9.3.0"
   },
   "funding": [
