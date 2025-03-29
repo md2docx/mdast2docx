@@ -1,7 +1,7 @@
 "use client";
 
 import { unified } from "unified";
-import md from "../../../../../sample.md";
+import md from "../../../../../sample.md?raw";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
