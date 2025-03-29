@@ -19,7 +19,7 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "@m2d/remark-docx": "^0.0.4",
+    "@m2d/remark-docx": "^0.0.5",
     "@repo/eslint-config": "workspace:*",
     "@repo/scripts": "workspace:*",
     "@repo/typescript-config": "workspace:*",
@@ -33,8 +33,8 @@
     "esbuild-plugin-react18": "^0.2.6",
     "esbuild-plugin-react18-css": "^0.0.4",
     "jsdom": "^26.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "vite-tsconfig-paths": "^5.1.4",
