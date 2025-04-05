@@ -155,11 +155,11 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(docx@9.3.0)
       '@m2d/html':
-        specifier: ^0.0.3
-        version: 0.0.3(docx@9.3.0)
+        specifier: ^0.0.4
+        version: 0.0.4(docx@9.3.0)
       '@m2d/image':
-        specifier: ^0.0.3
-        version: 0.0.3(docx@9.3.0)
+        specifier: ^0.0.4
+        version: 0.0.4(docx@9.3.0)
       '@m2d/list':
         specifier: ^0.0.3
         version: 0.0.3(docx@9.3.0)
@@ -1024,8 +1024,18 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
+  '@m2d/html@0.0.4':
+    resolution: {integrity: sha512-thu3Ehd8YjwtN3M3Y7ptYSil1lxG4M4o6gMqqC2EZHVEHi7N6p9ghdDT2Iq/G28zXCugTJjT32WLkuzCARRUfg==}
+    peerDependencies:
+      docx: ^9.3.0
+
   '@m2d/image@0.0.3':
     resolution: {integrity: sha512-sU5o7Os4g1x8h4FF85JSrxBGip+Of8ENdZLzQL1koGDjhs41NJ6yYMmDM9q2LutjOdF5VtowEjN4m65xZhvY7Q==}
+    peerDependencies:
+      docx: ^9.3.0
+
+  '@m2d/image@0.0.4':
+    resolution: {integrity: sha512-94yHqhZzjRFb9is9jLTDwG6TBU9Ij3emJJ9zSrlfTncPuTsxvXsrCybG3SgkFmwgGEBdydTYI3r9zU8KrMId9w==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -1664,8 +1674,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001710:
-    resolution: {integrity: sha512-B5C0I0UmaGqHgo5FuqJ7hBd4L57A4dDD+Xi+XX1nXOoxGeDdY4Ko38qJYOyqznBVJEqON5p8P1x5zRR3+rsnxA==}
+  caniuse-lite@1.0.30001711:
+    resolution: {integrity: sha512-OpFA8GsKtoV3lCcsI3U5XBAV+oVrMu96OS8XafKqnhOaEAW2mveD1Mx81Sx/02chERwhDakuXs28zbyEc4QMKg==}
 
   canvas@3.1.0:
     resolution: {integrity: sha512-tTj3CqqukVJ9NgSahykNwtGda7V33VLObwrHfzT0vqJXu7J4d4C/7kQQW3fOEGDfZZoILPut5H00gOjyttPGyg==}
@@ -4563,7 +4573,17 @@ snapshots:
       '@m2d/core': 0.0.3(docx@9.3.0)
       docx: 9.3.0
 
+  '@m2d/html@0.0.4(docx@9.3.0)':
+    dependencies:
+      '@m2d/core': 0.0.3(docx@9.3.0)
+      docx: 9.3.0
+
   '@m2d/image@0.0.3(docx@9.3.0)':
+    dependencies:
+      '@m2d/core': 0.0.3(docx@9.3.0)
+      docx: 9.3.0
+
+  '@m2d/image@0.0.4(docx@9.3.0)':
     dependencies:
       '@m2d/core': 0.0.3(docx@9.3.0)
       docx: 9.3.0
@@ -5126,7 +5146,7 @@ snapshots:
   autoprefixer@10.4.21(postcss@8.5.3):
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001710
+      caniuse-lite: 1.0.30001711
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -5170,7 +5190,7 @@ snapshots:
 
   browserslist@4.24.4:
     dependencies:
-      caniuse-lite: 1.0.30001710
+      caniuse-lite: 1.0.30001711
       electron-to-chromium: 1.5.132
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
@@ -5211,7 +5231,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001710: {}
+  caniuse-lite@1.0.30001711: {}
 
   canvas@3.1.0:
     dependencies:
@@ -6695,7 +6715,7 @@ snapshots:
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001710
+      caniuse-lite: 1.0.30001711
       postcss: 8.4.31
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
