@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.4.0
+
+### Minor Changes
+
+- a942bef: Add mermaidPlugin and improve image and html processing
+
 ## 0.3.6
 
 ### Patch Changes
