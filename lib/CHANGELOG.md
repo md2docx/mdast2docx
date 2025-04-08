@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.4.1
+
+### Patch Changes
+
+- 71cec57: fix types
+
 ## 0.4.0
 
 ### Minor Changes
