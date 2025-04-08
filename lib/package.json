@@ -71,13 +71,13 @@
   },
   "dependencies": {
     "@m2d/core": "^0.0.4",
-    "@m2d/emoji": "^0.1.0",
+    "@m2d/emoji": "^0.1.1",
     "@m2d/html": "^1.0.0",
-    "@m2d/image": "^0.0.4",
-    "@m2d/list": "^0.0.3",
-    "@m2d/math": "^0.0.3",
+    "@m2d/image": "^0.1.0",
+    "@m2d/list": "^0.0.4",
+    "@m2d/math": "^0.0.4",
     "@m2d/mermaid": "^0.0.2",
-    "@m2d/table": "^0.0.3",
+    "@m2d/table": "^0.0.4",
     "docx": "^9.3.0"
   },
   "funding": [
