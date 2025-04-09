@@ -27,8 +27,8 @@ importers:
   examples/nextjs:
     dependencies:
       '@m2d/remark-docx':
-        specifier: ^0.0.5
-        version: 0.0.5(remark-math@6.0.0)
+        specifier: ^0.1.0
+        version: 0.1.0(remark-math@6.0.0)
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -36,14 +36,14 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       next:
-        specifier: ^15.2.4
-        version: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+        specifier: ^15.2.5
+        version: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
       nextjs-darkmode-lite:
         specifier: ^1.0.10
         version: 1.0.10(@types/react@19.1.0)(r18gs@3.0.1(@types/react@19.1.0)(react@19.1.0))(react@19.1.0)
       nextjs-themes:
         specifier: ^4.0.6
-        version: 4.0.6(@types/react@19.1.0)(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 4.0.6(@types/react@19.1.0)(next@15.2.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       optional:
         specifier: ^0.1.4
         version: 0.1.4
@@ -55,7 +55,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -73,8 +73,8 @@ importers:
         version: 0.0.1(@types/react@19.1.0)(react@19.1.0)
     devDependencies:
       '@next/eslint-plugin-next':
-        specifier: ^15.2.4
-        version: 15.2.4
+        specifier: ^15.2.5
+        version: 15.2.5
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -119,10 +119,10 @@ importers:
         version: 0.0.5(@types/react@19.1.0)(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       react18-themes:
         specifier: ^3.2.0
-        version: 3.2.0(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 3.2.0(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -230,8 +230,8 @@ importers:
   packages/eslint-config:
     devDependencies:
       '@next/eslint-plugin-next':
-        specifier: ^15.2.4
-        version: 15.2.4
+        specifier: ^15.2.5
+        version: 15.2.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.29.1
         version: 8.29.1(@typescript-eslint/parser@8.29.1(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3)
@@ -270,7 +270,7 @@ importers:
     dependencies:
       '@mayank1513/fork-me':
         specifier: ^2.1.3
-        version: 2.1.3(@types/react@19.1.0)(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 2.1.3(@types/react@19.1.0)(next@15.2.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       docx:
         specifier: ^9.3.0
         version: 9.3.0
@@ -285,7 +285,7 @@ importers:
         version: 1.0.10(@types/react@19.1.0)(react@19.1.0)
       nextjs-themes:
         specifier: ^4.0.6
-        version: 4.0.6(@types/react@19.1.0)(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 4.0.6(@types/react@19.1.0)(next@15.2.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       r18gs:
         specifier: ^3.0.1
         version: 3.0.1(@types/react@19.1.0)(react@19.1.0)
@@ -294,7 +294,7 @@ importers:
         version: 4.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -315,8 +315,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@m2d/remark-docx':
-        specifier: ^0.0.5
-        version: 0.0.5(remark-math@6.0.0)
+        specifier: ^0.1.0
+        version: 0.1.0(remark-math@6.0.0)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -1042,11 +1042,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@m2d/core@0.0.3':
-    resolution: {integrity: sha512-qqtonjsFboSbDW1+4mYtwWj1snBeK4KQ95trBbP8lRhV2jjCCmN6LFWi18KKB1defO6t0y+YGf+qFVrXbXUWUg==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/core@0.0.4':
     resolution: {integrity: sha512-2zL8XX3UPXaoC5AswGEixSg82JpEqhVn4vrmHCfVDpToKtH6DWiLDFQIsqKxYae9HlrREffS+gvwdBL+C+KMFw==}
     peerDependencies:
@@ -1057,18 +1052,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/html@0.0.3':
-    resolution: {integrity: sha512-SKesJfIJOFV5IN2g+h4iO93UmC5eL7xXd3dbgg2Qhp//PNM/RPiBIT6sw7Dp+jgWoXw+4hAx8Wh5m2ZY2lmBvA==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/html@1.0.0':
     resolution: {integrity: sha512-2FqQuh+XskCRV5ahMzP2ab2f1Xl4BGHn9ABjGAE2eZSHY9e8k/zCYEKUbgx4Zb99iUfCGdpUlBKsIxEvhzmLrg==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/image@0.0.3':
-    resolution: {integrity: sha512-sU5o7Os4g1x8h4FF85JSrxBGip+Of8ENdZLzQL1koGDjhs41NJ6yYMmDM9q2LutjOdF5VtowEjN4m65xZhvY7Q==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -1077,32 +1062,16 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/list@0.0.3':
-    resolution: {integrity: sha512-YYWgatZwY4+5I8sz1RFCshtw8zuhFYOKOZ0aEzY683aE97Th/EcrZuHTlXHPL7FUNY8hDu7mmOZSDx7LU7BV6A==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/list@0.0.4':
     resolution: {integrity: sha512-Wkzy0kQxHfqvpcth6W+kgwactrqycp9ndqKYkgzz7hGRSJ99s5+g9nGpaULyBqfA4aflhdNtE2spJaHpFZlQzg==}
     peerDependencies:
       docx: ^9.3.0
-
-  '@m2d/math@0.0.3':
-    resolution: {integrity: sha512-n69iXWOiWCnkzxCGg1bZLM6ZcHJGswSh/FP5tgx70kKtY/vTd/TfhsCp8uJ+LAiqIUW9GloYb+UplNDyC9gqXQ==}
-    peerDependencies:
-      docx: ^9.3.0
-      remark-math: ^6.0.0
 
   '@m2d/math@0.0.4':
     resolution: {integrity: sha512-G81IJKch8SQwK9R4HIz5ocnmfNcxwBTWbSlQbmYXITOZgkK0WbysNrfGChxVgqUlC0Oa5sNfwz6erDN1Z2sImQ==}
     peerDependencies:
       docx: ^9.3.0
       remark-math: ^6.0.0
-
-  '@m2d/mdast@0.0.2':
-    resolution: {integrity: sha512-rt3I7maptlrfFn2kY4yKTErDrhFcRoQNobwDQcOdR0i3la66PbZ5D9p0KF20IUsD3p6ExAuZTUt9HKyeQ8jd8g==}
-    peerDependencies:
-      docx: ^9.3.0
 
   '@m2d/mdast@0.1.1':
     resolution: {integrity: sha512-K5lsqsaKU8/u3V/29VS3ooX3H1CMemJw4En1F++oXKh4AYJUd+zopa/bYPueFMh/ubafS6iHxZgIT4FIRl+/4Q==}
@@ -1114,13 +1083,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/remark-docx@0.0.5':
-    resolution: {integrity: sha512-IvM/fHLrmqgxXpEd+7KHsZjr1X8yyFd2I9vw+tnq0FtIyLcjEPeYl3Mc9o/RL6WcSJqUWsvrByl2pQTAaRvFBA==}
-
-  '@m2d/table@0.0.3':
-    resolution: {integrity: sha512-SFQuk6/G6O3RVmf3MBK+NKibh+Zt61Kka6Yk/PoCXJhzv50HKxr5396xnQc5DE1dR9It2ZBrzPbON5YSJJlOgg==}
-    peerDependencies:
-      docx: ^9.3.0
+  '@m2d/remark-docx@0.1.0':
+    resolution: {integrity: sha512-LX+jDDyQIR8d7SgCyf60mXh31HpwvAXigf0qRahjDe7C7pZ/6uclZO9YAUKdd7W0IhPDckAjtOL6xJpo4OIHBA==}
 
   '@m2d/table@0.0.4':
     resolution: {integrity: sha512-oz1cxsEu/vNr5SgXPNn8nx3NWomvHnoM6nqrKLR2w08GOwSxHgqVYCQLTlLeYnPAa6OUsUgKviDw+7OLcvAX8g==}
@@ -1146,56 +1110,56 @@ packages:
   '@mermaid-js/parser@0.4.0':
     resolution: {integrity: sha512-wla8XOWvQAwuqy+gxiZqY+c7FokraOTHRWMsbB4AgRx9Sy7zKslNyejy7E+a77qHfey5GXw/ik3IXv/NHMJgaA==}
 
-  '@next/env@15.2.4':
-    resolution: {integrity: sha512-+SFtMgoiYP3WoSswuNmxJOCwi06TdWE733D+WPjpXIe4LXGULwEaofiiAy6kbS0+XjM5xF5n3lKuBwN2SnqD9g==}
+  '@next/env@15.2.5':
+    resolution: {integrity: sha512-uWkCf9C8wKTyQjqrNk+BA7eL3LOQdhL+xlmJUf2O85RM4lbzwBwot3Sqv2QGe/RGnc3zysIf1oJdtq9S00pkmQ==}
 
-  '@next/eslint-plugin-next@15.2.4':
-    resolution: {integrity: sha512-O8ScvKtnxkp8kL9TpJTTKnMqlkZnS+QxwoQnJwPGBxjBbzd6OVVPEJ5/pMNrktSyXQD/chEfzfFzYLM6JANOOQ==}
+  '@next/eslint-plugin-next@15.2.5':
+    resolution: {integrity: sha512-Q1ncASVFKSy+AbabimYxr/2HH/h+qlKlwu1fYV48xUefGzVimS3i3nKwYsM2w+rLdpMFdJyoVowrYyjKu47rBw==}
 
-  '@next/swc-darwin-arm64@15.2.4':
-    resolution: {integrity: sha512-1AnMfs655ipJEDC/FHkSr0r3lXBgpqKo4K1kiwfUf3iE68rDFXZ1TtHdMvf7D0hMItgDZ7Vuq3JgNMbt/+3bYw==}
+  '@next/swc-darwin-arm64@15.2.5':
+    resolution: {integrity: sha512-4OimvVlFTbgzPdA0kh8A1ih6FN9pQkL4nPXGqemEYgk+e7eQhsst/p35siNNqA49eQA6bvKZ1ASsDtu9gtXuog==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.2.4':
-    resolution: {integrity: sha512-3qK2zb5EwCwxnO2HeO+TRqCubeI/NgCe+kL5dTJlPldV/uwCnUgC7VbEzgmxbfrkbjehL4H9BPztWOEtsoMwew==}
+  '@next/swc-darwin-x64@15.2.5':
+    resolution: {integrity: sha512-ohzRaE9YbGt1ctE0um+UGYIDkkOxHV44kEcHzLqQigoRLaiMtZzGrA11AJh2Lu0lv51XeiY1ZkUvkThjkVNBMA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@15.2.4':
-    resolution: {integrity: sha512-HFN6GKUcrTWvem8AZN7tT95zPb0GUGv9v0d0iyuTb303vbXkkbHDp/DxufB04jNVD+IN9yHy7y/6Mqq0h0YVaQ==}
+  '@next/swc-linux-arm64-gnu@15.2.5':
+    resolution: {integrity: sha512-FMSdxSUt5bVXqqOoZCc/Seg4LQep9w/fXTazr/EkpXW2Eu4IFI9FD7zBDlID8TJIybmvKk7mhd9s+2XWxz4flA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.2.4':
-    resolution: {integrity: sha512-Oioa0SORWLwi35/kVB8aCk5Uq+5/ZIumMK1kJV+jSdazFm2NzPDztsefzdmzzpx5oGCJ6FkUC7vkaUseNTStNA==}
+  '@next/swc-linux-arm64-musl@15.2.5':
+    resolution: {integrity: sha512-4ZNKmuEiW5hRKkGp2HWwZ+JrvK4DQLgf8YDaqtZyn7NYdl0cHfatvlnLFSWUayx9yFAUagIgRGRk8pFxS8Qniw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.2.4':
-    resolution: {integrity: sha512-yb5WTRaHdkgOqFOZiu6rHV1fAEK0flVpaIN2HB6kxHVSy/dIajWbThS7qON3W9/SNOH2JWkVCyulgGYekMePuw==}
+  '@next/swc-linux-x64-gnu@15.2.5':
+    resolution: {integrity: sha512-bE6lHQ9GXIf3gCDE53u2pTl99RPZW5V1GLHSRMJ5l/oB/MT+cohu9uwnCK7QUph2xIOu2a6+27kL0REa/kqwZw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.2.4':
-    resolution: {integrity: sha512-Dcdv/ix6srhkM25fgXiyOieFUkz+fOYkHlydWCtB0xMST6X9XYI3yPDKBZt1xuhOytONsIFJFB08xXYsxUwJLw==}
+  '@next/swc-linux-x64-musl@15.2.5':
+    resolution: {integrity: sha512-y7EeQuSkQbTAkCEQnJXm1asRUuGSWAchGJ3c+Qtxh8LVjXleZast8Mn/rL7tZOm7o35QeIpIcid6ufG7EVTTcA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@15.2.4':
-    resolution: {integrity: sha512-dW0i7eukvDxtIhCYkMrZNQfNicPDExt2jPb9AZPpL7cfyUo7QSNl1DjsHjmmKp6qNAqUESyT8YFl/Aw91cNJJg==}
+  '@next/swc-win32-arm64-msvc@15.2.5':
+    resolution: {integrity: sha512-gQMz0yA8/dskZM2Xyiq2FRShxSrsJNha40Ob/M2n2+JGRrZ0JwTVjLdvtN6vCxuq4ByhOd4a9qEf60hApNR2gQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.2.4':
-    resolution: {integrity: sha512-SbnWkJmkS7Xl3kre8SdMF6F/XDh1DTFEhp0jRTj/uB8iPKoU2bb2NDfcu+iifv1+mxQEd1g2vvSxcZbXSKyWiQ==}
+  '@next/swc-win32-x64-msvc@15.2.5':
+    resolution: {integrity: sha512-tBDNVUcI7U03+3oMvJ11zrtVin5p0NctiuKmTGyaTIEAVj9Q77xukLXGXRnWxKRIIdFG4OTA2rUVGZDYOwgmAA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -3062,10 +3026,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mdast2docx@0.3.5:
-    resolution: {integrity: sha512-oAoW+l1+Y3cAQcqShDhaegLhiozDVPLxNx9FDODJzX41tHNIAQKdJGQ0x4PWd/beEY4YtJteaI3jcI1k4YdvLg==}
-    peerDependencies:
-      docx: ^9.3.0
+  mdast2docx@0.4.1:
+    resolution: {integrity: sha512-5fBTAkQuABwPpUya2ypoBEDjVHE/N8Am+AJJUowA9g1oC36YX3gVq5LM3owIM03pUjzIiBIOU9tOtwdXvf/5Bg==}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -3229,8 +3191,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next@15.2.4:
-    resolution: {integrity: sha512-VwL+LAaPSxEkd3lU2xWbgEOtrM8oedmyhBqaVNmgKB+GvZlCy9rgaEc+y2on0wv+l0oSFqLtYD6dcC1eAedUaQ==}
+  next@15.2.5:
+    resolution: {integrity: sha512-LlqS8ljc7RWR3riUwxB5+14v7ULAa5EuLUyarD/sFgXPd6Hmmscg8DXcu9hDdh5atybrIDVBrFhjDpRIQo/4pQ==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -5063,11 +5025,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@m2d/core@0.0.3(docx@9.3.0)':
-    dependencies:
-      '@m2d/mdast': 0.0.2(docx@9.3.0)
-      docx: 9.3.0
-
   '@m2d/core@0.0.4(docx@9.3.0)':
     dependencies:
       '@m2d/mdast': 0.1.1(docx@9.3.0)
@@ -5078,19 +5035,9 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.3.0)
       docx: 9.3.0
 
-  '@m2d/html@0.0.3(docx@9.3.0)':
-    dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
-      docx: 9.3.0
-
   '@m2d/html@1.0.0(docx@9.3.0)':
     dependencies:
       '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
-
-  '@m2d/image@0.0.3(docx@9.3.0)':
-    dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
       docx: 9.3.0
 
   '@m2d/image@0.1.0(docx@9.3.0)':
@@ -5098,22 +5045,10 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.3.0)
       docx: 9.3.0
 
-  '@m2d/list@0.0.3(docx@9.3.0)':
-    dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
-      docx: 9.3.0
-
   '@m2d/list@0.0.4(docx@9.3.0)':
     dependencies:
       '@m2d/core': 0.0.4(docx@9.3.0)
       docx: 9.3.0
-
-  '@m2d/math@0.0.3(docx@9.3.0)(remark-math@6.0.0)':
-    dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
-      docx: 9.3.0
-      latex-math: 0.0.2
-      remark-math: 6.0.0
 
   '@m2d/math@0.0.4(docx@9.3.0)(remark-math@6.0.0)':
     dependencies:
@@ -5121,10 +5056,6 @@ snapshots:
       docx: 9.3.0
       latex-math: 0.0.2
       remark-math: 6.0.0
-
-  '@m2d/mdast@0.0.2(docx@9.3.0)':
-    dependencies:
-      docx: 9.3.0
 
   '@m2d/mdast@0.1.1(docx@9.3.0)':
     dependencies:
@@ -5138,17 +5069,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/remark-docx@0.0.5(remark-math@6.0.0)':
+  '@m2d/remark-docx@0.1.0(remark-math@6.0.0)':
     dependencies:
       docx: 9.3.0
-      mdast2docx: 0.3.5(docx@9.3.0)(remark-math@6.0.0)
+      mdast2docx: 0.4.1(remark-math@6.0.0)
     transitivePeerDependencies:
       - remark-math
-
-  '@m2d/table@0.0.3(docx@9.3.0)':
-    dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
-      docx: 9.3.0
+      - supports-color
 
   '@m2d/table@0.0.4(docx@9.3.0)':
     dependencies:
@@ -5171,45 +5098,45 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mayank1513/fork-me@2.1.3(@types/react@19.1.0)(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)':
+  '@mayank1513/fork-me@2.1.3(@types/react@19.1.0)(next@15.2.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)':
     dependencies:
       '@types/react': 19.1.0
       react: 19.1.0
     optionalDependencies:
-      next: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+      next: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
 
   '@mermaid-js/parser@0.4.0':
     dependencies:
       langium: 3.3.1
 
-  '@next/env@15.2.4': {}
+  '@next/env@15.2.5': {}
 
-  '@next/eslint-plugin-next@15.2.4':
+  '@next/eslint-plugin-next@15.2.5':
     dependencies:
       fast-glob: 3.3.1
 
-  '@next/swc-darwin-arm64@15.2.4':
+  '@next/swc-darwin-arm64@15.2.5':
     optional: true
 
-  '@next/swc-darwin-x64@15.2.4':
+  '@next/swc-darwin-x64@15.2.5':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.2.4':
+  '@next/swc-linux-arm64-gnu@15.2.5':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.2.4':
+  '@next/swc-linux-arm64-musl@15.2.5':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.2.4':
+  '@next/swc-linux-x64-gnu@15.2.5':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.2.4':
+  '@next/swc-linux-x64-musl@15.2.5':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.2.4':
+  '@next/swc-win32-arm64-msvc@15.2.5':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.2.4':
+  '@next/swc-win32-x64-msvc@15.2.5':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -7358,18 +7285,20 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdast2docx@0.3.5(docx@9.3.0)(remark-math@6.0.0):
+  mdast2docx@0.4.1(remark-math@6.0.0):
     dependencies:
-      '@m2d/core': 0.0.3(docx@9.3.0)
+      '@m2d/core': 0.0.4(docx@9.3.0)
       '@m2d/emoji': 0.1.1(docx@9.3.0)
-      '@m2d/html': 0.0.3(docx@9.3.0)
-      '@m2d/image': 0.0.3(docx@9.3.0)
-      '@m2d/list': 0.0.3(docx@9.3.0)
-      '@m2d/math': 0.0.3(docx@9.3.0)(remark-math@6.0.0)
-      '@m2d/table': 0.0.3(docx@9.3.0)
+      '@m2d/html': 1.0.0(docx@9.3.0)
+      '@m2d/image': 0.1.0(docx@9.3.0)
+      '@m2d/list': 0.0.4(docx@9.3.0)
+      '@m2d/math': 0.0.4(docx@9.3.0)(remark-math@6.0.0)
+      '@m2d/mermaid': 0.0.2(docx@9.3.0)
+      '@m2d/table': 0.0.4(docx@9.3.0)
       docx: 9.3.0
     transitivePeerDependencies:
       - remark-math
+      - supports-color
 
   merge2@1.4.1: {}
 
@@ -7664,9 +7593,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3):
+  next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3):
     dependencies:
-      '@next/env': 15.2.4
+      '@next/env': 15.2.5
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
@@ -7676,14 +7605,14 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       styled-jsx: 5.1.6(@babel/core@7.26.10)(react@19.1.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.2.4
-      '@next/swc-darwin-x64': 15.2.4
-      '@next/swc-linux-arm64-gnu': 15.2.4
-      '@next/swc-linux-arm64-musl': 15.2.4
-      '@next/swc-linux-x64-gnu': 15.2.4
-      '@next/swc-linux-x64-musl': 15.2.4
-      '@next/swc-win32-arm64-msvc': 15.2.4
-      '@next/swc-win32-x64-msvc': 15.2.4
+      '@next/swc-darwin-arm64': 15.2.5
+      '@next/swc-darwin-x64': 15.2.5
+      '@next/swc-linux-arm64-gnu': 15.2.5
+      '@next/swc-linux-arm64-musl': 15.2.5
+      '@next/swc-linux-x64-gnu': 15.2.5
+      '@next/swc-linux-x64-musl': 15.2.5
+      '@next/swc-win32-arm64-msvc': 15.2.5
+      '@next/swc-win32-x64-msvc': 15.2.5
       sass: 1.86.3
       sharp: 0.33.5
     transitivePeerDependencies:
@@ -7702,13 +7631,13 @@ snapshots:
       r18gs: 3.0.1(@types/react@19.1.0)(react@19.1.0)
       react: 19.1.0
 
-  nextjs-themes@4.0.6(@types/react@19.1.0)(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+  nextjs-themes@4.0.6(@types/react@19.1.0)(next@15.2.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
     dependencies:
       '@types/react': 19.1.0
       r18gs: 3.0.1(@types/react@19.1.0)(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
-      next: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+      next: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
 
   node-abi@3.74.0:
     dependencies:
@@ -7996,12 +7925,12 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  r18gs@1.1.3(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+  r18gs@1.1.3(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
     dependencies:
       '@types/react': 19.1.0
       react: 19.1.0
     optionalDependencies:
-      next: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+      next: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
 
   r18gs@2.1.0(@types/react@19.1.0)(react@19.1.0):
     dependencies:
@@ -8045,21 +7974,21 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react18-loaders@1.1.4(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+  react18-loaders@1.1.4(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
     dependencies:
       '@types/react': 19.1.0
       r18gs: 2.1.0(@types/react@19.1.0)(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
-      next: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+      next: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
 
-  react18-themes@3.2.0(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+  react18-themes@3.2.0(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
     dependencies:
       '@types/react': 19.1.0
-      r18gs: 1.1.3(@types/react@19.1.0)(next@15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+      r18gs: 1.1.3(@types/react@19.1.0)(next@15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
-      next: 15.2.4(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
+      next: 15.2.5(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3)
 
   react@19.1.0: {}
 

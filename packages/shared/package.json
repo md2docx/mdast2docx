@@ -19,7 +19,7 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "@m2d/remark-docx": "^0.0.5",
+    "@m2d/remark-docx": "^0.1.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/scripts": "workspace:*",
     "@repo/typescript-config": "workspace:*",
