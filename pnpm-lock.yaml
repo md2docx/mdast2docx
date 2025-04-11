@@ -55,7 +55,11 @@ importers:
         version: 19.1.0(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
+<<<<<<< HEAD
         version: 1.1.4(@types/react@19.1.0)(next@15.3.0(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+=======
+        version: 1.1.4(@types/react@19.1.0)(next@15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -119,7 +123,11 @@ importers:
         version: 0.0.5(@types/react@19.1.0)(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
+<<<<<<< HEAD
         version: 1.1.4(@types/react@19.1.0)(next@15.3.0(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+=======
+        version: 1.1.4(@types/react@19.1.0)(next@15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
       react18-themes:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.1.0)(next@15.3.0(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
@@ -158,8 +166,13 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(docx@9.3.0)
       '@m2d/image':
+<<<<<<< HEAD
         specifier: ^0.1.1
         version: 0.1.1(docx@9.3.0)
+=======
+        specifier: ^0.2.0
+        version: 0.2.0(docx@9.3.0)
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
       '@m2d/list':
         specifier: ^0.0.4
         version: 0.0.4(docx@9.3.0)
@@ -294,7 +307,11 @@ importers:
         version: 4.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
+<<<<<<< HEAD
         version: 1.1.4(@types/react@19.1.0)(next@15.3.0(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+=======
+        version: 1.1.4(@types/react@19.1.0)(next@15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -954,6 +971,14 @@ packages:
 
   '@m2d/image@0.1.1':
     resolution: {integrity: sha512-eu1pWP7TIohmDqzSdN0KIlOBilfNBjoFwhyxSfJOsCV6H4D4C+kZaautgeDK6hMT+X5kRpcfUMq7R+bDcl6ISw==}
+<<<<<<< HEAD
+=======
+    peerDependencies:
+      docx: ^9.3.0
+
+  '@m2d/image@0.2.0':
+    resolution: {integrity: sha512-mWQ/1WVMa+SkBiwakgUK1Ce+NbgG5UgSddP+Ic0l6L4nhK5aSzWGKjpIwvyiFu83HMBMQ4g+3LL0tW414VCPqg==}
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
     peerDependencies:
       docx: ^9.3.0
 
@@ -4861,6 +4886,14 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.3.0)
       docx: 9.3.0
 
+<<<<<<< HEAD
+=======
+  '@m2d/image@0.2.0(docx@9.3.0)':
+    dependencies:
+      '@m2d/core': 0.0.4(docx@9.3.0)
+      docx: 9.3.0
+
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
   '@m2d/list@0.0.4(docx@9.3.0)':
     dependencies:
       '@m2d/core': 0.0.4(docx@9.3.0)
@@ -7790,7 +7823,11 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
+<<<<<<< HEAD
   react18-loaders@1.1.4(@types/react@19.1.0)(next@15.3.0(@babel/core@7.26.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+=======
+  react18-loaders@1.1.4(@types/react@19.1.0)(next@15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0):
+>>>>>>> 8eeb789 (docs(changeset): Enhance: Allow to provide placeholder image when not able to fetch image or some error.)
     dependencies:
       '@types/react': 19.1.0
       r18gs: 2.1.0(@types/react@19.1.0)(react@19.1.0)
