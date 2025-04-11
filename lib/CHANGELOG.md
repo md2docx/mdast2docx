@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.4.2
+
+### Patch Changes
+
+- 8eeb789: Enhance: Allow to provide placeholder image when not able to fetch image or some error.
+
 ## 0.4.1
 
 ### Patch Changes
