@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 0.4.3
+
+### Patch Changes
+
+- 9a33851: Update types and add image placeholder option
+
 ## 0.4.2
 
 ### Patch Changes
