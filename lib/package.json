@@ -58,7 +58,7 @@
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "^3.1.1",
     "esbuild-plugin-rdi": "^0.0.0",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "node-fetch": "^3.3.2",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
