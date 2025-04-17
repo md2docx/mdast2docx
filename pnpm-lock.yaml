@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@changesets/cli':
-        specifier: ^2.29.1
-        version: 2.29.1
+        specifier: ^2.29.2
+        version: 2.29.2
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:packages/config-typescript
@@ -150,31 +150,31 @@ importers:
     dependencies:
       '@m2d/core':
         specifier: ^0.0.5
-        version: 0.0.5(docx@9.3.0)
+        version: 0.0.5(docx@9.4.0)
       '@m2d/emoji':
         specifier: ^0.1.1
-        version: 0.1.1(docx@9.3.0)
+        version: 0.1.1(docx@9.4.0)
       '@m2d/html':
         specifier: ^1.0.0
-        version: 1.0.0(docx@9.3.0)
+        version: 1.0.0(docx@9.4.0)
       '@m2d/image':
         specifier: ^0.2.2
-        version: 0.2.2(docx@9.3.0)
+        version: 0.2.2(docx@9.4.0)
       '@m2d/list':
         specifier: ^0.0.5
-        version: 0.0.5(docx@9.3.0)
+        version: 0.0.5(docx@9.4.0)
       '@m2d/math':
         specifier: ^0.0.4
-        version: 0.0.4(docx@9.3.0)(remark-math@6.0.0)
+        version: 0.0.4(docx@9.4.0)(remark-math@6.0.0)
       '@m2d/mermaid':
         specifier: ^0.0.3
-        version: 0.0.3(docx@9.3.0)
+        version: 0.0.3(docx@9.4.0)
       '@m2d/table':
         specifier: ^0.0.4
-        version: 0.0.4(docx@9.3.0)
+        version: 0.0.4(docx@9.4.0)
       docx:
-        specifier: ^9.3.0
-        version: 9.3.0
+        specifier: ^9.4.0
+        version: 9.4.0
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -272,8 +272,8 @@ importers:
         specifier: ^2.1.3
         version: 2.1.3(@types/react@19.1.2)(next@15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.86.3))(react@19.1.0)
       docx:
-        specifier: ^9.3.0
-        version: 9.3.0
+        specifier: ^9.4.0
+        version: 9.4.0
       esbuild-raw-plugin:
         specifier: ^0.2.0
         version: 0.2.0
@@ -482,8 +482,8 @@ packages:
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
 
-  '@changesets/apply-release-plan@7.0.11':
-    resolution: {integrity: sha512-0iDv9lXJ6dmQ42yxPJQ3N7bKytxpJ/UL4omozNDe32nU7a5Jm+AtYyEnXaLQzZd/adJdExnhkCtxMyw6jvc9lQ==}
+  '@changesets/apply-release-plan@7.0.12':
+    resolution: {integrity: sha512-EaET7As5CeuhTzvXTQCRZeBUcisoYPDDcXvgTE/2jmmypKp0RC7LxKj/yzqeh/1qFTZI7oDGFcL1PHRuQuketQ==}
 
   '@changesets/assemble-release-plan@6.0.6':
     resolution: {integrity: sha512-Frkj8hWJ1FRZiY3kzVCKzS0N5mMwWKwmv9vpam7vt8rZjLL1JMthdh6pSDVSPumHPshTTkKZ0VtNbE0cJHZZUg==}
@@ -491,8 +491,8 @@ packages:
   '@changesets/changelog-git@0.2.1':
     resolution: {integrity: sha512-x/xEleCFLH28c3bQeQIyeZf8lFXyDFVn1SgcBiR2Tw/r4IAWlk1fzxCEZ6NxQAjF2Nwtczoen3OA2qR+UawQ8Q==}
 
-  '@changesets/cli@2.29.1':
-    resolution: {integrity: sha512-Y1Z7pVxM2PzKIONyz8IOhExr24HgUxyUxd7jkBkpUra0D6rTSeHuOAUE/syUIMQzzFg5r+1YFXq+YVlU/xFk/w==}
+  '@changesets/cli@2.29.2':
+    resolution: {integrity: sha512-vwDemKjGYMOc0l6WUUTGqyAWH3AmueeyoJa1KmFRtCYiCoY5K3B68ErYpDB6H48T4lLI4czum4IEjh6ildxUeg==}
     hasBin: true
 
   '@changesets/config@3.1.1':
@@ -504,14 +504,14 @@ packages:
   '@changesets/get-dependents-graph@2.1.3':
     resolution: {integrity: sha512-gphr+v0mv2I3Oxt19VdWRRUxq3sseyUpX9DaHpTUmLj92Y10AGy+XOtV+kbM6L/fDcpx7/ISDFK6T8A/P3lOdQ==}
 
-  '@changesets/get-release-plan@4.0.9':
-    resolution: {integrity: sha512-fddyWtaq+c63HAMxkclZUHCO9+11w2+qicKoEYKmZdXdrUnLF/WF3GfNGI1E0e6KinO6BVxbs77KFowdhHKG3w==}
+  '@changesets/get-release-plan@4.0.10':
+    resolution: {integrity: sha512-CCJ/f3edYaA3MqoEnWvGGuZm0uMEMzNJ97z9hdUR34AOvajSwySwsIzC/bBu3+kuGDsB+cny4FljG8UBWAa7jg==}
 
   '@changesets/get-version-range-type@0.4.0':
     resolution: {integrity: sha512-hwawtob9DryoGTpixy1D3ZXbGgJu1Rhr+ySH2PvTLHvkZuQ7sRT4oQwMh0hbqZH1weAooedEjRsbrWcGLCeyVQ==}
 
-  '@changesets/git@3.0.3':
-    resolution: {integrity: sha512-YWMBHldVK7+KuMIKl0GZJGDU+UaWaCFh/CSnQwU+rIZ5cH7dDovpOxD+lxXa6a4jdgv/6GnO619N6VidTJbSLw==}
+  '@changesets/git@3.0.4':
+    resolution: {integrity: sha512-BXANzRFkX+XcC1q/d27NKvlJ1yf7PSAgi8JG6dt8EfbHFHi4neau7mufcSca5zRhwOL8j9s6EqsxmT+s+/E6Sw==}
 
   '@changesets/logger@0.1.1':
     resolution: {integrity: sha512-OQtR36ZlnuTxKqoW4Sv6x5YIhOmClRd5pWsjZsddYxpWs517R0HkyiefQPIytCVh4ZcC5x9XaG8KTdd5iRQUfg==}
@@ -522,8 +522,8 @@ packages:
   '@changesets/pre@2.0.2':
     resolution: {integrity: sha512-HaL/gEyFVvkf9KFg6484wR9s0qjAXlZ8qWPDkTyKF6+zqjBe/I2mygg3MbpZ++hdi0ToqNUF8cjj7fBy0dg8Ug==}
 
-  '@changesets/read@0.6.4':
-    resolution: {integrity: sha512-XP6rUXTp8gWQ6rI2aSJc07RNuQjNaabhFFJbuhQHG71w9+LYRWK6j79OwWEF8v44cpkfNXLByMrNw1NntGY14w==}
+  '@changesets/read@0.6.5':
+    resolution: {integrity: sha512-UPzNGhsSjHD3Veb0xO/MwvasGe8eMyNrR/sT9gR8Q3DhOQZirgKhhXv/8hVsI0QpPjR004Z9iFxoJU6in3uGMg==}
 
   '@changesets/should-skip-package@0.1.2':
     resolution: {integrity: sha512-qAK/WrqWLNCP22UDdBTMPH5f41elVDlsNyat180A33dWxuUDyNpg6fPi/FyTZwRriVjg0L8gnjJn2F9XAoF0qw==}
@@ -2085,8 +2085,8 @@ packages:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
 
-  docx@9.3.0:
-    resolution: {integrity: sha512-IQwbSLBEMKNJmP9CDqSu3vJDhJps6tv/DlxsxuvfTclapd0JPCz1IFJTU//WdTjUenPMFaUD2Kg1nkQb/BWPIg==}
+  docx@9.4.0:
+    resolution: {integrity: sha512-/JhCGPXiJsIhpzbhmyn9aZPKXW7L2Ffy6xELUL5YhIN9nlk7LW00ydb+eJfwYUbIgz8SGc/HMVLoZD8iqTtj9Q==}
     engines: {node: '>=10'}
 
   dom-accessibility-api@0.5.16:
@@ -3859,8 +3859,8 @@ packages:
   tr46@1.0.1:
     resolution: {integrity: sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==}
 
-  tr46@5.1.0:
-    resolution: {integrity: sha512-IUWnUK7ADYR5Sl1fZlO1INDUhVhatWl7BtJWsIhwJ0UAK7ilzzIa8uIqOO/aYVWHZPJkKbEL+362wrzoeRF7bw==}
+  tr46@5.1.1:
+    resolution: {integrity: sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw==}
     engines: {node: '>=18'}
 
   tree-kill@1.2.2:
@@ -4397,11 +4397,11 @@ snapshots:
 
   '@braintree/sanitize-url@7.1.1': {}
 
-  '@changesets/apply-release-plan@7.0.11':
+  '@changesets/apply-release-plan@7.0.12':
     dependencies:
       '@changesets/config': 3.1.1
       '@changesets/get-version-range-type': 0.4.0
-      '@changesets/git': 3.0.3
+      '@changesets/git': 3.0.4
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
@@ -4426,19 +4426,19 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.29.1':
+  '@changesets/cli@2.29.2':
     dependencies:
-      '@changesets/apply-release-plan': 7.0.11
+      '@changesets/apply-release-plan': 7.0.12
       '@changesets/assemble-release-plan': 6.0.6
       '@changesets/changelog-git': 0.2.1
       '@changesets/config': 3.1.1
       '@changesets/errors': 0.2.0
       '@changesets/get-dependents-graph': 2.1.3
-      '@changesets/get-release-plan': 4.0.9
-      '@changesets/git': 3.0.3
+      '@changesets/get-release-plan': 4.0.10
+      '@changesets/git': 3.0.4
       '@changesets/logger': 0.1.1
       '@changesets/pre': 2.0.2
-      '@changesets/read': 0.6.4
+      '@changesets/read': 0.6.5
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
@@ -4478,18 +4478,18 @@ snapshots:
       picocolors: 1.1.1
       semver: 7.7.1
 
-  '@changesets/get-release-plan@4.0.9':
+  '@changesets/get-release-plan@4.0.10':
     dependencies:
       '@changesets/assemble-release-plan': 6.0.6
       '@changesets/config': 3.1.1
       '@changesets/pre': 2.0.2
-      '@changesets/read': 0.6.4
+      '@changesets/read': 0.6.5
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
 
   '@changesets/get-version-range-type@0.4.0': {}
 
-  '@changesets/git@3.0.3':
+  '@changesets/git@3.0.4':
     dependencies:
       '@changesets/errors': 0.2.0
       '@manypkg/get-packages': 1.1.3
@@ -4513,9 +4513,9 @@ snapshots:
       '@manypkg/get-packages': 1.1.3
       fs-extra: 7.0.1
 
-  '@changesets/read@0.6.4':
+  '@changesets/read@0.6.5':
     dependencies:
-      '@changesets/git': 3.0.3
+      '@changesets/git': 3.0.4
       '@changesets/logger': 0.1.1
       '@changesets/parse': 0.4.1
       '@changesets/types': 6.1.0
@@ -4838,85 +4838,85 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@m2d/core@0.0.4(docx@9.3.0)':
+  '@m2d/core@0.0.4(docx@9.4.0)':
     dependencies:
-      '@m2d/mdast': 0.1.2(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/mdast': 0.1.2(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/core@0.0.5(docx@9.3.0)':
+  '@m2d/core@0.0.5(docx@9.4.0)':
     dependencies:
-      '@m2d/mdast': 0.1.2(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/mdast': 0.1.2(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/emoji@0.1.1(docx@9.3.0)':
+  '@m2d/emoji@0.1.1(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/html@1.0.0(docx@9.3.0)':
+  '@m2d/html@1.0.0(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/image@0.1.1(docx@9.3.0)':
+  '@m2d/image@0.1.1(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/image@0.2.2(docx@9.3.0)':
+  '@m2d/image@0.2.2(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/list@0.0.4(docx@9.3.0)':
+  '@m2d/list@0.0.4(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/list@0.0.5(docx@9.3.0)':
+  '@m2d/list@0.0.5(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
-  '@m2d/math@0.0.4(docx@9.3.0)(remark-math@6.0.0)':
+  '@m2d/math@0.0.4(docx@9.4.0)(remark-math@6.0.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
       latex-math: 0.0.2
       remark-math: 6.0.0
 
-  '@m2d/mdast@0.1.2(docx@9.3.0)':
+  '@m2d/mdast@0.1.2(docx@9.4.0)':
     dependencies:
-      docx: 9.3.0
+      docx: 9.4.0
 
-  '@m2d/mermaid@0.0.2(docx@9.3.0)':
+  '@m2d/mermaid@0.0.2(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
       mermaid: 11.6.0
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/mermaid@0.0.3(docx@9.3.0)':
+  '@m2d/mermaid@0.0.3(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.5(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.5(docx@9.4.0)
+      docx: 9.4.0
       mermaid: 11.6.0
     transitivePeerDependencies:
       - supports-color
 
   '@m2d/remark-docx@0.1.0(remark-math@6.0.0)':
     dependencies:
-      docx: 9.3.0
+      docx: 9.4.0
       mdast2docx: 0.4.1(remark-math@6.0.0)
     transitivePeerDependencies:
       - remark-math
       - supports-color
 
-  '@m2d/table@0.0.4(docx@9.3.0)':
+  '@m2d/table@0.0.4(docx@9.4.0)':
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -6040,7 +6040,7 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  docx@9.3.0:
+  docx@9.4.0:
     dependencies:
       '@types/node': 22.14.1
       hash.js: 1.1.7
@@ -7107,15 +7107,15 @@ snapshots:
 
   mdast2docx@0.4.1(remark-math@6.0.0):
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.3.0)
-      '@m2d/emoji': 0.1.1(docx@9.3.0)
-      '@m2d/html': 1.0.0(docx@9.3.0)
-      '@m2d/image': 0.1.1(docx@9.3.0)
-      '@m2d/list': 0.0.4(docx@9.3.0)
-      '@m2d/math': 0.0.4(docx@9.3.0)(remark-math@6.0.0)
-      '@m2d/mermaid': 0.0.2(docx@9.3.0)
-      '@m2d/table': 0.0.4(docx@9.3.0)
-      docx: 9.3.0
+      '@m2d/core': 0.0.4(docx@9.4.0)
+      '@m2d/emoji': 0.1.1(docx@9.4.0)
+      '@m2d/html': 1.0.0(docx@9.4.0)
+      '@m2d/image': 0.1.1(docx@9.4.0)
+      '@m2d/list': 0.0.4(docx@9.4.0)
+      '@m2d/math': 0.0.4(docx@9.4.0)(remark-math@6.0.0)
+      '@m2d/mermaid': 0.0.2(docx@9.4.0)
+      '@m2d/table': 0.0.4(docx@9.4.0)
+      docx: 9.4.0
     transitivePeerDependencies:
       - remark-math
       - supports-color
@@ -8302,7 +8302,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  tr46@5.1.0:
+  tr46@5.1.1:
     dependencies:
       punycode: 2.3.1
 
@@ -8632,7 +8632,7 @@ snapshots:
 
   whatwg-url@14.2.0:
     dependencies:
-      tr46: 5.1.0
+      tr46: 5.1.1
       webidl-conversions: 7.0.0
 
   whatwg-url@7.1.0:
