@@ -24,7 +24,7 @@
     "@repo/scripts": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@testing-library/react": "^16.3.0",
-    "@types/node": "^22.15.3",
+    "@types/node": "^22.15.9",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.3",
     "@vitejs/plugin-react": "^4.4.1",
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@mayank1513/fork-me": "^2.1.3",
-    "docx": "^9.4.1",
+    "docx": "^9.5.0",
     "esbuild-raw-plugin": "^0.2.0",
     "mdast2docx": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
