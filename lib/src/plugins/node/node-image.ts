@@ -3,9 +3,18 @@
  */
 
 import { IImageOptions } from "docx";
-import { IPlugin } from "@m2d/core";
+import {
+  IPlugin,
+  Parent,
+  PhrasingContent,
+  Root,
+  RootContent,
+  Image as AstImage,
+  ImageReference,
+} from "@m2d/core";
 import sharp from "sharp";
 import fetch from "node-fetch";
+import { Definitions } from "@m2d/core/utils";
 
 export const SUPPORTED_IMAGE_TYPES = ["jpg", "gif", "png"] as const;
 type SupportedImageType = (typeof SUPPORTED_IMAGE_TYPES)[number];
@@ -179,22 +188,41 @@ const nodeImageResolver: NodeImageResolver = async (
  * Image plugin for processing inline image nodes in Markdown AST.
  * This plugin is designed for server-side (node.js) environments.
  */
-export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = options => ({
-  inline: async (docx, node, _, definitions) => {
-    if (/^image/.test(node.type)) {
-      // Extract image URL from the node or definitions
-      // @ts-ignore - node might not have a URL or identifier, but those cases are handled
-      const url = node.url ?? definitions[node.identifier?.toUpperCase()];
-      // @ts-ignore - node might not have alt text
-      const alt = node.alt ?? url?.split("/").pop();
-      node.type = "";
-      return [
-        new docx.ImageRun({
-          ...(await (options?.imageResolver ?? nodeImageResolver)(url, options)),
-          altText: { description: alt, name: alt, title: alt },
-        }),
-      ];
-    }
-    return [];
-  },
-});
+export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = options => {
+  /** preprocess images */
+  const preprocess = async (root: Root, definitions: Definitions) => {
+    const promises: Promise<void>[] = [];
+
+    /** process images and create promises - use max parallel processing */
+    const preprocessInternal = (node: Root | RootContent | PhrasingContent) => {
+      (node as Parent).children?.forEach(preprocessInternal);
+      if (/^image/.test(node.type))
+        promises.push(
+          (async () => {
+            // Extract image URL from the node or definitions
+            const url =
+              (node as AstImage).url ??
+              definitions[(node as ImageReference).identifier?.toUpperCase()];
+            const alt = (node as AstImage).alt ?? url?.split("/").pop();
+            node.data = {
+              ...(await (options?.imageResolver ?? nodeImageResolver)(url, options)),
+              altText: { description: alt, name: alt, title: alt },
+              ...(node as AstImage).data,
+            };
+          })(),
+        );
+    };
+
+    preprocessInternal(root);
+  };
+  return {
+    preprocess,
+    inline: (docx, node, runProps) => {
+      if (/^(image|svg)/.test(node.type)) {
+        // @ts-expect-error -- adding extra props
+        return [new docx.ImageRun({ ...data, ...runProps })];
+      }
+      return [];
+    },
+  };
+};
