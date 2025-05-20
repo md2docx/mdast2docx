@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 1.0.0
+
+### Major Changes
+
+- 5410f96: Upgrade to V1 - @see - https://github.com/md2docx/mdast2docx/discussions/15
+
 ## 0.4.3
 
 ### Patch Changes
