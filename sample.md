@@ -499,10 +499,14 @@ Indentation and formatting etc. here should be preserved.
 #### Forms in HTML
 
 <form action="#" method="post">
+  <p>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" /><br><br>    
+    <input type="text" id="name" name="name" />
+  </p>
+  <p>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" /><br><br>    
+    <input type="email" id="email" name="email" />    
+  </p>
     <input type="submit" value="Submit" />
 </form>
 
