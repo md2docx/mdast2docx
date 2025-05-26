@@ -158,8 +158,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(docx@9.5.0)
       '@m2d/image':
-        specifier: ^1.0.1
-        version: 1.0.1(docx@9.5.0)
+        specifier: ^1.1.0
+        version: 1.1.0(docx@9.5.0)
       '@m2d/list':
         specifier: ^0.0.6
         version: 0.0.6(docx@9.5.0)
@@ -967,8 +967,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/image@1.0.1':
-    resolution: {integrity: sha512-Ibc3o80j+HSEJ2ZUB2l+GmnxnYgOt+RIvBK9C7dSHQlARtFg5Tj45K7jfpvSkfNgnI4kKOqUcmQpQCsvXd4i2Q==}
+  '@m2d/image@1.1.0':
+    resolution: {integrity: sha512-jXG8wLNp3t8fADzZUXo1gTK9k9q0n8tqnxB8tdxACzLIpTUSIiL0nc8kAZyoiUXmboNrXcvVWP9P4749/mH14A==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -4908,7 +4908,7 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/image@1.0.1(docx@9.5.0)':
+  '@m2d/image@1.1.0(docx@9.5.0)':
     dependencies:
       '@m2d/core': 1.0.2(docx@9.5.0)
       docx: 9.5.0
