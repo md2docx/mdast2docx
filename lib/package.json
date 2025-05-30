@@ -54,7 +54,7 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.26",
+    "@types/node": "^22.15.27",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "^3.1.4",
     "esbuild-plugin-rdi": "^0.0.0",
@@ -70,7 +70,7 @@
     "vitest": "^3.1.4"
   },
   "dependencies": {
-    "@m2d/core": "^1.0.2",
+    "@m2d/core": "^1.1.2",
     "@m2d/emoji": "^0.1.2",
     "@m2d/html": "^1.0.3",
     "@m2d/image": "^1.1.0",
