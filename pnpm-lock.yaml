@@ -167,8 +167,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5(docx@9.5.0)(remark-math@6.0.0)
       '@m2d/mermaid':
-        specifier: ^1.1.2
-        version: 1.1.2(docx@9.5.0)
+        specifier: ^1.1.3
+        version: 1.1.3(docx@9.5.0)
       '@m2d/table':
         specifier: ^0.0.6
         version: 0.0.6(docx@9.5.0)
@@ -1004,8 +1004,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/mermaid@1.1.2':
-    resolution: {integrity: sha512-X6JUD+75q1dH5VGei/mzRrbSxIO84q8v7Hzyr0TidvRkdl/nQ9xgl6OVVrIJTIBv2y7GDcUy5ooB6TvBtmCUwQ==}
+  '@m2d/mermaid@1.1.3':
+    resolution: {integrity: sha512-51HldwChnsA0SxkbXeERXyQ9A6/WwCLzdi73j32gXXIsW3cOva95dxQoYkNDOqvPJt/GHm7WnWJH73M1YCGz/w==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -3877,8 +3877,8 @@ packages:
     resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
     engines: {node: '>=12.0.0'}
 
-  tinypool@1.0.2:
-    resolution: {integrity: sha512-al6n+QEANGFOMf/dmUMsuS5/r9B06uwlyNjZZql/zv8J7ybHCgoihBNORZCY2mzUuAnomQa2JdhyHKzZxPCrFA==}
+  tinypool@1.1.0:
+    resolution: {integrity: sha512-7CotroY9a8DKsKprEy/a14aCCm8jYVmR7aFy4fpkZM8sdpNJbKkixuNjgM50yCmip2ezc8z4N7k3oe2+rfRJCQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
 
   tinyrainbow@2.0.0:
@@ -4967,7 +4967,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/mermaid@1.1.2(docx@9.5.0)':
+  '@m2d/mermaid@1.1.3(docx@9.5.0)':
     dependencies:
       '@m2d/core': 1.1.6(docx@9.5.0)
       docx: 9.5.0
@@ -8394,7 +8394,7 @@ snapshots:
       fdir: 6.4.5(picomatch@4.0.2)
       picomatch: 4.0.2
 
-  tinypool@1.0.2: {}
+  tinypool@1.1.0: {}
 
   tinyrainbow@2.0.0: {}
 
@@ -8698,7 +8698,7 @@ snapshots:
       tinybench: 2.9.0
       tinyexec: 0.3.2
       tinyglobby: 0.2.14
-      tinypool: 1.0.2
+      tinypool: 1.1.0
       tinyrainbow: 2.0.0
       vite: 6.3.5(@types/node@22.15.29)(sass@1.89.1)
       vite-node: 3.1.4(@types/node@22.15.29)(sass@1.89.1)
