@@ -21,6 +21,41 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./section": {
+      "types": "./dist/section.d.ts",
+      "import": "./dist/section.mjs",
+      "require": "./dist/section.js"
+    },
+    "./dist/section": {
+      "types": "./dist/section.d.ts",
+      "import": "./dist/section.mjs",
+      "require": "./dist/section.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
+    },
+    "./dist/utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
+    },
+    "./cache": {
+      "types": "./dist/utils/cache.d.ts",
+      "import": "./dist/utils/cache.mjs",
+      "require": "./dist/utils/cache.js"
+    },
+    "./utils/cache": {
+      "types": "./dist/utils/cache.d.ts",
+      "import": "./dist/utils/cache.mjs",
+      "require": "./dist/utils/cache.js"
+    },
+    "./dist/utils/cache": {
+      "types": "./dist/utils/cache.d.ts",
+      "import": "./dist/utils/cache.mjs",
+      "require": "./dist/utils/cache.js"
+    },
     "./plugins": {
       "types": "./dist/plugins/index.d.ts",
       "import": "./dist/plugins/index.mjs",
