@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 1.1.1
+
+### Patch Changes
+
+- b199e3f: Do cache cleanup in postprocess hook
+
 ## 1.1.0
 
 ### Minor Changes
