@@ -1,5 +1,25 @@
 # mdast2docx
 
+## 1.2.0
+
+### Minor Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/image: 1.1.2 → 1.2.0
+
+  **Minor Changes**
+
+  - Add configurable SVG rendering fixes to improve diagram rendering, particularly for Mermaid pie charts. Extract SVG fixes into a separate exportable function that can be customized through plugin options.
+
+  **Patch Changes**
+
+  - fix: Mermaid title alignment in pie chart
+
+### Patch Changes
+
+- b13abcf: Update image plugin
+
 ## 1.1.1
 
 ### Patch Changes
