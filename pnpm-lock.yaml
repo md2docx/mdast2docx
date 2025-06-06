@@ -149,17 +149,17 @@ importers:
   lib:
     dependencies:
       '@m2d/core':
-        specifier: ^1.2.0
-        version: 1.2.0(docx@9.5.0)
+        specifier: ^1.3.1
+        version: 1.3.1(docx@9.5.0)
       '@m2d/emoji':
         specifier: ^0.1.2
         version: 0.1.2(docx@9.5.0)
       '@m2d/html':
-        specifier: ^1.0.3
-        version: 1.0.3(docx@9.5.0)
+        specifier: ^1.1.2
+        version: 1.1.2(docx@9.5.0)
       '@m2d/image':
-        specifier: ^1.2.0
-        version: 1.2.0(docx@9.5.0)
+        specifier: ^1.2.1
+        version: 1.2.1(docx@9.5.0)
       '@m2d/list':
         specifier: ^0.0.7
         version: 0.0.7(docx@9.5.0)
@@ -947,8 +947,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/core@1.2.0':
-    resolution: {integrity: sha512-gFsl/1gOFAZHHjrzTMEbiJqz7gbkdm/cq5XHeUc0EpVnOWmXrhGs+DMi2lUm4PdwkTHRHNmtX5cK9UqzCvxTwA==}
+  '@m2d/core@1.3.1':
+    resolution: {integrity: sha512-7og0oZrJ65ouTCJRvsO4y7VJqsk3Dd33iNzo+LvlaZyhBLzqNkyHjuNIpdvsvCQnmf50ByqdrBtQ/1tHYipC2A==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -957,8 +957,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/html@1.0.3':
-    resolution: {integrity: sha512-qTncoyThAFbyI2n2a7Wzl4gT4BAmMdY6a8AOnoM7vroXGDGPYpXo3T8ZJrXUEQYiU8C4wrrtQQWctDu7/OJ1NQ==}
+  '@m2d/html@1.1.2':
+    resolution: {integrity: sha512-tSoDdwTPv4mZTVZ5knBdw5w0BNYhi3ajqSHpErS/a3ou6Cq+snbK6cbVbafxLFrBx4GuQTH8iPAdDdnRTAGQig==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -967,8 +967,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/image@1.2.0':
-    resolution: {integrity: sha512-sR7+8N7xqGbvsn4n4hgEsekIHRbeS6D08hu8A2Q/5SRAk++XqKhHXPqqAQNYltmpQRMJekzwO7ozYxaNzF1uzA==}
+  '@m2d/image@1.2.1':
+    resolution: {integrity: sha512-k/CEn5DK4vUoCRq4flQ9HpNTFXT64TQCEwn7PYJFpOFGs2M6M/LoGUnIX/Xld2LxCjCVQjNjm5fgHwtlBusBUA==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -996,6 +996,11 @@ packages:
 
   '@m2d/mdast@0.1.9':
     resolution: {integrity: sha512-GBTGNRD+gHUIfp0z99LtYL+/p9Ua74qGDaouCBFCQxzOjZA2dYrkeu/1yUHUbAVwL0GRX+LInBW1jkhfYtB+rw==}
+    peerDependencies:
+      docx: ^9.3.0
+
+  '@m2d/mdast@0.2.1':
+    resolution: {integrity: sha512-1P6CO2h6IN56eUooRWc2It938kNE6lyneY2ROXjn/aC/ukAyOG27UslVbPWvpdqR7kMf74PZiePCxzwmNwLAtg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -4923,19 +4928,19 @@ snapshots:
       '@m2d/mdast': 0.1.9(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/core@1.2.0(docx@9.5.0)':
+  '@m2d/core@1.3.1(docx@9.5.0)':
     dependencies:
-      '@m2d/mdast': 0.1.9(docx@9.5.0)
+      '@m2d/mdast': 0.2.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/emoji@0.1.2(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/html@1.0.3(docx@9.5.0)':
+  '@m2d/html@1.1.2(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/image@0.1.1(docx@9.5.0)':
@@ -4943,9 +4948,9 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/image@1.2.0(docx@9.5.0)':
+  '@m2d/image@1.2.1(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/list@0.0.4(docx@9.5.0)':
@@ -4955,7 +4960,7 @@ snapshots:
 
   '@m2d/list@0.0.7(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/math@0.0.4(docx@9.5.0)(remark-math@6.0.0)':
@@ -4967,12 +4972,16 @@ snapshots:
 
   '@m2d/math@0.0.5(docx@9.5.0)(remark-math@6.0.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
       latex-math: 0.0.2
       remark-math: 6.0.0
 
   '@m2d/mdast@0.1.9(docx@9.5.0)':
+    dependencies:
+      docx: 9.5.0
+
+  '@m2d/mdast@0.2.1(docx@9.5.0)':
     dependencies:
       docx: 9.5.0
 
@@ -4986,7 +4995,7 @@ snapshots:
 
   '@m2d/mermaid@1.1.4(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
       mermaid: 11.6.0
     transitivePeerDependencies:
@@ -5007,7 +5016,7 @@ snapshots:
 
   '@m2d/table@0.0.6(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.2.0(docx@9.5.0)
+      '@m2d/core': 1.3.1(docx@9.5.0)
       docx: 9.5.0
 
   '@manypkg/find-root@1.1.0':
@@ -7258,7 +7267,7 @@ snapshots:
     dependencies:
       '@m2d/core': 0.0.4(docx@9.5.0)
       '@m2d/emoji': 0.1.2(docx@9.5.0)
-      '@m2d/html': 1.0.3(docx@9.5.0)
+      '@m2d/html': 1.1.2(docx@9.5.0)
       '@m2d/image': 0.1.1(docx@9.5.0)
       '@m2d/list': 0.0.4(docx@9.5.0)
       '@m2d/math': 0.0.4(docx@9.5.0)(remark-math@6.0.0)
