@@ -55,7 +55,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(@babel/core@7.27.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -119,7 +119,7 @@ importers:
         version: 0.0.5(@types/react@19.1.6)(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(@babel/core@7.27.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
       react18-themes:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.1.6)(next@15.3.3(@babel/core@7.27.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
@@ -294,7 +294,7 @@ importers:
         version: 4.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react18-loaders:
         specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(@babel/core@7.27.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
+        version: 1.1.4(@types/react@19.1.6)(next@15.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -999,8 +999,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/mdast@0.2.2':
-    resolution: {integrity: sha512-nHUIpJRj9xHnNxpIac3EG06Jun6Ojv/8Q4K1yaZ8OSAWrEjuWYv4vVjleRF4WN7idEJjsD0j8rveDdl2q4XeIA==}
+  '@m2d/mdast@0.2.3':
+    resolution: {integrity: sha512-OhzjZ3zrmLSUAmQlmGkkZGgJ1XS4SIrZ9zph0dK1hkkghy2tIpnfahdPSH2vbYASlMXD76e3qXnspMxI08QyXw==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -4930,7 +4930,7 @@ snapshots:
 
   '@m2d/core@1.3.4(docx@9.5.0)':
     dependencies:
-      '@m2d/mdast': 0.2.2(docx@9.5.0)
+      '@m2d/mdast': 0.2.3(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/emoji@0.1.3(docx@9.5.0)':
@@ -4981,7 +4981,7 @@ snapshots:
     dependencies:
       docx: 9.5.0
 
-  '@m2d/mdast@0.2.2(docx@9.5.0)':
+  '@m2d/mdast@0.2.3(docx@9.5.0)':
     dependencies:
       docx: 9.5.0
 
@@ -7948,7 +7948,7 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react18-loaders@1.1.4(@types/react@19.1.6)(next@15.3.3(@babel/core@7.27.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0):
+  react18-loaders@1.1.4(@types/react@19.1.6)(next@15.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react@19.1.0):
     dependencies:
       '@types/react': 19.1.6
       r18gs: 2.1.0(@types/react@19.1.6)(react@19.1.0)
