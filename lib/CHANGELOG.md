@@ -1,5 +1,81 @@
 # mdast2docx
 
+## 1.3.0
+
+### Minor Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/core: 1.2.0 → 1.4.1
+
+  **Minor Changes**
+
+  - Refactored `createPersistentCache` to accept a `config` object for optional settings.
+  - **In-memory cache sharing**: Pass a shared cache object to coordinate between modules or tabs.
+  - **Configurable cache strategies**:
+  - `cacheTarget`: choose where data is stored — RAM, IndexedDB, or both.
+  - `parallel`: race compute and read to optimize latency.
+  - Update types to ensure sufficient data for converting to jsx
+  - refactor plugin interface to update postprocess hook. Since there is very limited scope for utilizing the document object once creted, we are moving the postprocess hook to be called just before creating the document object. It gets list of sections which can be finished up just before converting to docx.
+
+  **Patch Changes**
+
+  - Better type safety and minor rename cacheTarget to cacheMode
+  - fix: Bring back the Extended Node support and default to EmptyNode
+  - Simplify types.
+  - fix: Update types for supporting HTML and advanced tables
+  - fix tag types in node data
+
+  ### @m2d/emoji: 0.1.2 → 0.1.3
+
+  _No changelog available._
+
+  ### @m2d/html: 1.0.3 → 1.1.2
+
+  **Minor Changes**
+
+  - Support block node inside table cells. Add tag to data for easy JSX creation
+
+  **Patch Changes**
+
+  - fix advanced table handling
+  - fix: empty HTML table cells
+
+  ### @m2d/image: 1.2.0 → 1.3.1
+
+  **Minor Changes**
+
+  - Added support for optimized in-memory caching of resolved image data.
+  - Introduced `cacheConfig.cache` option to share or inject a memory cache instance across multiple plugin invocations.
+  - Consumers can now fine-tune cache behavior using `cacheConfig.parallel` (to avoid redundant parallel resolutions) and `cacheConfig.cacheMode` (choose between `"memory"`, `"idb"`, or `"both"`).
+  - Enhances image resolution performance in multi-page or repeated image scenarios, especially when used across sessions or documents.
+
+  **Patch Changes**
+
+  - provide cache field to avoid entire cacheConfig option for simple cache sharing optimizations.
+  - Store type in \_type for conversion to JSX
+
+  ### @m2d/list: 0.0.7 → 0.0.8
+
+  **Patch Changes**
+
+  - Ensure enough data is available on node after processing to convert to JSX.
+
+  ### @m2d/mermaid: 1.1.4 → 1.2.2
+
+  **Minor Changes**
+
+  - Added support for optimized in-memory caching of resolved mermaid data.
+  - Introduced `cacheConfig.cache` option to share or inject a memory cache instance across multiple plugin invocations.
+  - Consumers can now fine-tune cache behavior using `cacheConfig.parallel` (to avoid redundant parallel resolutions) and `cacheConfig.cacheMode` (choose between `"memory"`, `"idb"`, or `"both"`).
+  - Enhances mermaid resolution performance in multi-page or repeated mermaid scenarios, especially when used across sessions or documents.
+
+  **Patch Changes**
+
+  - fix: handle edgecase when cache is deleberately set to null.
+  - provide cache field to avoid entire cacheConfig option for simple cache sharing optimizations.
+  - Update types to be competible with the rest of the ecosystem.
+
 ## 1.2.0
 
 ### Minor Changes

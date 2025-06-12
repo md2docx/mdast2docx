@@ -149,8 +149,8 @@ importers:
   lib:
     dependencies:
       '@m2d/core':
-        specifier: ^1.3.4
-        version: 1.3.4(docx@9.5.0)
+        specifier: ^1.4.1
+        version: 1.4.1(docx@9.5.0)
       '@m2d/emoji':
         specifier: ^0.1.3
         version: 0.1.3(docx@9.5.0)
@@ -158,8 +158,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(docx@9.5.0)
       '@m2d/image':
-        specifier: ^1.2.1
-        version: 1.2.1(docx@9.5.0)
+        specifier: ^1.3.1
+        version: 1.3.1(docx@9.5.0)
       '@m2d/list':
         specifier: ^0.0.8
         version: 0.0.8(docx@9.5.0)
@@ -167,8 +167,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5(docx@9.5.0)(remark-math@6.0.0)
       '@m2d/mermaid':
-        specifier: ^1.1.5
-        version: 1.1.5(docx@9.5.0)
+        specifier: ^1.2.2
+        version: 1.2.2(docx@9.5.0)
       '@m2d/table':
         specifier: ^0.0.6
         version: 0.0.6(docx@9.5.0)
@@ -951,8 +951,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/core@1.3.4':
-    resolution: {integrity: sha512-Z90OQtvv63s+j8FABnZxnWviiThbsixJGVtmPkiFn/SzZFy9aymF6MOErRxOf90DediwSDbF8nKmm6cpROR1gw==}
+  '@m2d/core@1.4.1':
+    resolution: {integrity: sha512-cvUIJANtLm41B4UQTZnSoUNaGX/zZ66RQHuF5DxFjDFRePPEY+z6+6YkH+/Q5sWbeEO2avtMSihsojF5Ef0/yQ==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -971,8 +971,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/image@1.2.1':
-    resolution: {integrity: sha512-k/CEn5DK4vUoCRq4flQ9HpNTFXT64TQCEwn7PYJFpOFGs2M6M/LoGUnIX/Xld2LxCjCVQjNjm5fgHwtlBusBUA==}
+  '@m2d/image@1.3.1':
+    resolution: {integrity: sha512-oXmXgzP3+bq8d8Vcdn7Ry4rmQNsbvmbwcCsDrv2WY0QPyC07/PdG5KCpPl3xLqmVniHwr7NNSpGwIt+1DWeJpg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -1013,8 +1013,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/mermaid@1.1.5':
-    resolution: {integrity: sha512-yt5NGfk0r0Kaw0p3VS69e7dozrDmf1B7f0hyupV4XeFM4XOkDc4eseQ4gBbRf4JpqITkldlzB6vXeMRRXInhXw==}
+  '@m2d/mermaid@1.2.2':
+    resolution: {integrity: sha512-UEz1BSJOp6i23UzME7yh5si/ndiMvuBvt3QLjOPj8ZGFfU6hf0/GdDi3SWl9pc9h0jvhzA/kXq03Tc1b2lKxnA==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -4945,19 +4945,19 @@ snapshots:
       '@m2d/mdast': 0.1.9(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/core@1.3.4(docx@9.5.0)':
+  '@m2d/core@1.4.1(docx@9.5.0)':
     dependencies:
       '@m2d/mdast': 0.2.3(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/emoji@0.1.3(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/html@1.1.2(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/image@0.1.1(docx@9.5.0)':
@@ -4965,9 +4965,9 @@ snapshots:
       '@m2d/core': 0.0.4(docx@9.5.0)
       docx: 9.5.0
 
-  '@m2d/image@1.2.1(docx@9.5.0)':
+  '@m2d/image@1.3.1(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/list@0.0.4(docx@9.5.0)':
@@ -4977,7 +4977,7 @@ snapshots:
 
   '@m2d/list@0.0.8(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
 
   '@m2d/math@0.0.4(docx@9.5.0)(remark-math@6.0.0)':
@@ -4989,7 +4989,7 @@ snapshots:
 
   '@m2d/math@0.0.5(docx@9.5.0)(remark-math@6.0.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
       latex-math: 0.0.2
       remark-math: 6.0.0
@@ -5010,9 +5010,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/mermaid@1.1.5(docx@9.5.0)':
+  '@m2d/mermaid@1.2.2(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
       mermaid: 11.6.0
     transitivePeerDependencies:
@@ -5033,7 +5033,7 @@ snapshots:
 
   '@m2d/table@0.0.6(docx@9.5.0)':
     dependencies:
-      '@m2d/core': 1.3.4(docx@9.5.0)
+      '@m2d/core': 1.4.1(docx@9.5.0)
       docx: 9.5.0
 
   '@manypkg/find-root@1.1.0':

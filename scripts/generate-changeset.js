@@ -2,6 +2,7 @@ const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
+const { exit } = require("process");
 
 // === Semver Utils ===
 function parseVersion(v) {
@@ -183,6 +184,8 @@ async function run() {
   createChangeset(updates);
 }
 
-run().catch(err => {
-  console.error("❌ Script failed:", err);
-});
+run()
+  .catch(err => {
+    console.error("❌ Script failed:", err);
+  })
+  .finally(() => exit());
