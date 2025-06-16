@@ -1,5 +1,24 @@
 # mdast2docx
 
+## 1.3.1
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/core: 1.4.1 → 1.4.2
+
+  **Patch Changes**
+
+  - Expand data type to handle more of HTML Input element data.
+
+  ### @m2d/html: 1.1.2 → 1.1.3
+
+  **Patch Changes**
+
+  - fix: Improve HTML Input element handling
+  - Update types
+
 ## 1.3.0
 
 ### Minor Changes
