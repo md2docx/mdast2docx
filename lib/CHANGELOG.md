@@ -1,5 +1,17 @@
 # mdast2docx
 
+## 1.3.3
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/html: 1.1.5 → 1.1.6
+
+  **Patch Changes**
+
+  - Fix tags
+
 ## 1.3.2
 
 ### Patch Changes
