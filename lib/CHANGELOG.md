@@ -1,5 +1,17 @@
 # mdast2docx
 
+## 1.3.4
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/html: 1.1.6 → 1.1.7
+
+  **Patch Changes**
+
+  - fix: td or th tags should be lowercase
+
 ## 1.3.3
 
 ### Patch Changes

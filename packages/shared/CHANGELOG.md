@@ -1,5 +1,12 @@
 # @repo/shared
 
+## 0.0.23
+
+### Patch Changes
+
+- Updated dependencies
+  - mdast2docx@1.3.4
+
 ## 0.0.22
 
 ### Patch Changes

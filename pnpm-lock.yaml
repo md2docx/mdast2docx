@@ -155,8 +155,8 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3(docx@9.5.1)
       '@m2d/html':
-        specifier: ^1.1.6
-        version: 1.1.6(docx@9.5.1)
+        specifier: ^1.1.7
+        version: 1.1.7(docx@9.5.1)
       '@m2d/image':
         specifier: ^1.3.1
         version: 1.3.1(docx@9.5.1)
@@ -961,8 +961,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/html@1.1.6':
-    resolution: {integrity: sha512-cfPmGK0AWaF/HieSbosHMD+RynajPVDm6BPWMRqdIxFFQ//pVUfXd72hHjo4cELSouo2YwwKMOESuGbfuXUItQ==}
+  '@m2d/html@1.1.7':
+    resolution: {integrity: sha512-8GxchfhUoAb1c4/93wscxfd0uMUlK+RbHrMHln3QPs0uNiMx6OlSjuArE4udPVagMJ1UZ6bGYDDCBY5Zafj92w==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -4949,7 +4949,7 @@ snapshots:
       '@m2d/core': 1.4.2(docx@9.5.1)
       docx: 9.5.1
 
-  '@m2d/html@1.1.6(docx@9.5.1)':
+  '@m2d/html@1.1.7(docx@9.5.1)':
     dependencies:
       '@m2d/core': 1.4.2(docx@9.5.1)
       docx: 9.5.1
@@ -7279,7 +7279,7 @@ snapshots:
     dependencies:
       '@m2d/core': 0.0.4(docx@9.5.1)
       '@m2d/emoji': 0.1.3(docx@9.5.1)
-      '@m2d/html': 1.1.6(docx@9.5.1)
+      '@m2d/html': 1.1.7(docx@9.5.1)
       '@m2d/image': 0.1.1(docx@9.5.1)
       '@m2d/list': 0.0.4(docx@9.5.1)
       '@m2d/math': 0.0.4(docx@9.5.1)(remark-math@6.0.0)
