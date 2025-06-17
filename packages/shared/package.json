@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@mayank1513/fork-me": "^2.1.3",
-    "docx": "^9.5.0",
+    "docx": "^9.5.1",
     "esbuild-raw-plugin": "^0.2.0",
     "mdast2docx": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
