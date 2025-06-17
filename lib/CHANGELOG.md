@@ -1,5 +1,18 @@
 # mdast2docx
 
+## 1.3.2
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/html: 1.1.3 → 1.1.5
+
+  **Patch Changes**
+
+  - fix: INPUT element style parsing
+  - fix: Extract styles in createFragmentWithParentNodes as well to avoid misleading data.
+
 ## 1.3.1
 
 ### Patch Changes
