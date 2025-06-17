@@ -1,5 +1,18 @@
 # mdast2docx
 
+## 1.3.5
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/math: 0.0.5 → 0.0.6
+
+  **Patch Changes**
+
+  - Keep enough metadata for JSX creation.
+  - Upgrade core package to v1
+
 ## 1.3.4
 
 ### Patch Changes

@@ -164,8 +164,8 @@ importers:
         specifier: ^0.0.8
         version: 0.0.8(docx@9.5.1)
       '@m2d/math':
-        specifier: ^0.0.5
-        version: 0.0.5(docx@9.5.1)(remark-math@6.0.0)
+        specifier: ^0.0.6
+        version: 0.0.6(docx@9.5.1)(remark-math@6.0.0)
       '@m2d/mermaid':
         specifier: ^1.2.2
         version: 1.2.2(docx@9.5.1)
@@ -992,8 +992,8 @@ packages:
       docx: ^9.3.0
       remark-math: ^6.0.0
 
-  '@m2d/math@0.0.5':
-    resolution: {integrity: sha512-PH/Z08C1zDYCjMPePIdt3aGS8I+JmL8vWlu0u6eAFgYGv7kiMvSJmve2tHAV5BToy/E4Fr+fXmxEmw2b29zyyw==}
+  '@m2d/math@0.0.6':
+    resolution: {integrity: sha512-KEmCT6UXUiBZVt7Rp6XDq4nPjrs1LM7J3bJA8/MphyEaIRL8mYyUC/3pKVqzNd4Pf9+/DwarWdON1VLwA6wKsg==}
     peerDependencies:
       docx: ^9.3.0
       remark-math: ^6.0.0
@@ -4981,7 +4981,7 @@ snapshots:
       latex-math: 0.0.2
       remark-math: 6.0.0
 
-  '@m2d/math@0.0.5(docx@9.5.1)(remark-math@6.0.0)':
+  '@m2d/math@0.0.6(docx@9.5.1)(remark-math@6.0.0)':
     dependencies:
       '@m2d/core': 1.4.2(docx@9.5.1)
       docx: 9.5.1
