@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     setupFiles: [],
     coverage: {
-      include: ["src/**"],
+      include: ["src/index.ts"],
       exclude: ["src/**/*.test.*", "src/**/declaration.d.ts", "src/plugins/**"],
       reporter: ["text", "json", "clover", "html"],
     },
