@@ -16,7 +16,7 @@
     "@changesets/cli": "^2.29.5",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^24.0.3",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "turbo": "^2.5.4"
   },
   "packageManager": "pnpm@10.11.0",
