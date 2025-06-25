@@ -1,5 +1,16 @@
 # mdast2docx
 
+## 1.4.1
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/html: 1.1.7 → 1.1.8
+
+  **Patch Changes**
+  - Fix HTML parsing issues in case of empty tags.
+
 ## 1.4.0
 
 ### Minor Changes
