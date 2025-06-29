@@ -275,8 +275,8 @@ importers:
         specifier: ^9.5.1
         version: 9.5.1
       esbuild-raw-plugin:
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.3.1
+        version: 0.3.1
       mdast2docx:
         specifier: workspace:*
         version: link:../../lib
@@ -2219,8 +2219,8 @@ packages:
   esbuild-plugin-react18@0.2.6:
     resolution: {integrity: sha512-ckg4Nmj0pHiS+QGyQUc1+aXDawTyVXRUb4jE8say8JL0V2BlTjJ8Z2CTmF6Lr89MQ0jToa/2bIqmVENtifxe1g==}
 
-  esbuild-raw-plugin@0.3.0:
-    resolution: {integrity: sha512-HIMSBiTluy5+lvMUp0efFIEZ8FngNkzUN8/y2ba+TCeY0vky5MGgjjVsTk3OUaao540FoNjpySM4TkJTgGhIPg==}
+  esbuild-raw-plugin@0.3.1:
+    resolution: {integrity: sha512-fb3CNfsttboRuNVeDKqSbsP/77Gz5T0bxgyOfIDhCUmIipBYA7P+R1vyiX56u1zPZW7dtTgPm+XQ/DNqiDeVYw==}
 
   esbuild@0.25.5:
     resolution: {integrity: sha512-P8OtKZRv/5J5hhz0cUAdu/cLuPIKXpQl1R9pZtvmHWQvrAUVd0UNIPT4IB4W3rNOqVO0rlqHmCIbSwxh/c9yUQ==}
@@ -6341,7 +6341,7 @@ snapshots:
 
   esbuild-plugin-react18@0.2.6: {}
 
-  esbuild-raw-plugin@0.3.0: {}
+  esbuild-raw-plugin@0.3.1: {}
 
   esbuild@0.25.5:
     optionalDependencies:
