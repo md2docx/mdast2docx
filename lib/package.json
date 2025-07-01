@@ -89,7 +89,7 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^24.0.7",
+    "@types/node": "^24.0.8",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "^3.2.4",
     "esbuild-plugin-rdi": "^0.0.0",
