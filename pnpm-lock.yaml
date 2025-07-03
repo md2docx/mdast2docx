@@ -138,13 +138,13 @@ importers:
         version: 19.1.6(@types/react@19.1.8)
       '@vitejs/plugin-react':
         specifier: ^4.6.0
-        version: 4.6.0(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))
+        version: 4.6.0(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
       vite:
-        specifier: ^7.0.0
-        version: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+        specifier: ^7.0.1
+        version: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
 
   lib:
     dependencies:
@@ -220,7 +220,7 @@ importers:
         version: 11.0.5
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.8.3)(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))
+        version: 5.1.4(typescript@5.8.3)(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.10)(happy-dom@17.5.6)(jsdom@26.1.0(canvas@3.1.0))(sass@1.89.2)
@@ -343,7 +343,7 @@ importers:
         version: 19.1.6(@types/react@19.1.8)
       '@vitejs/plugin-react':
         specifier: ^4.6.0
-        version: 4.6.0(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))
+        version: 4.6.0(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.10)(happy-dom@17.5.6)(jsdom@26.1.0(canvas@3.1.0))(sass@1.89.2))
@@ -373,7 +373,7 @@ importers:
         version: 5.8.3
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.8.3)(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))
+        version: 5.1.4(typescript@5.8.3)(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.10)(happy-dom@17.5.6)(jsdom@26.1.0(canvas@3.1.0))(sass@1.89.2)
@@ -1046,8 +1046,8 @@ packages:
       next:
         optional: true
 
-  '@mermaid-js/parser@0.5.0':
-    resolution: {integrity: sha512-AiaN7+VjXC+3BYE+GwNezkpjIcCI2qIMB/K4S2/vMWe0q/XJCBbx5+K7iteuz7VyltX9iAK4FmVTvGc9kjOV4w==}
+  '@mermaid-js/parser@0.6.0':
+    resolution: {integrity: sha512-7DNESgpyZ5WG1SIkrYafVBhWmImtmQuoxOO1lawI3gQYWxBX3v1FW3IyuuRfKJAO06XrZR71W0Kif5VEGGd4VA==}
 
   '@next/env@15.3.4':
     resolution: {integrity: sha512-ZkdYzBseS6UjYzz6ylVKPOK+//zLWvD6Ta+vpoye8cW11AjiQjGYVibF0xuvT4L0iJfAPfZLFidaEzAOywyOAQ==}
@@ -2995,8 +2995,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  mermaid@11.7.0:
-    resolution: {integrity: sha512-/1/5R0rt0Z1Ak0CuznAnCF3HtQgayRXUz6SguzOwN4L+DuCobz0UxnQ+ZdTSZ3AugKVVh78tiVmsHpHWV25TCw==}
+  mermaid@11.8.0:
+    resolution: {integrity: sha512-uAZUwnBiqREZcUrFw3G5iQ5Pj3hTYUP95EZc3ec/nGBzHddJZydzYGE09tGZDBS1VoSoDn0symZ85FmypSTo5g==}
 
   micromark-core-commonmark@2.0.3:
     resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
@@ -4139,8 +4139,8 @@ packages:
       vite:
         optional: true
 
-  vite@7.0.0:
-    resolution: {integrity: sha512-ixXJB1YRgDIw2OszKQS9WxGHKwLdCsbQNkpJN171udl6szi/rIySHL6/Os3s2+oE4P/FLD4dxg4mD7Wust+u5g==}
+  vite@7.0.1:
+    resolution: {integrity: sha512-BiKOQoW5HGR30E6JDeNsati6HnSPMVEKbkIWbCiol+xKeu3g5owrjy7kbk/QEMuzCV87dSUTvycYKmlcfGKq3Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -4991,7 +4991,7 @@ snapshots:
     dependencies:
       '@m2d/core': 0.0.4(docx@9.5.1)
       docx: 9.5.1
-      mermaid: 11.7.0
+      mermaid: 11.8.0
     transitivePeerDependencies:
       - supports-color
 
@@ -4999,7 +4999,7 @@ snapshots:
     dependencies:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
-      mermaid: 11.7.0
+      mermaid: 11.8.0
     transitivePeerDependencies:
       - supports-color
 
@@ -5044,7 +5044,7 @@ snapshots:
     optionalDependencies:
       next: 15.3.4(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)
 
-  '@mermaid-js/parser@0.5.0':
+  '@mermaid-js/parser@0.6.0':
     dependencies:
       langium: 3.3.1
 
@@ -5524,7 +5524,7 @@ snapshots:
       '@typescript-eslint/types': 8.35.1
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-react@4.6.0(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))':
+  '@vitejs/plugin-react@4.6.0(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.0)
@@ -5532,7 +5532,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.19
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+      vite: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -5563,13 +5563,13 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))':
+  '@vitest/mocker@3.2.4(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+      vite: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
 
   '@vitest/pretty-format@3.2.4':
     dependencies:
@@ -7279,11 +7279,11 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  mermaid@11.7.0:
+  mermaid@11.8.0:
     dependencies:
       '@braintree/sanitize-url': 7.1.1
       '@iconify/utils': 2.3.0
-      '@mermaid-js/parser': 0.5.0
+      '@mermaid-js/parser': 0.6.0
       '@types/d3': 7.4.3
       cytoscape: 3.32.0
       cytoscape-cose-bilkent: 4.1.0(cytoscape@3.32.0)
@@ -8690,7 +8690,7 @@ snapshots:
       debug: 4.4.1
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+      vite: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -8705,18 +8705,18 @@ snapshots:
       - tsx
       - yaml
 
-  vite-tsconfig-paths@5.1.4(typescript@5.8.3)(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2)):
+  vite-tsconfig-paths@5.1.4(typescript@5.8.3)(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2)):
     dependencies:
       debug: 4.4.1
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.8.3)
     optionalDependencies:
-      vite: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+      vite: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@7.0.0(@types/node@24.0.10)(sass@1.89.2):
+  vite@7.0.1(@types/node@24.0.10)(sass@1.89.2):
     dependencies:
       esbuild: 0.25.5
       fdir: 6.4.6(picomatch@4.0.2)
@@ -8733,7 +8733,7 @@ snapshots:
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(vite@7.0.0(@types/node@24.0.10)(sass@1.89.2))
+      '@vitest/mocker': 3.2.4(vite@7.0.1(@types/node@24.0.10)(sass@1.89.2))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -8751,7 +8751,7 @@ snapshots:
       tinyglobby: 0.2.14
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 7.0.0(@types/node@24.0.10)(sass@1.89.2)
+      vite: 7.0.1(@types/node@24.0.10)(sass@1.89.2)
       vite-node: 3.2.4(@types/node@24.0.10)(sass@1.89.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
