@@ -4,11 +4,11 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.4.1",
+    "@next/eslint-plugin-next": "^15.4.2",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
     "eslint": "^9.31.0",
-    "eslint-config-prettier": "^10.1.7",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
