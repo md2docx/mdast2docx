@@ -15,8 +15,8 @@
     "@repo/shared": "workspace:*",
     "mdast2docx": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-mouse-trails": "^0.0.5",
     "react18-loaders": "^1.1.4",
     "react18-themes": "^3.2.0"
