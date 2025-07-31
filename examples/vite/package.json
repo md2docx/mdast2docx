@@ -18,7 +18,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-mouse-trails": "^0.0.5",
-    "react18-loaders": "^1.1.4",
+    "react18-loaders": "^1.1.7",
     "react18-themes": "^3.2.0"
   },
   "devDependencies": {

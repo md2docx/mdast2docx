@@ -21,7 +21,7 @@
     "optional": "^0.1.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react18-loaders": "^1.1.4",
+    "react18-loaders": "^1.1.7",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",

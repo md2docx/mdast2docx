@@ -54,8 +54,8 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       react18-loaders:
-        specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -118,8 +118,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5(@types/react@19.1.9)(react@19.1.1)
       react18-loaders:
-        specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
       react18-themes:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
@@ -155,8 +155,8 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3(docx@9.5.1)
       '@m2d/html':
-        specifier: ^1.1.8
-        version: 1.1.8(docx@9.5.1)
+        specifier: ^1.1.9
+        version: 1.1.9(docx@9.5.1)
       '@m2d/image':
         specifier: ^1.3.1
         version: 1.3.1(docx@9.5.1)
@@ -293,8 +293,8 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react18-loaders:
-        specifier: ^1.1.4
-        version: 1.1.4(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1)
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -968,8 +968,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/html@1.1.8':
-    resolution: {integrity: sha512-5TtCneY+IUWrQJx0HE5c8NBB2HJif+9AezY1xBawN9/jEdP14r5bHJpu7YWkCEr9S5+6OCkop8/ob+r11iLswA==}
+  '@m2d/html@1.1.9':
+    resolution: {integrity: sha512-mDv66ho69KOrM4nQ3wL3sIeisC5KKjFGKCyr9gze6AdDEM7MfAuNVuCJDttHZHrsZJm/AtXgr3gK20FGRobnzg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -2155,8 +2155,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.192:
-    resolution: {integrity: sha512-rP8Ez0w7UNw/9j5eSXCe10o1g/8B1P5SM90PCCMVkIRQn2R0LEHWz4Eh9RnxkniuDe1W0cTSOB3MLlkTGDcuCg==}
+  electron-to-chromium@1.5.193:
+    resolution: {integrity: sha512-eePuBZXM9OVCwfYUhd2OzESeNGnWmLyeu0XAEjf7xjijNjHFdeJSzuRUGN4ueT2tEYo5YqjHramKEFxz67p3XA==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -3495,12 +3495,6 @@ packages:
       next:
         optional: true
 
-  r18gs@2.1.0:
-    resolution: {integrity: sha512-OYUmx+QW8I1uy40+VFXsLhSOTlMPPlV2NsJppeYD+8VM6jYiFQOsgsdlPnuD9ocpQwi6hT4rr6+BM6AILh86+Q==}
-    peerDependencies:
-      '@types/react': 16.8 - 19
-      react: 16.8 - 19
-
   r18gs@3.0.1:
     resolution: {integrity: sha512-cuH/f+jlfJ5Se6OnQ6FJDF6GrugwBeWDYVSDvK4hL9Prxe7bHTRn0ep7ZOh/QYg1TKx6FFiV8IpeYmmFpQNCgw==}
     peerDependencies:
@@ -3539,12 +3533,12 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
-  react18-loaders@1.1.4:
-    resolution: {integrity: sha512-+Z5w/k/f2FojGgYJsISTPx5Vjzp114LVPeRqigHx6nHgkExR5sVp9ZBokKIa3ixb2TgOVMez7wQs2RRcaNMSlQ==}
+  react18-loaders@1.1.7:
+    resolution: {integrity: sha512-QpuoGs4v2mV/j5HtcGK9ZwXraorWmJDtKQqWxlXuVxPNur0dtagux24YN/+lk18ZujzvD0kYrUiS0PxsoumnDA==}
     peerDependencies:
-      '@types/react': 16.8 - 19
-      next: 10 - 15
-      react: 16.8 - 19
+      '@types/react': '>=16.8'
+      next: '>=10'
+      react: '>=16.8'
     peerDependenciesMeta:
       next:
         optional: true
@@ -4942,7 +4936,7 @@ snapshots:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
 
-  '@m2d/html@1.1.8(docx@9.5.1)':
+  '@m2d/html@1.1.9(docx@9.5.1)':
     dependencies:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
@@ -5756,7 +5750,7 @@ snapshots:
   browserslist@4.25.1:
     dependencies:
       caniuse-lite: 1.0.30001731
-      electron-to-chromium: 1.5.192
+      electron-to-chromium: 1.5.193
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.1)
 
@@ -6200,7 +6194,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.192: {}
+  electron-to-chromium@1.5.193: {}
 
   emoji-regex@8.0.0: {}
 
@@ -7264,7 +7258,7 @@ snapshots:
     dependencies:
       '@m2d/core': 0.0.4(docx@9.5.1)
       '@m2d/emoji': 0.1.3(docx@9.5.1)
-      '@m2d/html': 1.1.8(docx@9.5.1)
+      '@m2d/html': 1.1.9(docx@9.5.1)
       '@m2d/image': 0.1.1(docx@9.5.1)
       '@m2d/list': 0.0.4(docx@9.5.1)
       '@m2d/math': 0.0.4(docx@9.5.1)(remark-math@6.0.0)
@@ -7901,11 +7895,6 @@ snapshots:
     optionalDependencies:
       next: 15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2)
 
-  r18gs@2.1.0(@types/react@19.1.9)(react@19.1.1):
-    dependencies:
-      '@types/react': 19.1.9
-      react: 19.1.1
-
   r18gs@3.0.1(@types/react@19.1.9)(react@19.1.1):
     dependencies:
       '@types/react': 19.1.9
@@ -7943,10 +7932,10 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react18-loaders@1.1.4(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1):
+  react18-loaders@1.1.7(@types/react@19.1.9)(next@15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2))(react@19.1.1):
     dependencies:
       '@types/react': 19.1.9
-      r18gs: 2.1.0(@types/react@19.1.9)(react@19.1.1)
+      r18gs: 3.0.1(@types/react@19.1.9)(react@19.1.1)
       react: 19.1.1
     optionalDependencies:
       next: 15.4.5(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.89.2)
