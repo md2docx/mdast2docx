@@ -11,21 +11,6 @@
       "description": "(Optional) Add Repo Stats by visiting and setting up [repobeats](https://repobeats.axiom.co/)",
       "columnId": "column-todo"
     },
-    "_JiH9RZLmUF5nxD7lBC5B": {
-      "id": "_JiH9RZLmUF5nxD7lBC5B",
-      "description": "Create a new GitHub repository using this template.\n  - Click the `Use this template` button at the top right -> `Create a new repository`\n  - Click `Create repository` and wait for the setup workflow to finish rebranding your repo.",
-      "columnId": "column-done"
-    },
-    "t5d22lVYbF7GuQHzv6DRO": {
-      "id": "t5d22lVYbF7GuQHzv6DRO",
-      "description": "Install and set up Node.js and your IDE (VSCode recommended)",
-      "columnId": "column-done"
-    },
-    "wkDDELNeOfYSVmWI1eWu0": {
-      "id": "wkDDELNeOfYSVmWI1eWu0",
-      "description": "Install the recommended VSCode extensions:\n  - [Trello Kanban](https://marketplace.visualstudio.com/items?itemName=mayank1513.trello-kanban-task-board)",
-      "columnId": "column-done"
-    },
     "e4p-5JQoPvimux5iNndBS": {
       "id": "e4p-5JQoPvimux5iNndBS",
       "description": "Code styles - option 1. allow users to select code font, option 2. allow user to pass in the styles",
@@ -34,11 +19,6 @@
     "w613zO338XW97YYqYp-5L": {
       "id": "w613zO338XW97YYqYp-5L",
       "description": "Support bockquotes",
-      "columnId": "column-doing"
-    },
-    "ASoG81Ce18lJiXk5hKV8F": {
-      "id": "ASoG81Ce18lJiXk5hKV8F",
-      "description": "Support GFM emojis - https://gist.github.com/rxaviers/7360908",
       "columnId": "column-doing"
     }
   },
@@ -56,18 +36,13 @@
       "title": "Doing",
       "tasksIds": [
         "e4p-5JQoPvimux5iNndBS",
-        "w613zO338XW97YYqYp-5L",
-        "ASoG81Ce18lJiXk5hKV8F"
+        "w613zO338XW97YYqYp-5L"
       ]
     },
     {
       "id": "column-done",
       "title": "Done",
-      "tasksIds": [
-        "_JiH9RZLmUF5nxD7lBC5B",
-        "t5d22lVYbF7GuQHzv6DRO",
-        "wkDDELNeOfYSVmWI1eWu0"
-      ]
+      "tasksIds": []
     }
   ]
 }
