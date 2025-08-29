@@ -28,11 +28,13 @@ jobs:
         name: Install dependencies
       - run: git stash --include-untracked
         name: clean up working directory
-      - run: pnpx @turbo/codemod update . && pnpm update --latest -r
+      - run: pnpx @turbo/codemod update . && node ./scripts/upgrade.js
         name: Update dependencies
       - run: pnpm build --filter @example/nextjs
         name: Build all apps to make sure it is not broken due to dependency upgrades
       - run: pnpm build --filter mdast2docx
         name: Build @m2d/* packages
       - name: Save upgraded packages back to repo
-        run: echo $(date +%F_%H:%M:%S) > .lst && git add . && git commit -m "upgrade deps && docs [skip ci]" && git push origin main
+        run: |
+          echo "$(git rev-parse HEAD)" > .turborepo-template.lst
+          echo $(date +%F_%H:%M:%S) > .lst && git add . && git commit -m "upgrade deps && docs [skip ci]" && git push origin main

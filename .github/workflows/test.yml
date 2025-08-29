@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm i -g pnpm && pnpm i
+      - run: npm i -g pnpm && pnpm i --no-frozen-lockfile
         name: Install dependencies
       - run: pnpm build --filter @m2d/*
         name: Build @m2d/* packages
