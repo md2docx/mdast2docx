@@ -36,5 +36,4 @@ jobs:
         name: Build @m2d/* packages
       - name: Save upgraded packages back to repo
         run: |
-          echo "$(git rev-parse HEAD)" > .turborepo-template.lst
           echo $(date +%F_%H:%M:%S) > .lst && git add . && git commit -m "upgrade deps && docs [skip ci]" && git push origin main
