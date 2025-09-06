@@ -1,5 +1,17 @@
 # mdast2docx
 
+## 1.4.2
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/html: 1.1.8 → 1.1.10
+
+  **Patch Changes**
+  - fix text alignment
+  - Fix: fix an edge case where build might fail if the mermaid or similar plugin comes before htmlPlugin
+
 ## 1.4.1
 
 ### Patch Changes

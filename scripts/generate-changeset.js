@@ -52,19 +52,6 @@ function fetchText(url) {
   });
 }
 
-function getLatestVersions(pkgs) {
-  const versions = {};
-  for (const pkg of pkgs) {
-    try {
-      const version = execSync(`npm view ${pkg} version`, { encoding: "utf-8" }).trim();
-      versions[pkg] = version;
-    } catch (e) {
-      console.warn(`⚠️ Failed to get latest version of ${pkg}: ${e.message}`);
-    }
-  }
-  return versions;
-}
-
 // === Changelog Parsing & Formatting ===
 async function fetchChangelog(pkgName, fromVer, toVer) {
   const shortName = pkgName.replace("@m2d/", "");
