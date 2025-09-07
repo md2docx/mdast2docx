@@ -31,14 +31,14 @@ importers:
         specifier: ^2.5.6
         version: 2.5.6
       turborepo-template-upgrade:
-        specifier: ^0.5.9
-        version: 0.5.9(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)
+        specifier: ^0.6.1
+        version: 0.6.1(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)
 
   examples/nextjs:
     dependencies:
       '@m2d/remark-docx':
-        specifier: ^0.1.0
-        version: 0.1.0(remark-math@6.0.0)
+        specifier: ^1.0.0
+        version: 1.0.0(remark-math@6.0.0)
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -334,8 +334,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@m2d/remark-docx':
-        specifier: ^0.1.0
-        version: 0.1.0(remark-math@6.0.0)
+        specifier: ^1.0.0
+        version: 1.0.0(remark-math@6.0.0)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -977,11 +977,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.30':
     resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
 
-  '@m2d/core@0.0.4':
-    resolution: {integrity: sha512-2zL8XX3UPXaoC5AswGEixSg82JpEqhVn4vrmHCfVDpToKtH6DWiLDFQIsqKxYae9HlrREffS+gvwdBL+C+KMFw==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/core@1.5.0':
     resolution: {integrity: sha512-1wflgTE055Ifmm7F2X6BMlnu31uRW5S9ixH6GO+9Ct4vCRZ809+7P5WhsWHMExxGNiaibXjG1jejmVaXI8U7mQ==}
     peerDependencies:
@@ -997,18 +992,8 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/image@0.1.1':
-    resolution: {integrity: sha512-eu1pWP7TIohmDqzSdN0KIlOBilfNBjoFwhyxSfJOsCV6H4D4C+kZaautgeDK6hMT+X5kRpcfUMq7R+bDcl6ISw==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/image@1.3.1':
     resolution: {integrity: sha512-oXmXgzP3+bq8d8Vcdn7Ry4rmQNsbvmbwcCsDrv2WY0QPyC07/PdG5KCpPl3xLqmVniHwr7NNSpGwIt+1DWeJpg==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/list@0.0.4':
-    resolution: {integrity: sha512-Wkzy0kQxHfqvpcth6W+kgwactrqycp9ndqKYkgzz7hGRSJ99s5+g9nGpaULyBqfA4aflhdNtE2spJaHpFZlQzg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -1017,30 +1002,14 @@ packages:
     peerDependencies:
       docx: ^9.3.0
 
-  '@m2d/math@0.0.4':
-    resolution: {integrity: sha512-G81IJKch8SQwK9R4HIz5ocnmfNcxwBTWbSlQbmYXITOZgkK0WbysNrfGChxVgqUlC0Oa5sNfwz6erDN1Z2sImQ==}
-    peerDependencies:
-      docx: ^9.3.0
-      remark-math: ^6.0.0
-
   '@m2d/math@0.0.6':
     resolution: {integrity: sha512-KEmCT6UXUiBZVt7Rp6XDq4nPjrs1LM7J3bJA8/MphyEaIRL8mYyUC/3pKVqzNd4Pf9+/DwarWdON1VLwA6wKsg==}
     peerDependencies:
       docx: ^9.3.0
       remark-math: ^6.0.0
 
-  '@m2d/mdast@0.1.9':
-    resolution: {integrity: sha512-GBTGNRD+gHUIfp0z99LtYL+/p9Ua74qGDaouCBFCQxzOjZA2dYrkeu/1yUHUbAVwL0GRX+LInBW1jkhfYtB+rw==}
-    peerDependencies:
-      docx: ^9.3.0
-
   '@m2d/mdast@0.2.4':
     resolution: {integrity: sha512-OksRST8MeVMzYxeFC5Ls/FS1sw9w/4cwsvagTQcFeMsmZ1IQt4gp+2uVGfbDjX0jIsDvlhQWZRZdqZp0C/9qSw==}
-    peerDependencies:
-      docx: ^9.3.0
-
-  '@m2d/mermaid@0.0.2':
-    resolution: {integrity: sha512-ZZon45Ctm6DFqwmn5xFJZi7pzL5KMr3+Rz8eASEg9YLd48dG0nDQ7q3hRXcbesNrLDxa9o8zcltn7+YRtwNjCg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -1055,13 +1024,8 @@ packages:
       '@types/react': '>=16.8'
       react: '>=16.8'
 
-  '@m2d/remark-docx@0.1.0':
-    resolution: {integrity: sha512-LX+jDDyQIR8d7SgCyf60mXh31HpwvAXigf0qRahjDe7C7pZ/6uclZO9YAUKdd7W0IhPDckAjtOL6xJpo4OIHBA==}
-
-  '@m2d/table@0.0.4':
-    resolution: {integrity: sha512-oz1cxsEu/vNr5SgXPNn8nx3NWomvHnoM6nqrKLR2w08GOwSxHgqVYCQLTlLeYnPAa6OUsUgKviDw+7OLcvAX8g==}
-    peerDependencies:
-      docx: ^9.3.0
+  '@m2d/remark-docx@1.0.0':
+    resolution: {integrity: sha512-r+iLF4GSB2oxNv1qGs2676GOXnXlrGsC/wGacRjLj7Rv/tmI+N+vVd1gT2ARtzFGPNCH8RUEHKvBWrr+Sqc13g==}
 
   '@m2d/table@0.0.7':
     resolution: {integrity: sha512-STiYGqh3jRmf6G/hMe/vocXBIib1G6aSjpxW6Ug9LvRpBM+Tzm2BxjLD6/L5xmPavIKgayF2oE/yv0vgPnLxPg==}
@@ -2526,8 +2490,8 @@ packages:
     resolution: {integrity: sha512-w9UMqWwJxHNOvoNzSJ2oPF5wvYcvP7jUvYzhp67yEhTi17ZDBBC1z9pTdGuzjD+EFIqLSYRweZjqfiPzQ06Ebg==}
     engines: {node: '>= 0.4'}
 
-  git-json-resolver-semver@0.0.2:
-    resolution: {integrity: sha512-U/dQf5tI5MVj9MruxMd7KttnhkMKMc0B3ofknu6oqmfCQFzNyW49AeyJ1Ne+KzmvOciQpS3fdOVX3FosSVCLpw==}
+  git-json-resolver-semver@1.0.0:
+    resolution: {integrity: sha512-mkT4B8LdrmyEFQj4J5mNgPu8/BQUQjd+GVUTxD/qASakf4fjvm/PvlRNxYVeq5L3ONzoVtLwb4vfEH3TcWOUTw==}
     peerDependencies:
       git-json-resolver: ^1.2.0
 
@@ -3138,8 +3102,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mdast2docx@0.4.1:
-    resolution: {integrity: sha512-5fBTAkQuABwPpUya2ypoBEDjVHE/N8Am+AJJUowA9g1oC36YX3gVq5LM3owIM03pUjzIiBIOU9tOtwdXvf/5Bg==}
+  mdast2docx@1.4.1:
+    resolution: {integrity: sha512-A9Cxey+G8hMRkdUuMPNMg5yp09W3CQicLjd4TZMIOtCDQH6rm8FkADLH1c8Z189j/hGndhOozOGx3N+PnxIyYg==}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -4068,8 +4032,8 @@ packages:
   tinyexec@1.0.1:
     resolution: {integrity: sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==}
 
-  tinyglobby@0.2.14:
-    resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
+  tinyglobby@0.2.15:
+    resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
 
   tinypool@1.1.1:
@@ -4198,8 +4162,8 @@ packages:
     resolution: {integrity: sha512-gxToHmi9oTBNB05UjUsrWf0OyN5ZXtD0apOarC1KIx232Vp3WimRNy3810QzeNSgyD5rsaIDXlxlbnOzlouo+w==}
     hasBin: true
 
-  turborepo-template-upgrade@0.5.9:
-    resolution: {integrity: sha512-AKCnwoupjdPDspV4jcVUHBtOg3h7vw+sb7m7zrnWx3HfQpXS3wCUeFbYItkZKxtRbWGDUtv+yML0FYHHqtXHag==}
+  turborepo-template-upgrade@0.6.1:
+    resolution: {integrity: sha512-4qr1kyFxlChIutBmiD+pZMuBuToY0VtdfHLVApj1Caps0PEJseG1BM8UrUljmYNV7Ze5RgOX8UlVFi3H4VGrUA==}
     hasBin: true
 
   type-check@0.4.0:
@@ -5130,11 +5094,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@m2d/core@0.0.4(docx@9.5.1)':
-    dependencies:
-      '@m2d/mdast': 0.1.9(docx@9.5.1)
-      docx: 9.5.1
-
   '@m2d/core@1.5.0(docx@9.5.1)':
     dependencies:
       '@m2d/mdast': 0.2.4(docx@9.5.1)
@@ -5150,32 +5109,15 @@ snapshots:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
 
-  '@m2d/image@0.1.1(docx@9.5.1)':
-    dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
-      docx: 9.5.1
-
   '@m2d/image@1.3.1(docx@9.5.1)':
     dependencies:
       '@m2d/core': 1.5.0(docx@9.5.1)
-      docx: 9.5.1
-
-  '@m2d/list@0.0.4(docx@9.5.1)':
-    dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
       docx: 9.5.1
 
   '@m2d/list@0.0.8(docx@9.5.1)':
     dependencies:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
-
-  '@m2d/math@0.0.4(docx@9.5.1)(remark-math@6.0.0)':
-    dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
-      docx: 9.5.1
-      latex-math: 0.0.2
-      remark-math: 6.0.0
 
   '@m2d/math@0.0.6(docx@9.5.1)(remark-math@6.0.0)':
     dependencies:
@@ -5184,21 +5126,9 @@ snapshots:
       latex-math: 0.0.2
       remark-math: 6.0.0
 
-  '@m2d/mdast@0.1.9(docx@9.5.1)':
-    dependencies:
-      docx: 9.5.1
-
   '@m2d/mdast@0.2.4(docx@9.5.1)':
     dependencies:
       docx: 9.5.1
-
-  '@m2d/mermaid@0.0.2(docx@9.5.1)':
-    dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
-      docx: 9.5.1
-      mermaid: 11.11.0
-    transitivePeerDependencies:
-      - supports-color
 
   '@m2d/mermaid@1.2.2(docx@9.5.1)':
     dependencies:
@@ -5220,18 +5150,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/remark-docx@0.1.0(remark-math@6.0.0)':
+  '@m2d/remark-docx@1.0.0(remark-math@6.0.0)':
     dependencies:
       docx: 9.5.1
-      mdast2docx: 0.4.1(remark-math@6.0.0)
+      mdast2docx: 1.4.1(remark-math@6.0.0)
     transitivePeerDependencies:
       - remark-math
       - supports-color
-
-  '@m2d/table@0.0.4(docx@9.5.1)':
-    dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
-      docx: 9.5.1
 
   '@m2d/table@0.0.7(docx@9.5.1)':
     dependencies:
@@ -6884,7 +6809,7 @@ snapshots:
       es-errors: 1.3.0
       get-intrinsic: 1.3.0
 
-  git-json-resolver-semver@0.0.2(git-json-resolver@1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)):
+  git-json-resolver-semver@1.0.0(git-json-resolver@1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)):
     dependencies:
       git-json-resolver: 1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)
 
@@ -7649,16 +7574,16 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdast2docx@0.4.1(remark-math@6.0.0):
+  mdast2docx@1.4.1(remark-math@6.0.0):
     dependencies:
-      '@m2d/core': 0.0.4(docx@9.5.1)
+      '@m2d/core': 1.5.0(docx@9.5.1)
       '@m2d/emoji': 0.1.3(docx@9.5.1)
       '@m2d/html': 1.1.10(docx@9.5.1)
-      '@m2d/image': 0.1.1(docx@9.5.1)
-      '@m2d/list': 0.0.4(docx@9.5.1)
-      '@m2d/math': 0.0.4(docx@9.5.1)(remark-math@6.0.0)
-      '@m2d/mermaid': 0.0.2(docx@9.5.1)
-      '@m2d/table': 0.0.4(docx@9.5.1)
+      '@m2d/image': 1.3.1(docx@9.5.1)
+      '@m2d/list': 0.0.8(docx@9.5.1)
+      '@m2d/math': 0.0.6(docx@9.5.1)(remark-math@6.0.0)
+      '@m2d/mermaid': 1.2.2(docx@9.5.1)
+      '@m2d/table': 0.0.7(docx@9.5.1)
       docx: 9.5.1
     transitivePeerDependencies:
       - remark-math
@@ -8872,7 +8797,7 @@ snapshots:
 
   tinyexec@1.0.1: {}
 
-  tinyglobby@0.2.14:
+  tinyglobby@0.2.15:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
@@ -8942,7 +8867,7 @@ snapshots:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tinyexec: 0.3.2
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       tree-kill: 1.2.2
     optionalDependencies:
       postcss: 8.5.6
@@ -8985,10 +8910,10 @@ snapshots:
       turbo-windows-64: 2.5.6
       turbo-windows-arm64: 2.5.6
 
-  turborepo-template-upgrade@0.5.9(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3):
+  turborepo-template-upgrade@0.6.1(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3):
     dependencies:
       git-json-resolver: 1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3)
-      git-json-resolver-semver: 0.0.2(git-json-resolver@1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3))
+      git-json-resolver-semver: 1.0.0(git-json-resolver@1.3.5(json5@2.2.3)(micromatch@4.0.8)(picomatch@4.0.3))
     transitivePeerDependencies:
       - fast-xml-parser
       - json5
@@ -9180,7 +9105,7 @@ snapshots:
       picomatch: 4.0.3
       postcss: 8.5.6
       rollup: 4.50.0
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.3.1
       fsevents: 2.3.3
@@ -9205,7 +9130,7 @@ snapshots:
       std-env: 3.9.0
       tinybench: 2.9.0
       tinyexec: 0.3.2
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
       vite: 7.1.4(@types/node@24.3.1)(sass@1.92.1)

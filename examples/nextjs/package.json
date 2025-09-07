@@ -12,7 +12,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@m2d/remark-docx": "^0.1.0",
+    "@m2d/remark-docx": "^1.0.0",
     "@repo/shared": "workspace:*",
     "mdast2docx": "workspace:*",
     "next": "^15.5.2",
