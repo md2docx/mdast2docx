@@ -180,8 +180,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2(docx@9.5.1)
       '@m2d/table':
-        specifier: ^0.0.7
-        version: 0.0.7(docx@9.5.1)
+        specifier: ^0.1.0
+        version: 0.1.0(docx@9.5.1)
       docx:
         specifier: ^9.5.1
         version: 9.5.1
@@ -1041,6 +1041,11 @@ packages:
 
   '@m2d/table@0.0.7':
     resolution: {integrity: sha512-STiYGqh3jRmf6G/hMe/vocXBIib1G6aSjpxW6Ug9LvRpBM+Tzm2BxjLD6/L5xmPavIKgayF2oE/yv0vgPnLxPg==}
+    peerDependencies:
+      docx: ^9.3.0
+
+  '@m2d/table@0.1.0':
+    resolution: {integrity: sha512-MMafmKjQ4FnSaY+W2ZH4THnRquGuGQzbPLQcyWT/uzIOXa3Nc8Z3K/AzP2uBsM8JwFPqWmmkpP+gfELnwKccHg==}
     peerDependencies:
       docx: ^9.3.0
 
@@ -5207,6 +5212,11 @@ snapshots:
       - supports-color
 
   '@m2d/table@0.0.7(docx@9.5.1)':
+    dependencies:
+      '@m2d/core': 1.5.0(docx@9.5.1)
+      docx: 9.5.1
+
+  '@m2d/table@0.1.0(docx@9.5.1)':
     dependencies:
       '@m2d/core': 1.5.0(docx@9.5.1)
       docx: 9.5.1
