@@ -17,7 +17,7 @@ try {
 try {
   execSync("pnpm changeset version");
   execSync(
-    `git add . && git commit -m "Apply changesets and update CHANGELOG [skip ci]" && git push origin ${BRANCH}`
+    `git add . && git commit -m "Apply changesets and update CHANGELOG [skip ci]" && git push origin ${BRANCH}`,
   );
 } catch {
   // no changesets to be applied
@@ -26,7 +26,8 @@ try {
 let LATEST_VERSION = "0.0.-1";
 
 try {
-  LATEST_VERSION = execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";
+  LATEST_VERSION =
+    execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";
 } catch {
   // empty
 }
@@ -43,7 +44,7 @@ if (isPatch) {
   // update release branch
   try {
     execSync(
-      `git checkout ${releaseBranch} && git merge ${BRANCH} && git push origin ${releaseBranch}`
+      `git checkout ${releaseBranch} && git merge ${BRANCH} && git push origin ${releaseBranch}`,
     );
   } catch {
     // empty
@@ -52,13 +53,17 @@ if (isPatch) {
   try {
     updateSecurityMd(`${newMajor}.${newMinor}`, `${oldMajor}.${oldMinor}`);
     /** Create new release branch for every Major or Minor release */
-    execSync(`git checkout -b ${releaseBranch} && git push origin ${releaseBranch}`);
+    execSync(
+      `git checkout -b ${releaseBranch} && git push origin ${releaseBranch}`,
+    );
   } catch (err) {
     console.error("Error pushing to release branch: ", err);
   }
 }
 
-const { visibility } = JSON.parse(execSync("gh repo view --json visibility").toString());
+const { visibility } = JSON.parse(
+  execSync("gh repo view --json visibility").toString(),
+);
 const provenance = visibility.toLowerCase() === "public" ? "--provenance" : "";
 
 /** Create release */
@@ -67,12 +72,12 @@ execSync(`cd lib && pnpm build && npm publish ${provenance} --access public`);
 /** Create GitHub release */
 try {
   execSync(
-    `gh release create ${version} --generate-notes --latest -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${version}"`
+    `gh release create ${version} --generate-notes --latest -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${version}"`,
   );
 } catch {
   try {
     execSync(
-      `gh release create ${version} --generate-notes --latest --title "Release v${version}"`
+      `gh release create ${version} --generate-notes --latest --title "Release v${version}"`,
     );
   } catch {
     // ignore

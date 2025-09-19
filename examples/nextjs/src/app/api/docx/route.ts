@@ -1,12 +1,12 @@
-import { readFileSync } from "fs";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkMath from "remark-math";
+import { readFileSync } from "node:fs";
 import { toDocx } from "mdast2docx";
-import { tablePlugin, listPlugin, mathPlugin } from "mdast2docx/dist/plugins";
+import { listPlugin, mathPlugin, tablePlugin } from "mdast2docx/dist/plugins";
 import { NextResponse } from "next/server";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
+import { unified } from "unified";
 
 const docxProcessor = unified()
   .use(remarkParse)
@@ -30,7 +30,8 @@ export const GET = async () => {
   return new NextResponse(new Uint8Array(buffer as ArrayBuffer), {
     status: 200,
     headers: {
-      "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "Content-Disposition": 'attachment; filename="sample.docx"',
     },
   });

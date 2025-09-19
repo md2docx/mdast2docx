@@ -24,7 +24,8 @@ if (!BRANCH || !DEFAULT_BRANCH) {
   exit(1);
 }
 
-const isLatestRelease = BRANCH === DEFAULT_BRANCH || BRANCH.includes("release-");
+const isLatestRelease =
+  BRANCH === DEFAULT_BRANCH || BRANCH.includes("release-");
 let tag = "";
 
 if (!isLatestRelease) {
@@ -48,7 +49,7 @@ try {
 
 /** not requiring as require is cached by npm */
 const NEW_VERSION = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "..", "lib", "package.json"), "utf8")
+  fs.readFileSync(path.resolve(__dirname, "..", "lib", "package.json"), "utf8"),
 ).version;
 
 const [newMajor, newMinor] = NEW_VERSION.split(".");
@@ -67,13 +68,17 @@ if (isNotPatch && BRANCH === DEFAULT_BRANCH) {
   updateSecurityMd(`${newMajor}.${newMinor}`, `${oldMajor}.${oldMinor}`);
   /** Create new release branch for every Major or Minor release */
   const releaseBranch = `release-${newMajor}.${newMinor}`;
-  execSync(`git checkout -b ${releaseBranch} && git push origin ${releaseBranch}`);
+  execSync(
+    `git checkout -b ${releaseBranch} && git push origin ${releaseBranch}`,
+  );
 } else if (isLatestRelease) {
   /** New version must be valid SEMVER version. No pre-release (beta/alpha etc.) */
   if (!/^\d+\.\d+.\d+$/.test(NEW_VERSION)) throw new Error("Invalid version");
 
   if (isNotPatch)
-    throw new Error("Major or Minor changes can be published only from the default branch.");
+    throw new Error(
+      "Major or Minor changes can be published only from the default branch.",
+    );
 
   // Push changes back to the repo
   try {
@@ -89,13 +94,16 @@ if (isNotPatch && BRANCH === DEFAULT_BRANCH) {
   }
 }
 
-const { visibility } = JSON.parse(execSync("gh repo view --json visibility").toString());
+const { visibility } = JSON.parse(
+  execSync("gh repo view --json visibility").toString(),
+);
 const provenance = visibility.toLowerCase() === "public" ? "--provenance" : "";
 
 let LATEST_VERSION = "0.0.-1";
 
 try {
-  LATEST_VERSION = execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";
+  LATEST_VERSION =
+    execSync(`npm view ${name} version`).toString().trim() ?? "0.0.-1";
 } catch {
   // empty
 }
@@ -109,11 +117,17 @@ if (latest[0] < current[0]) {
   isLatest = true;
 } else if (latest[0] === current[0] && latest[1] < current[1]) {
   isLatest = true;
-} else if (latest[0] === current[0] && latest[1] === current[1] && latest[2] < current[2]) {
+} else if (
+  latest[0] === current[0] &&
+  latest[1] === current[1] &&
+  latest[2] < current[2]
+) {
   isLatest = true;
 }
 
-const reTag = isLatest ? "" : ` && npm dist-tag add ${name}@${LATEST_VERSION} latest`;
+const reTag = isLatest
+  ? ""
+  : ` && npm dist-tag add ${name}@${LATEST_VERSION} latest`;
 /** Create release */
 const publishCmd = `cd lib && pnpm build && npm publish ${provenance} --access public${
   tag && ` --tag ${tag}`
@@ -125,7 +139,7 @@ try {
   execSync(
     `gh release create ${NEW_VERSION} --generate-notes${
       isLatestRelease ? " --latest" : ""
-    } -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`
+    } -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`,
   );
 } catch {}
 

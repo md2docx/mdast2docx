@@ -1,5 +1,5 @@
-import { defineConfig, type Options } from "tsup";
 import { rdiPlugin } from "esbuild-plugin-rdi";
+import { defineConfig, type Options } from "tsup";
 
 export default defineConfig(
   (options: Options) =>

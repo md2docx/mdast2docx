@@ -1,7 +1,7 @@
 /** It is assumed that this is called only from the default branch. */
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+const { execSync } = require("node:child_process");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const BRANCH = process.env.BRANCH;
 
@@ -20,22 +20,25 @@ try {
   // no changesets to be applied
 }
 
-fs.readdirSync("m2d").forEach(pkg => {
+fs.readdirSync("m2d").forEach((pkg) => {
   const pkgDir = `m2d/${pkg}`;
   const pkgJson = JSON.parse(fs.readFileSync(`${pkgDir}/package.json`, "utf8"));
 
-  ["dependencies", "devDependencies", "peerDependencies"].forEach(deps => {
-    Object.keys(pkgJson[deps] || {}).forEach(dep => {
+  ["dependencies", "devDependencies", "peerDependencies"].forEach((deps) => {
+    Object.keys(pkgJson[deps] || {}).forEach((dep) => {
       if (pkgJson[deps][dep] === "workspace:*") pkgJson[deps][dep] = "latest";
     });
   });
 
-  fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2) + "\n");
+  fs.writeFileSync(
+    path.join(pkgDir, "package.json"),
+    `${JSON.stringify(pkgJson, null, 2)}\n`,
+  );
 });
 
 execSync("pnpx @turbo/codemod update . && pnpm update --latest -r");
 
-fs.readdirSync("m2d").forEach(pkg => {
+fs.readdirSync("m2d").forEach((pkg) => {
   const pkgDir = `m2d/${pkg}`;
   const pkgJson = JSON.parse(fs.readFileSync(`${pkgDir}/package.json`, "utf8"));
 
@@ -45,11 +48,14 @@ fs.readdirSync("m2d").forEach(pkg => {
     execSync("npm publish --access public --provenance", { cwd: pkgDir });
     // Publish
     try {
-      ["md2docx", "mdast2docx"].forEach(org => {
+      ["md2docx", "mdast2docx"].forEach((org) => {
         try {
           pkgJson.name = `@${org}/${pkg}`;
           console.log("publishing -- ", pkgJson.name);
-          fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(pkgJson, null, 2));
+          fs.writeFileSync(
+            path.join(pkgDir, "package.json"),
+            JSON.stringify(pkgJson, null, 2),
+          );
 
           execSync("npm publish --access public --provenance", { cwd: pkgDir });
         } catch (err) {

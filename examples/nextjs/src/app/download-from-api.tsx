@@ -31,7 +31,12 @@ export const DownloadDocxFromAPI = () => {
   return (
     <div style={{ textAlign: "center", paddingBottom: "20px" }}>
       {/* skipcq: JS-0417 */}
-      <button disabled={loading} onClick={downloadDocx} style={{ padding: "10px 20px" }}>
+      <button
+        disabled={loading}
+        onClick={downloadDocx}
+        style={{ padding: "10px 20px" }}
+        type="button"
+      >
         {loading ? "Downloading..." : "Download DOCX (From API)"}
       </button>
     </div>
