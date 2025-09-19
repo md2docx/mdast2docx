@@ -7,17 +7,26 @@
 /** Let the following error be thrown by npm. There are situations where publish could have failed for different reasons. */
 // throws an exception if process.env.oldv === process.env.v The library version is not up to date, error(" Not able to release to the same version.
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { execSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { exit } from "node:process";
+import { fileURLToPath } from "node:url";
+import { name, version as OLD_VERSION } from "../lib/package.json";
+import updateSecurityMd from "./update-security-md";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BRANCH = process.env.BRANCH;
 const DEFAULT_BRANCH = process.env.DEFAULT_BRANCH;
 
+if (!BRANCH || !DEFAULT_BRANCH) {
+  exit(1);
+}
+
 const isLatestRelease = BRANCH === DEFAULT_BRANCH || BRANCH.includes("release-");
 let tag = "";
 
-const { version: OLD_VERSION, name } = require("../lib/package.json");
 if (!isLatestRelease) {
   /** pre-release branch name should be the tag name (e.g., beta, canery, etc.) or tag name followed by a '-' and version or other specifiers. e.g. beta-2.0 */
   tag = BRANCH.split("-")[0];
@@ -37,9 +46,9 @@ try {
   // empty
 }
 
-/** not requiring as require is cached by npm/node */
+/** not requiring as require is cached by npm */
 const NEW_VERSION = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "..", "lib", "package.json")),
+  fs.readFileSync(path.resolve(__dirname, "..", "lib", "package.json"), "utf8")
 ).version;
 
 const [newMajor, newMinor] = NEW_VERSION.split(".");
@@ -55,7 +64,7 @@ if (isNotPatch && BRANCH === DEFAULT_BRANCH) {
   } catch (e) {
     console.log({ e });
   }
-  require("./update-security-md")(`${newMajor}.${newMinor}`, `${oldMajor}.${oldMinor}`);
+  updateSecurityMd(`${newMajor}.${newMinor}`, `${oldMajor}.${oldMinor}`);
   /** Create new release branch for every Major or Minor release */
   const releaseBranch = `release-${newMajor}.${newMinor}`;
   execSync(`git checkout -b ${releaseBranch} && git push origin ${releaseBranch}`);
@@ -91,8 +100,8 @@ try {
   // empty
 }
 
-const latest = LATEST_VERSION.split(".").map(parseInt);
-const current = NEW_VERSION.split(".").map(parseInt);
+const latest = LATEST_VERSION.split(".").map(Number);
+const current = NEW_VERSION.split(".").map(Number);
 
 let isLatest = false;
 
@@ -106,17 +115,18 @@ if (latest[0] < current[0]) {
 
 const reTag = isLatest ? "" : ` && npm dist-tag add ${name}@${LATEST_VERSION} latest`;
 /** Create release */
-const publishCmd = `cd lib && pnpm build && npm publish ${provenance} --access public${tag && ` --tag ${tag}`}`;
-execSync(publishCmd + reTag);
-
-/** Create GitHub release */
-execSync(
-  `gh release create ${NEW_VERSION} --generate-notes${isLatestRelease ? " --latest" : ""} -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`,
-);
-
+const publishCmd = `cd lib && pnpm build && npm publish ${provenance} --access public${
+  tag && ` --tag ${tag}`
+}`;
 try {
-  // Publish canonical packages
-  execSync("node scripts/publish-canonical.js");
-} catch {
-  console.error("Failed to publish canonical packages");
-}
+  execSync(publishCmd + reTag);
+
+  /** Create GitHub release */
+  execSync(
+    `gh release create ${NEW_VERSION} --generate-notes${
+      isLatestRelease ? " --latest" : ""
+    } -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`
+  );
+} catch {}
+
+execSync("node scripts/publish-canonical.js");

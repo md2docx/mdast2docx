@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
-import styles from "./landing-page.module.scss";
-import { Cards } from "../cards";
-import { Logo } from "../logo";
 import featured from "@repo/scripts/featured.json";
 import rebrandingConfig from "@repo/scripts/rebrand.config.json";
+import type { ReactNode } from "react";
 import { TypeOut } from "typingfx";
+import { Cards } from "../cards";
+import { Logo } from "../logo";
+import styles from "./landing-page.module.scss";
 
 interface LandingPageProps {
   title: string;
@@ -43,12 +43,18 @@ export function LandingPage({ title, children }: LandingPageProps) {
       <h1 className={styles.title}>{title}</h1>
       <div className={[styles.center, styles.hero].join(" ")}>
         <TypeOut
-          componentAnimation={{ wrapper: "div", props: { style: { margin: "auto" } } }}
-          force>
+          componentAnimation={{
+            wrapper: "div",
+            props: { style: { margin: "auto" } },
+          }}
+          force
+        >
           <h2>Craft your next amazing library using</h2>
           <Logo href={`https://github.com/${owner}/${repo}`} />
           <br />
-          <strong>Harness the full potential of React 18 Server Components!{3000}</strong>
+          <strong>
+            Harness the full potential of React 18 Server Components!{3000}
+          </strong>
         </TypeOut>
       </div>
       {children}

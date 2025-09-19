@@ -3,6 +3,8 @@ name: Update dependencies
 on:
   schedule:
     - cron: "0 */8 * * *"
+  workflow_dispatch:
+
 jobs:
   update-deps:
     runs-on: ubuntu-latest
@@ -13,10 +15,15 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          registry-url: https://registry.npmjs.org
+          run_install: true
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
           node-version: 20
+          cache: "pnpm"
       - name: Setup Git
         run: |
           git config --global user.name "mayank1513"
@@ -24,11 +31,9 @@ jobs:
           git fetch
           git checkout main
           git pull
-      - run: npm i -g pnpm && pnpm i --no-frozen-lockfile
-        name: Install dependencies
       - run: git stash --include-untracked
         name: clean up working directory
-      - run: pnpx @turbo/codemod update . && node ./scripts/upgrade.js
+      - run: pnpm upgrade
         name: Update dependencies
       - run: pnpm build --filter @example/nextjs
         name: Build all apps to make sure it is not broken due to dependency upgrades
