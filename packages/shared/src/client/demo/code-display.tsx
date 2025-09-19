@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from "./demo.module.scss";
 import { Editor } from "react-live";
+import styles from "./demo.module.scss";
 
 interface CodeDisplayProps {
   code: { filename: string; code: string }[];
@@ -20,7 +20,9 @@ export function CodeDisplay({ code }: CodeDisplayProps) {
           <button
             key={item.filename}
             className={selectedTab === index ? styles.active : ""}
-            onClick={() => setSelectedTab(index)}>
+            onClick={() => setSelectedTab(index)}
+            type="button"
+          >
             {item.filename}
           </button>
         ))}
@@ -29,10 +31,16 @@ export function CodeDisplay({ code }: CodeDisplayProps) {
         <button
           className={styles.copy}
           title="copy"
-          onClick={() => navigator.clipboard.writeText(code[selectedTab].code)}>
+          onClick={() => navigator.clipboard.writeText(code[selectedTab].code)}
+          type="button"
+        >
           📋
         </button>
-        <Editor className={styles.code} code={code[selectedTab].code} language="tsx" />
+        <Editor
+          className={styles.code}
+          code={code[selectedTab].code}
+          language="tsx"
+        />
       </div>
     </details>
   );

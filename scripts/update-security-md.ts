@@ -1,6 +1,6 @@
-const { execSync } = require("child_process");
+import { execSync } from "node:child_process";
 
-module.exports = (newMajor_minor, oldMajor_minor) => {
+export default (newMajor_minor: string, oldMajor_minor: string) => {
   try {
     /** Update SECURITY.md */
     execSync(
@@ -9,11 +9,16 @@ module.exports = (newMajor_minor, oldMajor_minor) => {
     execSync(
       `sed -i -e "s/.*| :warning:.*/| ${oldMajor_minor}.x   | :warning:          |/" SECURITY.md`,
     );
-    execSync(`sed -i -e "s/.*| :x:.*/| < ${oldMajor_minor}   | :x:                |/" SECURITY.md`);
+    execSync(
+      `sed -i -e "s/.*| :x:.*/| < ${oldMajor_minor}   | :x:                |/" SECURITY.md`,
+    );
     execSync(
       `git add SECURITY.md && git commit -m 'Update SECURITY.md [skip ci]' && git push origin ${process.env.BRANCH}`,
     );
   } catch (error) {
-    console.error("Failed to update SECURITY.md or it was already updated", error);
+    console.error(
+      "Failed to update SECURITY.md or it was already updated",
+      error,
+    );
   }
 };

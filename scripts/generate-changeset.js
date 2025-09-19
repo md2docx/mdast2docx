@@ -1,8 +1,8 @@
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
-const { exit } = require("process");
+const { execSync } = require("node:child_process");
+const fs = require("node:fs");
+const path = require("node:path");
+const https = require("node:https");
+const { exit } = require("node:process");
 
 // === Semver Utils ===
 function parseVersion(v) {
@@ -39,13 +39,15 @@ function getHighestBumpType(bumps) {
 function fetchText(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, res => {
+      .get(url, (res) => {
         if (res.statusCode !== 200) {
           reject(new Error(`HTTP ${res.statusCode}`));
           return;
         }
         let data = "";
-        res.on("data", chunk => (data += chunk));
+        res.on("data", (chunk) => {
+          data += chunk;
+        });
         res.on("end", () => resolve(data));
       })
       .on("error", reject);
@@ -61,18 +63,25 @@ async function fetchChangelog(pkgName, fromVer, toVer) {
     const content = await fetchText(url);
     const lines = content.split("\n");
 
-    const grouped = { "Minor Changes": [], "Major Changes": [], "Patch Changes": [] };
+    const grouped = {
+      "Minor Changes": [],
+      "Major Changes": [],
+      "Patch Changes": [],
+    };
     let currentType = "";
     let collecting = false;
 
-    for (let line of lines) {
+    for (const line of lines) {
       const versionHeader = line.match(/^##\s*\[?v?(\d+\.\d+\.\d+)/i);
       const typeHeader = line.match(/^###\s+(Major|Minor|Patch) Changes/i);
 
       if (versionHeader) {
         const version = versionHeader[1];
         if (compareVersions(version, fromVer) <= 0) break;
-        if (compareVersions(version, fromVer) < 0 || compareVersions(version, toVer) > 0) {
+        if (
+          compareVersions(version, fromVer) < 0 ||
+          compareVersions(version, toVer) > 0
+        ) {
           collecting = false;
           continue;
         }
@@ -101,7 +110,9 @@ async function fetchChangelog(pkgName, fromVer, toVer) {
 
 // === Changeset Generator ===
 function createChangeset(depChanges) {
-  const bumps = depChanges.map(change => getSemverDiff(change.from, change.to) || "patch");
+  const bumps = depChanges.map(
+    (change) => getSemverDiff(change.from, change.to) || "patch",
+  );
   const bumpType = getHighestBumpType(bumps);
 
   const dir = ".changeset";
@@ -143,13 +154,17 @@ function createChangeset(depChanges) {
 // === Main Script ===
 async function run() {
   const localPkg = require("../lib/package.json");
-  const currentDepsRaw = execSync("npm view mdast2docx dependencies --json", { encoding: "utf-8" });
+  const currentDepsRaw = execSync("npm view mdast2docx dependencies --json", {
+    encoding: "utf-8",
+  });
   const currentDeps = JSON.parse(currentDepsRaw);
 
   const latestDeps = localPkg.dependencies || {};
   const updates = [];
 
-  const m2dPkgs = Object.keys(currentDeps).filter(name => name.startsWith("@m2d/"));
+  const m2dPkgs = Object.keys(currentDeps).filter((name) =>
+    name.startsWith("@m2d/"),
+  );
 
   for (const pkgName of m2dPkgs) {
     const currentVer = currentDeps[pkgName]?.replace(/^[^\d]*/, "");
@@ -159,7 +174,12 @@ async function run() {
     if (compareVersions(currentVer, latestVer) < 0) {
       console.log(`⬆️ ${pkgName}: ${currentVer} → ${latestVer}`);
       const changelog = await fetchChangelog(pkgName, currentVer, latestVer);
-      updates.push({ name: pkgName, from: currentVer, to: latestVer, changelog });
+      updates.push({
+        name: pkgName,
+        from: currentVer,
+        to: latestVer,
+        changelog,
+      });
     }
   }
 
@@ -172,7 +192,7 @@ async function run() {
 }
 
 run()
-  .catch(err => {
+  .catch((err) => {
     console.error("❌ Script failed:", err);
   })
   .finally(() => exit());

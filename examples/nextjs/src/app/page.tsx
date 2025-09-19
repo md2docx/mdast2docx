@@ -1,8 +1,8 @@
+import { readFileSync } from "node:fs";
+import { CodeDisplay, Demo } from "@repo/shared";
 import { LandingPage } from "@repo/shared/dist/server";
-import { Demo, CodeDisplay } from "@repo/shared";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { DownloadDocxFromAPI } from "./download-from-api";
-import { readFileSync } from "fs";
 
 export const metadata = {
   title: "MDAST (Markdown Abstract Syntax Tree) to DOCX",

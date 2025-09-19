@@ -1,20 +1,21 @@
 /**
  * This plugin is not working at the moment because of issues in installing sharp or canvas
  */
+/** biome-ignore-all lint/suspicious/noExplicitAny: typecasting necessary */
 
-import { IImageOptions } from "docx";
-import {
+import type {
+  Image as AstImage,
+  ImageReference,
   IPlugin,
   Parent,
   PhrasingContent,
   Root,
   RootContent,
-  Image as AstImage,
-  ImageReference,
 } from "@m2d/core";
-import sharp from "sharp";
+import type { Definitions } from "@m2d/core/utils";
+import type { IImageOptions } from "docx";
 import fetch from "node-fetch";
-import { Definitions } from "@m2d/core/utils";
+import sharp from "sharp";
 
 export const SUPPORTED_IMAGE_TYPES = ["jpg", "gif", "png"] as const;
 type SupportedImageType = (typeof SUPPORTED_IMAGE_TYPES)[number];
@@ -59,7 +60,7 @@ const handleDataUrls: NodeImageResolver = async (
   const width = metadata.width ?? 100;
   const height = metadata.height ?? 100;
   const imgType = src.split(";")[0].split("/")[1];
-  // @ts-ignore -- ok
+  // @ts-expect-error -- ok
   if (SUPPORTED_IMAGE_TYPES.includes(imgType)) {
     return {
       type: imgType as SupportedImageType,
@@ -104,11 +105,12 @@ const handleNonDataUrls: NodeImageResolver = async (
   src: string,
   options?: INodeImagePluginOptions,
 ) => {
-  let sharpImg, width, height;
+  let sharpImg: sharp.Sharp, width: number, height: number;
   if (src.startsWith("http")) {
     const response = await fetch(src);
     const arrayBuffer = await response.arrayBuffer();
-    const mimeType = response.headers.get("content-type")?.split(";")[0] ?? "image/png";
+    const mimeType =
+      response.headers.get("content-type")?.split(";")[0] ?? "image/png";
     const imgType = mimeType.split("/")[1];
     sharpImg = sharp(arrayBuffer);
     const metadata = await sharpImg.metadata();
@@ -188,7 +190,9 @@ const nodeImageResolver: NodeImageResolver = async (
  * Image plugin for processing inline image nodes in Markdown AST.
  * This plugin is designed for server-side (node.js) environments.
  */
-export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = options => {
+export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = (
+  options,
+) => {
   /** preprocess images */
   const preprocess = async (root: Root, definitions: Definitions) => {
     const promises: Promise<void>[] = [];
@@ -205,7 +209,10 @@ export const nodeImagePlugin: (options?: INodeImagePluginOptions) => IPlugin = o
               definitions[(node as ImageReference).identifier?.toUpperCase()];
             const alt = (node as AstImage).alt ?? url?.split("/").pop();
             node.data = {
-              ...(await (options?.imageResolver ?? nodeImageResolver)(url, options)),
+              ...(await (options?.imageResolver ?? nodeImageResolver)(
+                url,
+                options,
+              )),
               altText: { description: alt, name: alt, title: alt },
               ...(node as AstImage).data,
             };
