@@ -141,6 +141,8 @@ try {
       isLatestRelease ? " --latest" : ""
     } -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`,
   );
-} catch {}
+} catch {
+  // empty
+}
 
 execSync("node scripts/publish-canonical.js");
