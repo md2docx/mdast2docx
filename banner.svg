@@ -1,0 +1,93 @@
+<svg width="1280" height="460" viewBox="0 0 1280 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1236" y2="108" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F2B4A" />
+      <stop offset="0.492" stop-color="#334B6B" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#F08A2A" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Tick Circle Symbol -->
+    <g id="tick">
+      <circle r="21" fill="#28A745" />
+      <path d="M10 -8 L-4 8 -11 0" stroke="white" stroke-width="4" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <defs>
+      <linearGradient id="title-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#fb7465" /> <!-- indigo -->
+        <stop offset="35%" stop-color="#f360c0" />
+        <stop offset="100%" stop-color="#78e2fb" /> <!-- cyan -->
+      </linearGradient>
+    </defs>
+
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="460" fill="url(#bgGradient)" />
+
+  <!-- Logo -->
+  <image href="mdast2docx.png" x="30" y="30" width="400" height="400"
+    preserveAspectRatio="xMidYMid meet" />
+
+  <!-- Title -->
+  <text x="470" y="62" fill="url(#title-gradient)" font-family="Inter, sans-serif" font-size="40"
+    font-weight="800"
+    letter-spacing="1px">
+    Transforming Markdown into
+  </text>
+  <text x="470" y="108" fill="url(#title-gradient)" font-family="Inter, sans-serif" font-size="40"
+    font-weight="800" letter-spacing="1px">
+    Professional Documents
+  </text>
+
+  <!-- Subtitle -->
+  <text x="470" y="146" fill="#DBE9FF" font-family="Inter, sans-serif" font-size="24"
+    font-style="italic" font-weight="300">
+    Ideal for docs, exports, reports and AI pipelines.
+  </text>
+
+  <!-- Separator -->
+  <line x1="470" y1="119" x2="1138" y2="119" stroke="white" stroke-opacity="0.08" />
+
+  <!-- Bullet 1 -->
+  <use href="#tick" x="490" y="193" />
+  <text x="530" y="191" fill="white" font-family="Inter, sans-serif" font-size="20"
+    font-style="italic" font-weight="bold">
+    Accurate &amp; Fine-Controlled DOCX Output
+  </text>
+  <text x="530" y="211" fill="#DBE9FF" font-family="Inter, sans-serif" font-size="16"> Finely
+    control styles, tables, footnotes, headers and more powered by <tspan font-style="italic"
+      font-weight="bold">docx.js</tspan>
+  </text>
+
+  <!-- Bullet 2 -->
+  <use href="#tick" x="490" y="262" />
+  <text x="530" y="260" fill="white" font-family="Inter, sans-serif" font-size="20"
+    font-style="italic" font-weight="bold">
+    Modular Plugin Architecture
+  </text>
+  <text x="530" y="280" fill="#DBE9FF" font-family="Inter, sans-serif" font-size="16">
+    Install only what you need — tables, mermaid, images, emoji, or custom plugins
+  </text>
+
+  <!-- Bullet 3 -->
+  <use href="#tick" x="490" y="331" />
+  <text x="530" y="329" fill="white" font-family="Inter, sans-serif" font-size="20"
+    font-style="italic" font-weight="bold">
+    Built for the Markdown Ecosystem
+  </text>
+  <text x="530" y="349" fill="#DBE9FF" font-family="Inter, sans-serif" font-size="16">
+    Seamlessly integrates with remark and unified.js, yet works with any MDAST source
+  </text>
+
+  <!-- Bullet 4 -->
+  <use href="#tick" x="490" y="400" />
+  <text x="530" y="398" fill="white" font-family="Inter, sans-serif" font-size="20"
+    font-style="italic" font-weight="bold">
+    Optimized for Performance
+  </text>
+  <text x="530" y="418" fill="#DBE9FF" font-family="Inter, sans-serif" font-size="16">
+    Parallel processing, caching, and smart preprocessing for faster exports
+  </text>
+</svg>

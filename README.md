@@ -3,7 +3,7 @@
 **🚀 A powerful, modular, and extensible Markdown to DOCX converter.**
 
 <p align="center">
-  <img src="./mdast2docx.png" alt="logo" style="height: 360px; margin:auto" />
+  <img src="./banner.svg" alt="logo" style="height: 360px; margin:auto" />
 </p>
 
 MD2DOCX is a robust library for converting Markdown Abstract Syntax Trees (MDAST) into DOCX documents. Built on the powerful `unified.js` and `docx.js` ecosystems, it offers a flexible, plugin-driven architecture that works seamlessly on both the client and server.
