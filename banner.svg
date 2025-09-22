@@ -27,7 +27,8 @@
   <rect width="1280" height="460" fill="url(#bgGradient)" />
 
   <!-- Logo -->
-  <image href="mdast2docx.png" x="30" y="30" width="400" height="400"
+  <image href="https://github.com/md2docx/mdast2docx/blob/main/logo.png" x="30" y="30"
+    width="400" height="400"
     preserveAspectRatio="xMidYMid meet" />
 
   <!-- Title -->
