@@ -21,7 +21,6 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./package.json": "./package.json",
     "./*": {
       "types": "./dist/*",
       "import": "./dist/*",
