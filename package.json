@@ -25,7 +25,7 @@
     "husky": "^9.1.7",
     "tsx": "^4.20.5",
     "turbo": "^2.5.8",
-    "turborepo-template-upgrade": "^0.6.2"
+    "turborepo-template-upgrade": "^0.8.0"
   },
   "packageManager": "pnpm@10.17.1",
   "engines": {

@@ -1,8 +1,8 @@
-const { execSync } = require("node:child_process");
-const fs = require("node:fs");
-const path = require("node:path");
-const https = require("node:https");
-const { exit } = require("node:process");
+import { execSync } from "node:child_process";
+import fs from "node:fs";
+import https from "node:https";
+import path from "node:path";
+import { exit } from "node:process";
 
 // === Semver Utils ===
 function parseVersion(v) {
@@ -153,7 +153,9 @@ function createChangeset(depChanges) {
 
 // === Main Script ===
 async function run() {
-  const localPkg = require("../lib/package.json");
+  const localPkg = JSON.parse(
+    fs.readFileSync("lib/package.json", { encoding: "utf8" }),
+  );
   const currentDepsRaw = execSync("npm view mdast2docx dependencies --json", {
     encoding: "utf-8",
   });
