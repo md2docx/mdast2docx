@@ -2,7 +2,7 @@
   "name": "mdast2docx",
   "author": "Mayank Kumar Chaudhari (https://mayank-chaudhari.vercel.app)",
   "private": false,
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Convert Markdown Abstract Syntax Tree (MDAST) to DOCX seamlessly. Supports footnotes, images, links, and customizable document properties.",
   "license": "MPL-2.0",
   "main": "./dist/index.js",

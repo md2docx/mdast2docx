@@ -140,6 +140,7 @@ try {
     `gh release create ${NEW_VERSION} --generate-notes${
       isLatestRelease ? " --latest" : ""
     } -n "$(sed '1,/^## /d;/^## /,$d' lib/CHANGELOG.md)" --title "Release v${NEW_VERSION}"`,
+    { encoding: "utf8" },
   );
 } catch {
   // empty

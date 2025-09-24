@@ -14,5 +14,8 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSaveMode": "file",
   "mayank1513.trello-kanban.Workspace.filePath": ".tkb",
-  "cSpell.words": ["mdast", "skipcq"]
+  "cSpell.words": ["mdast", "skipcq"],
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }
