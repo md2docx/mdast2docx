@@ -1,5 +1,11 @@
 # mdast2docx
 
+## 1.5.1
+
+### Patch Changes
+
+- 780e66a: Fix exports
+
 ## 1.5.0
 
 ### Minor Changes
