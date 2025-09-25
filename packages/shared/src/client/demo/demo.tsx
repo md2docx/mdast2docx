@@ -1,6 +1,16 @@
 "use client";
 
-import { remarkDocx } from "@m2d/remark-docx";
+import { toDocx } from "mdast2docx";
+import {
+  emojiPlugin,
+  htmlPlugin,
+  imagePlugin,
+  listPlugin,
+  mathPlugin,
+  mermaidPlugin,
+  tablePlugin,
+} from "mdast2docx/plugins";
+// import { remarkDocx } from "@m2d/remark-docx";
 import { useState } from "react";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -31,15 +41,27 @@ export function Demo() {
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkFrontmatter)
-    .use(remarkMath)
-    .use(remarkDocx);
+    .use(remarkMath);
 
   const downloadDocx = () => {
     setLoading(true);
 
-    const { result } = docxProcessor.processSync(md) as {
-      result: Promise<Blob>;
-    };
+    const mdast = docxProcessor.parse(md);
+    const result = toDocx(
+      mdast,
+      {},
+      {
+        plugins: [
+          mermaidPlugin(),
+          htmlPlugin(),
+          listPlugin(),
+          mathPlugin(),
+          tablePlugin(),
+          emojiPlugin(),
+          imagePlugin(),
+        ],
+      },
+    );
     result.then((blob) => {
       const url = URL.createObjectURL(blob as Blob);
       const link = document.createElement("a");
