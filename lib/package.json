@@ -22,14 +22,32 @@
       "require": "./dist/index.js"
     },
     "./*": {
-      "types": "./dist/*",
-      "import": "./dist/*",
-      "require": "./dist/*"
+      "types": [
+        "./dist/*",
+        "./dist/*/index.d.ts"
+      ],
+      "import": [
+        "./dist/*",
+        "./dist/*/index.mjs"
+      ],
+      "require": [
+        "./dist/*",
+        "./dist/*/index.js"
+      ]
     },
     "./dist/*": {
-      "types": "./dist/*",
-      "import": "./dist/*",
-      "require": "./dist/*"
+      "types": [
+        "./dist/*",
+        "./dist/*/index.d.ts"
+      ],
+      "import": [
+        "./dist/*",
+        "./dist/*/index.mjs"
+      ],
+      "require": [
+        "./dist/*",
+        "./dist/*/index.js"
+      ]
     }
   },
   "scripts": {
