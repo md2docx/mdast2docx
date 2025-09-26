@@ -1,5 +1,28 @@
 # mdast2docx
 
+## 1.6.0
+
+### Minor Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/image: 1.3.2 → 1.4.0
+
+  **Minor Changes**
+
+  - ✨ Added `quality` option for image conversion.
+  - Defaults to **0.92**.
+  - Used only when conversion is required **and** the output format is lossy (e.g., JPEG).
+
+  **Patch Changes**
+
+  - Improve SVG → image conversion by preferring **OffscreenCanvas** over `<canvas>` when available.
+  - OffscreenCanvas advantages:
+  - Runs in worker contexts → avoids blocking the main thread during rasterization.
+  - Provides more consistent and reliable Blob generation compared to `HTMLCanvasElement.toBlob`.
+  - Better performance for large or complex SVGs.
+  - Fallback to `<canvas>` remains for browsers without OffscreenCanvas support (e.g., Safari).
+
 ## 1.5.1
 
 ### Patch Changes
