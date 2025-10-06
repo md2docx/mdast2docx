@@ -21,7 +21,7 @@
     "@biomejs/biome": "2.2.4",
     "@changesets/cli": "^2.29.7",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^24.6.2",
+    "@types/node": "^24.7.0",
     "husky": "^9.1.7",
     "tsx": "^4.20.6",
     "turbo": "^2.5.8",
