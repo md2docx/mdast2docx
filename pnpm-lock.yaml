@@ -41,7 +41,7 @@ importers:
     dependencies:
       '@m2d/remark-docx':
         specifier: ^1.0.0
-        version: 1.0.0(remark-math@6.0.0)
+        version: 1.0.0(remark-math@6.0.0)(sharp@0.34.4)
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -50,7 +50,7 @@ importers:
         version: link:../../lib
       next:
         specifier: 15.5.4
-        version: 15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
+        version: 15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
       nextjs-darkmode-lite:
         specifier: ^1.0.10
         version: 1.0.10(@types/react@19.2.2)(r18gs@3.0.1(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
@@ -235,7 +235,7 @@ importers:
         version: 1.0.0(@types/react@19.2.2)(react@19.2.0)
       '@mayank1513/fork-me':
         specifier: ^2.1.3
-        version: 2.1.3(@types/react@19.2.2)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2))(react@19.2.0)
+        version: 2.1.3(@types/react@19.2.2)(next@15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2))(react@19.2.0)
       docx:
         specifier: ^9.5.1
         version: 9.5.1
@@ -287,7 +287,7 @@ importers:
     devDependencies:
       '@m2d/remark-docx':
         specifier: ^1.0.0
-        version: 1.0.0(remark-math@6.0.0)
+        version: 1.0.0(remark-math@6.0.0)(sharp@0.34.4)
       '@repo/scripts':
         specifier: workspace:*
         version: link:../../scripts
@@ -4365,10 +4365,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@m2d/remark-docx@1.0.0(remark-math@6.0.0)':
+  '@m2d/remark-docx@1.0.0(remark-math@6.0.0)(sharp@0.34.4)':
     dependencies:
       docx: 9.5.1
-      mdast2docx: 1.4.1(remark-math@6.0.0)
+      mdast2docx: 1.4.1(remark-math@6.0.0)(sharp@0.34.4)
     transitivePeerDependencies:
       - '@xmldom/xmldom'
       - remark-math
@@ -4401,12 +4401,12 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mayank1513/fork-me@2.1.3(@types/react@19.2.2)(next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2))(react@19.2.0)':
+  '@mayank1513/fork-me@2.1.3(@types/react@19.2.2)(next@15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2))(react@19.2.0)':
     dependencies:
       '@types/react': 19.2.2
       react: 19.2.0
     optionalDependencies:
-      next: 15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
+      next: 15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
 
   '@mermaid-js/parser@0.6.3':
     dependencies:
@@ -6071,7 +6071,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdast2docx@1.4.1(remark-math@6.0.0):
+  mdast2docx@1.4.1(remark-math@6.0.0)(sharp@0.34.4):
     dependencies:
       '@m2d/core': 1.7.1(docx@9.5.1)
       '@m2d/emoji': 0.1.3(docx@9.5.1)
@@ -6371,7 +6371,7 @@ snapshots:
   napi-build-utils@2.0.0:
     optional: true
 
-  next@15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2):
+  next@15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2):
     dependencies:
       '@next/env': 15.5.4
       '@swc/helpers': 0.5.15
@@ -6379,7 +6379,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
-      styled-jsx: 5.1.6(react@19.2.0)
+      styled-jsx: 5.1.6(@babel/core@7.28.5)(react@19.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.5.4
       '@next/swc-darwin-x64': 15.5.4
@@ -6413,7 +6413,7 @@ snapshots:
       r18gs: 3.0.1(@types/react@19.2.2)(react@19.2.0)
       react: 19.2.0
     optionalDependencies:
-      next: 15.5.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
+      next: 15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
 
   node-abi@3.80.0:
     dependencies:
@@ -6978,10 +6978,12 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.4
 
-  styled-jsx@5.1.6(react@19.2.0):
+  styled-jsx@5.1.6(@babel/core@7.28.5)(react@19.2.0):
     dependencies:
       client-only: 0.0.1
       react: 19.2.0
+    optionalDependencies:
+      '@babel/core': 7.28.5
 
   stylis@4.3.6: {}
 
