@@ -127,6 +127,7 @@
     "markdown",
     "generative-ai",
     "docx",
+    "md2docx",
     "markdown-to-docx",
     "mdast-to-docx",
     "converter",
