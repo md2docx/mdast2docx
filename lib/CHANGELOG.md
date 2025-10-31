@@ -1,5 +1,31 @@
 # mdast2docx
 
+## 1.6.1
+
+### Patch Changes
+
+- The following @m2d/\* dependencies were upgraded:
+
+  ### @m2d/core: 1.7.0 → 1.7.1
+
+  **Patch Changes**
+
+  - Fix potential crash when footnote definition is undefined
+
+  ### @m2d/html: 1.1.10 → 1.1.11
+
+  **Patch Changes**
+
+  - Prevent hard failure when parsing content with invalid html tags
+
+  ### @m2d/image: 1.4.0 → 1.4.1
+
+  ### @m2d/list: 0.0.8 → 0.0.9
+
+  **Patch Changes**
+
+  - fix(list): restart ordered lists at `1.` instead of continuing numbering across lists
+
 ## 1.6.0
 
 ### Minor Changes
