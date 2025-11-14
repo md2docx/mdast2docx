@@ -2961,8 +2961,8 @@ packages:
       next:
         optional: true
 
-  node-abi@3.84.0:
-    resolution: {integrity: sha512-gUsfGhz3l5Bb5P4Kis8qMZei4JieEYBc4QqLqerrkwipX6ltjejshLYTV3FRADECB4RGWCEWuxSf6r0tUcr5Yw==}
+  node-abi@3.85.0:
+    resolution: {integrity: sha512-zsFhmbkAzwhTft6nd3VxcG0cvJsT70rL+BIGHWVq5fi6MwGrHwzqKaxXE+Hl2GmnGItnDKPPkO5/LQqjVkIdFg==}
     engines: {node: '>=10'}
 
   node-addon-api@7.1.1:
@@ -6841,7 +6841,7 @@ snapshots:
     optionalDependencies:
       next: 15.5.4(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.2)
 
-  node-abi@3.84.0:
+  node-abi@3.85.0:
     dependencies:
       semver: 7.7.3
     optional: true
@@ -7027,7 +7027,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 2.0.0
-      node-abi: 3.84.0
+      node-abi: 3.85.0
       pump: 3.0.3
       rc: 1.2.8
       simple-get: 4.0.1
