@@ -24,10 +24,10 @@
     "@types/node": "^24.13.4",
     "husky": "^9.1.7",
     "tsx": "^4.23.13",
-    "turbo": "^2.10.12",
+    "turbo": "^2.10.13",
     "turborepo-template-upgrade": "^0.8.0"
   },
-  "packageManager": "pnpm@12.4.1",
+  "packageManager": "pnpm@10.33.4",
   "engines": {
     "node": ">=20"
   },
