@@ -21,13 +21,13 @@
     "@biomejs/biome": "2.3.4",
     "@changesets/cli": "^2.31.1",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^24.13.5",
+    "@types/node": "^24.13.6",
     "husky": "^9.1.7",
     "tsx": "^4.23.13",
-    "turbo": "^2.11.1",
+    "turbo": "^2.11.2",
     "turborepo-template-upgrade": "^0.8.0"
   },
-  "packageManager": "pnpm@12.4.2",
+  "packageManager": "pnpm@10.33.4",
   "engines": {
     "node": ">=20"
   },
