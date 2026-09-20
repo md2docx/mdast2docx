@@ -23,11 +23,11 @@
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^24.13.6",
     "husky": "^9.1.7",
-    "tsx": "^4.23.13",
+    "tsx": "^4.23.15",
     "turbo": "^2.11.2",
     "turborepo-template-upgrade": "^0.8.0"
   },
-  "packageManager": "pnpm@12.5.1",
+  "packageManager": "pnpm@10.33.4",
   "engines": {
     "node": ">=20"
   },
