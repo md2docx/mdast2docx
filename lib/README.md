@@ -125,7 +125,7 @@ import remarkGfm from "remark-gfm"; // For table support
 import remarkMath from "remark-math"; // For math support
 
 const markdownWithFeatures = `
-An image: ![alt text](https://via.placeholder.com/150)
+An image: ![alt text](https://placeholder.photo/150)
 
 | Header 1 | Header 2 |
 |----------|----------|
