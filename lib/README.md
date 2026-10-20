@@ -1,3 +1,17 @@
+> [!IMPORTANT]
+> ### 📦 This repository has moved!
+>
+> Active development and maintenance of **`mdast2docx`** has moved to the unified **[md2docx](https://github.com/md2docx/md2docx)** monorepo.
+>
+> - 🏠 **Monorepo:** [github.com/md2docx/md2docx](https://github.com/md2docx/md2docx)
+> - 📂 **Package Source:** [`packages/mdast2docx`](https://github.com/md2docx/md2docx/tree/main/packages/mdast2docx)
+> - 📖 **Documentation:** [md2docx.js.org/docs/mdast2docx](https://md2docx.js.org/docs/mdast2docx)
+> - 💬 **Issues & Pull Requests:** Please submit all new issues, feedback, and PRs in the [md2docx issue tracker](https://github.com/md2docx/md2docx/issues).
+>
+> *This standalone repository is now archived and retained for historical reference only. Releases and npm updates continue from the monorepo.*
+
+---
+
 # **MDAST (Markdown Abstract Syntax Tree) to DOCX** <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 40px"/>
 
 **🚀 A powerful, modular, and extensible Markdown to DOCX converter.**
